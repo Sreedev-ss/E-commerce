@@ -1,0 +1,132 @@
+    td{
+        font-weight: 500;
+    }
+    select.form-control:not([size]):not([multiple]){
+        width: 100px;
+    margin-top: 14px;
+    height: 38px;
+    }
+    div.dataTables_wrapper div.dataTables_filter label{
+        margin-top: 17px;
+    }
+    .header-intro-clearance .wishlist a {
+        color: black;
+    }
+
+    .profileIcon {
+        margin-left: 10px;
+        width: 40px;
+        height: 40px;
+        border: 1px solid rgb(94, 94, 94);
+        border-radius: 100px;
+        position: absolute;
+        left: -75px;
+    }
+
+    .profileIcon img {
+        border-radius: 100px;
+        max-width: 38px;
+        max-height: 38px;
+        position: absolute;
+        left: 0.5px;
+        top: 0.5px;
+        object-fit: contain;
+    }
+
+    .material-symbols-outlined {
+        position: absolute;
+        left: -241px;
+        font-size: larger;
+        color: #696969;
+    }
+
+    .header-intro-clearance .wishlist .wishlist-count {
+
+        position: absolute;
+        top: -3px;
+        right: 20.5rem
+    }
+
+    .header-intro-clearance .header-middle .header-right p {
+        position: absolute;
+        left: -165px;
+        font-size: 1.3rem;
+    }
+
+    .header-intro-clearance .header-middle .header-right h6 {
+        position: absolute;
+        left: -17px;
+        color: #777777;
+        font-weight: 600;
+        top: 57px;
+        font-size: 1.3rem;
+    }
+
+    .mainbar{
+        width: 99%;
+        height: auto;
+        border: 0.5px solid #d8d8d8;
+        border-radius: 10px;
+    }
+    .sidebar{
+        margin-top: 1px;
+        width: 99%;
+        height: 700px;
+        border: 0.5px solid #d8d8d8;
+        border-radius: 10px;
+    }
+  
+
+    .dashboard1{
+        width: 75%;
+        height: 55px;
+        border: 0.5px solid #fba300;
+        border-top-right-radius: 23px;
+        border-bottom-right-radius: 23px;
+    }
+    
+    .dashboardBox{
+        width: 6%;
+        height: 100%;
+        background-color: #fcc969;
+        float: left;
+    }
+
+    h6{
+        margin-bottom: 0px;
+    }
+
+    .dashboardText{
+        width: 94%;
+        height: 100%;
+        float: left;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+ 
+
+    .profile h4{
+        margin-left: 70px;
+        margin-top: 20px;
+    }
+
+    .profileiconMain {
+    
+        width: 60px;
+        height: 60px;
+        border: 1px solid rgb(94, 94, 94);
+        border-radius: 100px;
+        position: absolute;
+      
+    }
+
+    .profileiconMain img {
+        border-radius: 100px;
+        margin-left: 1px;
+        margin-top:0.5px;
+        max-width: 59px;
+        max-height: 58px;
+        
+        object-fit: contain;
+    }

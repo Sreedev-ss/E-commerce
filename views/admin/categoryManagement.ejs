@@ -1,0 +1,186 @@
+<style>
+    body{
+        background-image: url('/images/page-header-bg.jpg');
+    }
+    .btn {
+        min-width: 60px;
+        color: white;
+    }
+
+    h6 {
+        padding-right: 50px;
+
+    }
+
+    .line {
+        width: 100.5%;
+        height: 1px;
+        background-color: #FCB941;
+    }
+
+    .addProduct {
+        border-radius: 3px;
+        border: #ebebeb;
+        /* width: 300px; */
+        background-color: #1B7D8F;
+        font-weight: 700;
+    }
+
+    .nav {
+        background-image: url('/images/page-header-bg.jpg');
+    }
+
+    #myTable_previous a.page-link,
+    #myTable_next a.page-link {
+        color: black !important;
+    }
+
+    li.paginate_button a.page-link {
+        color: rgb(0, 0, 0) !important;
+    }
+    .fas.fa-angle-up{
+        display: none;
+    }
+</style>
+<section>
+    <div class="row w-100 ">
+        <div class="col-md-2 p-4 mx-5 profile">
+            <div class="profileiconMain">
+                <img src="/images/admin-profile.png" alt="">
+            </div>
+            <h4>Admin</h4>
+        </div>
+        <div class="col-md-9 d-flex align-items-center ">
+            <div class="headBar d-flex text-center ">
+                <a href="/admin_panel">
+                    <h6 class="">Dashboard</h6>
+                </a>
+                <a href="/admin_panel/products" >
+                    <h6 >Product Mangement</h6>
+                </a>
+                <a href="/admin_panel/category_management" >
+                    <h6 class="text-info">Category Mangement</h6>
+                </a>
+                <a href="/admin_panel/user_management" >
+                    <h6>User Mangement</h6>
+                </a>
+                <a href="/admin_panel/order_management" >
+                    <h6>Orders Mangement</h6>
+                </a>
+               
+            </div>
+        </div>
+    </div>
+    <div class="row line ">
+
+    </div>
+    <div class="container-fluid">
+        <div class="row ">
+            
+            <div class="col-md-12">
+                <div class="mainbar">
+                    <section id="page-top">
+
+                        <!-- Page Wrapper -->
+                        <div id="wrapper">
+    
+    
+    
+                            <!-- Content Wrapper -->
+                            <div id="content-wrapper" class="d-flex flex-column">
+    
+                                <!-- Main Content -->
+                                <div id="content">
+    
+    
+                                    <!-- Begin Page Content -->
+                                    <div class="container-fluid">
+    
+    
+    
+                                        <!-- DataTales Example -->
+                                        <div class="card shadow mt-5 mb-4" style="border: 5px solid #ebebeb; background-image: url('/images/page-header-bg.jpg');">
+    
+                                            <div class="card-body mt-4">
+                                                <div class="col-3 col-md-3 mx-auto   d-flex justify-content-center">
+                                                    <a href="/admin_panel/category_management/add_category"
+                                                        class="btn btn-primary addProduct mx-auto">Add category</a>
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table class="table table-white table-bordered" id="dataTable"
+                                                        width="100%" cellspacing="0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="font-weight: bold; color:black"
+                                                                    class="text-center">Sl.No</th>
+                                                                <th style="font-weight: bold; color:black"
+                                                                    class="text-center">Category</th>
+                                                                <th style="font-weight: bold; color:black"
+                                                                    class="text-center">Action</th>
+                                                            </tr>
+                                                        </thead>
+    
+                                                        <tbody>
+                                                            <% category.forEach((element,index) => {%> 
+                                                            <tr>
+                                                                <td class="text-center"style="border-bottom: 1px solid  #dee0e0"><%= index+1 %></td>
+                                                                <td class="text-center"style="border-bottom: 1px solid  #dee0e0"><%= element.categories%></td>
+                                                                <td class="text-center"style="border-bottom: 1px solid  #dee0e0">
+                                                                    <a href="/admin_panel/category_management/edit_category/<%= element._id %>" class="btn"
+                                                                        style="background-color: #005bc5;">Edit</a>
+                                                                    <a href="/admin_panel/category_management/delete_category/<%= element._id %>" class="btn"
+                                                                        onclick="return confirm('Are you sure want to delete  ?');"
+                                                                        style="background-color: rgb(200, 0, 0);">Delete</a>
+                                                                </td>
+                                                            </tr>
+                                                            <%});%> 
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                    </div>
+                                    <!-- /.container-fluid -->
+    
+                                </div>
+                                <!-- End of Main Content -->
+    
+    
+                            </div>
+                            <!-- End of Content Wrapper -->
+    
+                        </div>
+                        <!-- End of Page Wrapper -->
+    
+                        <!-- Scroll to Top Button-->
+                        <a class="scroll-to-top rounded" href="#page-top">
+                            <i class="fas fa-angle-up"></i>
+                        </a>
+    
+                        <!-- Logout Modal-->
+                        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">Select "Logout" below if you are ready to end your current
+                                        session.</div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                        <a class="btn btn-primary" href="login.html">Logout</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

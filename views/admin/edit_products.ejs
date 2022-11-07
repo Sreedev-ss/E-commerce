@@ -1,0 +1,80 @@
+<style>
+    label {
+        font-weight: 600;
+    }
+
+    input {
+        font-weight: bold;
+    }
+</style>
+<section>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12 ">
+                <h2 class="text-center">Edit products</h2>
+                <form action="/admin_panel/products/edit_products/<%= products._id %>" method="post"
+                    enctype="multipart/form-data">
+                    <label for="">Name</label>
+                    <input type="text" name="name" class="form-control" value="<%= products.name %> ">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Brand</label>
+                            <input type="text" name="brand" class="form-control" value="<%= products.brand  %> ">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="">Category</label>
+                            <select name="category" class="form-control w-100 my-0">
+                                <% category.forEach((element,index)=>{ %>
+                                    <option value="<%=products.category%>"><%= element.categories %></option>
+                                <% })%>
+                            </select>
+                        </div>
+
+
+
+                        <div class="col-md-6">
+                            <label for="">Quantity</label>
+                            <input type="text" name="quantity" class="form-control" value="<%= products.quantity  %> ">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="">Price</label>
+                            <input type="text" name="price" step="0.01" class="form-control price"
+                                value="<%= products.price  %> ">
+                        </div>
+
+
+                        <div class="col-md-12 text-area">
+                            <label for="">Description</label>
+                            <textarea type="text" name="description" style="height:200px;"
+                                class="form-control"><%= products.description %></textarea><br>
+                        </div>
+
+                        <div class="col-md-2">
+                            <img id="imgView" class="img-fluid mb-4" src=/productImages/<%=products._id %>.jpg alt=""
+                            style="width: 100px; height: 100px; object-fit: contain; border-radius: 4px; border: solid
+                            1px rgba(0, 0, 0, 0.458);">
+                            <label for="" class="mx-auto mb-5">Image</label>
+                        </div>
+
+                        <div class="col-md-8">
+                            <input type="file" name="Image" class="form-control" onchange="viewImage(event)"><br>
+                            <button type="submit" class="btn btn-primary mb-4"
+                                onclick="return confirm('Are you sure want to edit this product ?')">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    function viewImage(event) {
+        document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+    }
+
+</script>

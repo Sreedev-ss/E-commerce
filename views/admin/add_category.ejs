@@ -1,0 +1,81 @@
+<style>
+    label {
+        font-weight: 600;
+    }
+    body{
+    background-image: url('/images/page-header-bg.jpg');
+    }
+    .box{
+        margin-top: 100px;
+    }
+</style>
+<section>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center"><u>Add Category</u></h2>
+                <p class="error text-center" id="error"></p>
+                <div class="row box border" style="height:100%;">
+                    <div class="col-md-12">
+                    <div class="row mt-5 ">
+                        <div class="col-md-6 mx-auto mt-3">
+                            <label for="" class="text-center">Add Category</label>
+                            <input type="text" id="cate" name="categories" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row"></div>
+                        <div class="col-md-6 mx-auto mt-3">
+                            <button type="button" onclick="add()" class="btn btn-primary" >Add</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    function add(){
+        let cate = document.getElementById('cate').value
+
+        if(cate==''){
+            document.getElementById('error').innerText='Category field is required'
+        }else{
+
+            submit(cate)
+        }
+    }
+
+    
+    function submit(category){
+        fetch('/admin_panel/category_management/add_category',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify({
+                categories: category.toLowerCase()
+            })
+        })
+        .then((res)=>res.json())
+        .then((res)=>{
+            if(res.value == 'error'){
+                var error = document.getElementById('error')
+                error.style.color = 'rgb(500,0,0)'
+                error.innerText = 'Category already exist'
+            }else{
+                var error = document.getElementById('error')
+                    error.innerText = 'Category added Succesfully'
+                    error.style.color="rgb(53,200,0)"
+
+                    setTimeout(()=>{
+                    window.location.href='/admin_panel/category_management'
+                },1000)
+            }
+        })
+        .catch(err=>console.log(err))
+    }
+</script>
