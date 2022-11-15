@@ -27,7 +27,7 @@ router.post('/products/edit_products/:id',auth.verifyAdmin, adminController.post
 
 router.get('/products/delete_products/:id',auth.verifyAdmin, adminController.getDeleteproduct)
 
-router.get('/category_management', adminController.getCategory)
+router.get('/category_management',auth.verifyAdmin, adminController.getCategory)
 
 router.get('/category_management/add_category',auth.verifyAdmin, adminController.getAddcategory)
 
@@ -52,6 +52,10 @@ router.post('/user_management/edit_user/:id',auth.verifyAdmin, adminController.p
 router.get('/user_management/block_user/:id',auth.verifyAdmin, adminController.getBlockuser)
 
 router.get('/user_management/unblock_user/:id',auth.verifyAdmin, adminController.getUnblockuser)
+
+router.get('/order_management',auth.verifyAdmin, adminController.orderManagement)
+
+router.post('/updateOrders',auth.verifyAdmin, adminController.updateOrder)
 
 module.exports = router;
 

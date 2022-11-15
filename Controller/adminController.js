@@ -58,15 +58,21 @@ module.exports={
         postAddproduct:(req,res)=>{
             productHelpers.addProducts(req.body).then((insertedId)=>{
               console.log(insertedId)
-              let image = req.files.Image
               let imageName = insertedId
-              image.mv('./public/productImages/' + imageName + '.jpg', (err, done) => {
-                if (!err) {
-                  res.redirect('/admin_panel/products')
-                } else {
-                  console.log(err)
-                }
-              })
+              console.log(req.files.Image);
+              req.files.Image.forEach((element,index) => {
+                element.mv('./public/productImages/' + imageName +index+'.jpg', (err) => {
+                  if (!err) {
+                    console.log('done');
+                  } else {
+                    console.log(err)
+                  }
+                })
+
+              });
+              res.redirect('/admin_panel/products')
+
+             
             })
         },
 
@@ -81,16 +87,12 @@ module.exports={
         postEditproduct:async(req,res)=>{
             let imageName = req.params.id
             await productHelpers.updateProduct(req.params.id, req.body).then(() => {
-          
-              if (!req?.files?.Image) {
+                req.files?.Image1?.mv('./public/productImages/' + imageName +'0.jpg')
+                req.files?.Image2?.mv('./public/productImages/' + imageName +'1.jpg')
+                req.files?.Image3?.mv('./public/productImages/' + imageName +'2.jpg')
+                req.files?.Image4?.mv('./public/productImages/' + imageName +'3.jpg')
                 res.redirect('/admin_panel/products')
-              }
-              else if (req.files.Image) {
-                let image = req.files.Image
-                image.mv('./public/productImages/' + imageName + '.jpg')
-                res.redirect('/admin_panel/products')
-          
-              }
+              
             })
           },
 
@@ -187,6 +189,27 @@ module.exports={
             userHelpers.unblockUser(userId).then(()=>{
               res.redirect('/admin_panel/user_management')
             })
-          }
+          },
+
+          orderManagement:async(req,res)=>{
+            let admin = req.admin
+            let orders = await userHelpers.getAdminOrder()
+            res.render('admin/orderManagement',{orders,admin,layout:data.layout})
+          },
+
+          OrdersCancel:(req,res)=>{
+            console.log(req.body)
+            userHelpers.orderCancel(req.body,req.session.user).then((response)=>{
+              res.json(response)
+            })
+          },
+
+          updateOrder:(req,res)=>{
+            console.log(req.body)
+            userHelpers.updateOrder(req.body,req.session.user).then((response)=>{
+              res.json(response)
+            })
+          },
+          
 
 }

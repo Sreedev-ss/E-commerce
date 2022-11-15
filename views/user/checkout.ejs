@@ -1,0 +1,462 @@
+<style>
+  .addAddress {
+    margin-left: 38px !important;
+  }
+
+  .addAddress:hover {
+    border-bottom: 0.1px solid #14A2B8;
+  }
+</style>
+
+<section>
+  <main class="main">
+    <div class="page-header text-center" style="background-image: url('/images/page-header-bg.jpg')">
+      <div class="container">
+        <h1 class="page-title">Checkout<span>Shop</span></h1>
+      </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+      <div class="container">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+        </ol>
+      </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+    <div class="container">
+      <div class="row rounded" style="background-color: rgb(247, 247, 247); border-radius: 10px !important">
+
+        <% address[0]?.address?.forEach((element,index) => { %>
+        <% console.log(element) %>
+        <div class="d-flex col-12 mt-1" style="width: 500px; ">
+          <input onclick="getAddress('<%= element._id %>')" id="addressRadio<%=index%>" name="addressRadio" class="collapsed" type="radio" role="button" value=" " data-toggle="collapse" href="#collapse-3" aria-expanded="true" aria-controls="collapse-3">
+          <div class="mt-1"><label for="addressRadio<%=index%>" style="font-size: small; font-weight: 500; " class="mx-4 text-dark"><%= element.fName %>, <%= element.address %>, <%= element.postcode%> . . . </label></div>
+          </input>
+        </div>
+        <% }); %>
+
+
+        <div class="row">
+          <span class="text-info mx-5 mt-1 addAddress" onclick="clearAll()">Add new address</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="page-content mt-2" style="position: relative;">
+      <div class="checkout">
+        <div class="container">
+          <!-- End .checkout-discount -->
+          <form action="#">
+            <div class="row">
+              <div class="col-lg-9">
+                <h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="d-flex">
+                      <label class="w-25 text-dark">First Name <span class="text-danger">*</span></label>
+                      <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                    </div>
+                    <input type="text" id="fName" class="form-control" value="<%= address[0]?.address[0]?.fName %>" required>
+                  </div><!-- End .col-sm-6 -->
+
+                  <div class="col-sm-6">
+                    <div class="d-flex">
+                      <label class="w-25 text-dark">Last Name <span class="text-danger">*</span></label>
+                      <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                    </div>
+                    <input type="text" id="lName" class="form-control" value="<%= address[0]?.address[0]?.lName %>" required>
+                  </div><!-- End .col-sm-6 -->
+                </div><!-- End .row -->
+                <div>
+                  <div class="d-flex">
+                    <label class="w-25 text-dark">Address<span class="text-danger">*</span></label>
+                    <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                  </div>
+                  <input type="text" id="address" class="form-control" value="<%= address[0]?.address[0]?.address %>" placeholder="House number and Street name" required>
+                </div>
+                <div>
+                  <div class="d-flex">
+                    <label class="w-25 text-dark">Landmark<span class="text-danger">*</span></label>
+                    <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                  </div>
+                  <input type="text" id="landmark" class="form-control" value="<%= address[0]?.address[0]?.landmark %>" placeholder="Appartments, suite, unit etc ..." required>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="d-flex">
+                      <label class="w-25 text-dark">Town / City <span class="text-danger">*</span></label>
+                      <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                    </div>
+                    <input type="text" id="town" class="form-control" value="<%= address[0]?.address[0]?.town %>" required>
+                  </div><!-- End .col-sm-6 -->
+
+                  <div class="col-sm-6">
+                    <div class="d-flex">
+                      <label class="w-50 text-dark">State / Country <span class="text-danger">*</span></label>
+                      <p class="d-flex w-50 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                    </div>
+                    <select name="" id="country" class="form-control w-100 my-0">
+                      <option value="" disabled selected hidden data-removable><%= address[0]?.address[0]?.country?address[0].address[0].country:'Select your Country' %> </option>
+                      <% countries.forEach((element,index) => { %>
+                      <option><%= element.name %></option>
+                      <%  });  %>
+                    </select>
+                  </div><!-- End .col-sm-6 -->
+                </div><!-- End .row -->
+
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="d-flex">
+                      <label class="w-50 text-dark">Postcode / ZIP <span class="text-danger">*</span></label>
+                      <p class="d-flex w-50 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                    </div>
+                    <input type="text" id="postcode" class="form-control" value="<%= address[0]?.address[0]?.postcode %>" required>
+                  </div><!-- End .col-sm-6 -->
+
+                  <div class="col-sm-6">
+                    <div class="d-flex">
+                      <label class="w-25 text-dark">Phone <span class="text-danger">*</span></label>
+                      <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                    </div>
+                    <input type="text" id="mobile" class="form-control" value="<%= address[0]?.address[0]?.mobile %>" required>
+                  </div><!-- End .col-sm-6 -->
+                </div><!-- End .row -->
+                <div class="">
+                  <div class="d-flex">
+                    <label class="w-25 text-dark">Email address <span class="text-danger">*</span></label>
+                    <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                  </div>
+                  <input type="email" id="email" value="<%= address[0]?.address[0]?.email %>" class="form-control">
+                </div>
+                <label class="text-dark">Order notes (optional)</label>
+                <textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. Delivery Instructions"></textarea>
+              </div><!-- End .col-lg-9 -->
+              <aside class="col-lg-3 mt-5" style="margin-top: 85px !important;">
+                <div class="summary">
+                  <h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
+
+                  <table class="table table-summary">
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <% cartItems.forEach(element => { %>
+                      <tr>
+                        <td><a href="#"><%= element.product?.name %></a></td>
+                        <td>Rs <%= element.product?.price %></td>
+                      </tr>
+                      <% }); %>
+
+                      <tr class="summary-total">
+                        <td>Total:</td>
+                        <td>Rs <%= total %> </td>
+                      </tr><!-- End .summary-total -->
+                    </tbody>
+                  </table><!-- End .table table-summary -->
+
+                  <div class="accordion-summary" id="accordion-payment">
+                    <div class="card">
+
+
+                      <div class="card mb-3">
+                        <div class="card-header" id="heading-3">
+                          <h2 class="card-title">
+                            <p class="d-flex w-75 justify-content-start mb-1" style="color: rgb(230, 43, 40);"></p>
+                            <input class="collapsed" id="cod" required checked type="radio" name="cod" role="button" value="COD" data-toggle="collapse" href="#collapse-3" aria-expanded="true" aria-controls="collapse-3">
+                            Cash on delivery
+                            </input>
+                          </h2>
+                        </div><!-- End .card-header -->
+
+                      </div><!-- End .card -->
+                    </div><!-- End .accordion -->
+                    <button type="button" onclick="validator()" class="btn btn-outline-primary-2 btn-order btn-block">
+                      <span class="btn-text">Place Order</span>
+                      <span class="btn-hover-text">Place Order</span>
+                    </button>
+                  </div><!-- End .summary -->
+              </aside><!-- End .col-lg-3 -->
+            </div><!-- End .row -->
+          </form>
+        </div><!-- End .container -->
+      </div><!-- End .checkout -->
+    </div><!-- End .page-content -->
+  </main><!-- End .main -->
+
+  </div><!-- End .page-wrapper -->
+  <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+</section>
+
+
+<!-- molla/checkout.html  22 Nov 2019 09:55:06 GMT -->
+
+</html>
+
+<script>
+  const inputsId = ['fName', 'lName', 'address', 'landmark', 'town', 'country', 'postcode', 'mobile', 'email'];
+  const addressRadios = [];
+  const addressLen = '<%=address[0]?.address?.length%>';
+
+  for (let i = 0; i < addressLen; i++) {
+    addressRadios.push(`addressRadio${i}`);
+    if (i == 0) document.getElementById(`addressRadio${i}`).checked = true;
+  };
+
+  function clearRadios() {
+    addressRadios.forEach(e => {
+      document.getElementById(e).checked = false;
+    });
+  };
+
+
+  function validator() {
+
+    const fName = document.getElementById('fName')
+    const lName = document.getElementById('lName')
+    const street = document.getElementById('address')
+    const apartment = document.getElementById('landmark')
+    const town = document.getElementById('town')
+    const country = document.getElementById('country')
+    const postcode = document.getElementById('postcode')
+    const mobile = document.getElementById('mobile')
+    const email = document.getElementById('email')
+    const cod = document.getElementById('cod')
+
+    const fNameValue = fName.value.trim()
+    const lNameValue = lName.value.trim()
+    const streeValue = street.value.trim()
+    const apartmentValue = apartment.value.trim()
+    const townValue = town.value.trim()
+    const countryValue = country.options[country.selectedIndex].text
+    const postcodeValue = postcode.value.trim()
+    const mobileValue = mobile.value.trim()
+    const emailValue = email.value.trim()
+    const codValue = cod.checked
+    const codMain = cod.value
+
+
+    const error1 = fName.parentElement.querySelector('p')
+    const error2 = lName.parentElement.querySelector('p')
+    const error3 = street.parentElement.querySelector('p')
+    const error4 = apartment.parentElement.querySelector('p')
+    const error5 = town.parentElement.querySelector('p')
+    const error6 = postcode.parentElement.querySelector('p')
+    const error7 = mobile.parentElement.querySelector('p')
+    const error8 = email.parentElement.querySelector('p')
+    const error9 = country.parentElement.querySelector('p')
+    const error10 = cod.parentElement.querySelector('p')
+
+
+    let flag = 1
+
+    error1.innerText = ""
+    error2.innerText = ""
+    error3.innerText = ""
+    error4.innerText = ""
+    error5.innerText = ""
+    error6.innerText = ""
+    error7.innerText = ""
+    error8.innerText = ""
+    error9.innerText = ""
+    error10.innerText = ""
+
+
+    //First Name
+    if (fNameValue == "") {
+      error1.innerText = 'This field is required'
+      flag = 2
+    } else if (fNameValue.length <= 2) {
+      error1.innerText = "First name must be minimum 2 characters"
+      flag = 2
+    } else if (!fNameValue.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/)) {
+      error1.innerText = "Enter valid details"
+      flag = 2
+    }
+
+    //Last Name
+    if (lNameValue == "") {
+      error2.innerText = 'This field is required'
+    } else if (lNameValue.length < 2) {
+      error2.innerText = "Last name must be minimum 1 characters"
+      flag = 2
+    } else if (!lNameValue.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/)) {
+      error2.innerText = "Enter valid details"
+      flag = 2
+    }
+
+    //Street Value
+    if (streeValue == "") {
+      error3.innerText = 'This field is required'
+      flag = 2
+    }
+
+    //Apartment Value
+    if (apartmentValue == "") {
+      error4.innerText = 'This field is required'
+      flag = 2
+    }
+
+    //Town Value
+    if (townValue == "") {
+      error5.innerText = 'This field is required'
+      flag = 2
+    }
+
+    //Postcode Value
+    if (postcodeValue == "") {
+      error6.innerText = 'This field is required'
+      flag = 2
+    } else if (postcodeValue.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/)) {
+      error6.innerText = 'Enter valid details'
+      flag = 2
+    }
+
+    //Phone Number
+    if (mobileValue == "") {
+      error7.innerText = "This field is required"
+      flag = 2
+    } else if (!mobileValue.match(/^(\+\d{1,3}[- ]?)?\d{10}$/)) {
+      error7.innerText = 'Enter valid phone number'
+      flag = 2
+    }
+
+    //Email Valued
+    if (emailValue == "") {
+      error8.innerText = "This field is required"
+      flag = 2
+    } else if (!emailValue.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+      error8.innerText = "Enter a valid email"
+      flag = 2
+    }
+
+    if (countryValue == 'Select your Country') {
+      error9.innerText = "This field is required"
+      flag = 2
+    }
+
+    if (codValue == false) {
+      error10.innerText = "This field is required"
+      flag = 2
+    }
+
+    if (flag == 1) {
+      submit(fNameValue, lNameValue, streeValue, apartmentValue, townValue, countryValue, postcodeValue, mobileValue, emailValue, codMain)
+    }
+
+  }
+
+  function submit(fName, lName, address, landmark, town, country, postcode, mobile, email, cod) {
+    $.ajax({
+      url: '/place-order',
+      method: 'post',
+      data: {
+        fName: fName,
+        lName: lName,
+        address: address,
+        landmark: landmark,
+        town: town,
+        country: country,
+        postcode: postcode,
+        mobile: mobile,
+        email: email,
+        paymentMethod: cod,
+      },
+      success: (response) => {
+        if (response.status) {
+          setTimeout(() => {
+            location.href = '/orderSuccess'
+          }, 500)
+
+        }
+      }
+    })
+  }
+
+  function clearInputs() {
+    inputsId.forEach(e => {
+      if (e == 'country') {
+        document.querySelectorAll('option[data-removable]').forEach(a => {
+          a.remove();
+        });
+        let op = document.createElement('option');
+        op.innerText = 'Select your Country';
+        op.setAttribute("data-removable", "");
+        op.setAttribute("selected", '');
+        op.setAttribute("disabled", '');
+        op.setAttribute("hidden", '');
+        document.getElementById(e).prepend(op)
+      } else document.getElementById(e).value = '';
+    })
+  };
+
+  function clearAll() {
+    clearInputs();
+    clearRadios();
+  };
+
+  function getAddress(address) {
+    const fName = document.getElementById('fName')
+    const lName = document.getElementById('lName')
+    const street = document.getElementById('address')
+    const apartment = document.getElementById('landmark')
+    const town = document.getElementById('town')
+    const country = document.getElementById('country')
+    const postcode = document.getElementById('postcode')
+    const mobile = document.getElementById('mobile')
+    const email = document.getElementById('email')
+    const cod = document.getElementById('cod')
+
+    const error1 = fName.parentElement.querySelector('p')
+    const error2 = lName.parentElement.querySelector('p')
+    const error3 = street.parentElement.querySelector('p')
+    const error4 = apartment.parentElement.querySelector('p')
+    const error5 = town.parentElement.querySelector('p')
+    const error6 = postcode.parentElement.querySelector('p')
+    const error7 = mobile.parentElement.querySelector('p')
+    const error8 = email.parentElement.querySelector('p')
+    const error9 = country.parentElement.querySelector('p')
+    const error10 = cod.parentElement.querySelector('p')
+
+
+    error1.innerText = ""
+    error2.innerText = ""
+    error3.innerText = ""
+    error4.innerText = ""
+    error5.innerText = ""
+    error6.innerText = ""
+    error7.innerText = ""
+    error8.innerText = ""
+    error9.innerText = ""
+    error10.innerText = ""
+
+    $.ajax({
+      url: '/checkoutAddress/' + address,
+      method: 'get',
+      success: (response) => {
+        const address = response[0].address;
+        inputsId.forEach(e => {
+          if (e == 'country') {
+            document.querySelectorAll('option[data-removable]').forEach(a => {
+              a.remove();
+            });
+            let op = document.createElement('option');
+            op.innerText = address[e];
+            op.setAttribute("data-removable", "");
+            op.setAttribute("selected", "");
+            document.getElementById(e).prepend(op)
+          } else document.getElementById(e).value = address[e];
+        });
+
+        // console.log(response);
+      }
+    })
+  }
+</script>

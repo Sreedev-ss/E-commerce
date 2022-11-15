@@ -20,6 +20,7 @@
                                 <div class="tab-pane fade show active" id="signin-2" role="tabpanel"
                                     aria-labelledby="signin-tab-2">
                                     <form action="#">
+                                        <p id="numberCheck" style="color: rgb(200,0,0);"></p>
                                         <div class="form-group">
                                             <label for="singin-email-2">Your Number <span
                                                     class="text-danger">*</span></label>
@@ -28,7 +29,7 @@
                                         </div><!-- End .form-group -->
 
                                         <div class="d-flex">
-                                            <button type="button" onclick="sendOtp()"
+                                            <button type="button" onclick="findNumber()"
                                                 class="btn btn-outline-primary-2 mt-1">
                                                 <span>Send OTP</span>
                                                 <i class="icon-long-arrow-right"></i>
@@ -48,9 +49,9 @@
                                             <button type="button" onclick="verifyOtp()"
                                                 class="btn btn-outline-primary-2">
                                                 <span>Confirm</span>
-                                                <p id="confirm" style='color: rgb(300,0,0)'></p>
                                                 <i class="icon-long-arrow-right"></i>
                                             </button>
+                                            <p id="confirm" style='color: rgb(300,0,0)'></p>
 
                                             <a href="/user_registration" class="forgot-link">Don't have an account?</a>
                                         </div><!-- End .form-footer -->
@@ -75,6 +76,31 @@
 
 <script>
 
+    function findNumber(){
+        const number = document.getElementById('number').value.trim()
+        if(number==""){
+            document.getElementById('numberCheck').innerText="Enter number"
+        }else{
+            document.getElementById('numberCheck').innerText=""
+        $.ajax({
+            url:'/otpNumberFind',
+            method:'post',
+            data:{
+                number:number
+            },
+            success:(response)=>{
+                console.log(response);
+                    if(response.status==true){
+                        sendOtp()
+                    }else if(response.blocked==true){
+                        document.getElementById('numberCheck').innerText="You are currently blocked"
+                    }else{
+                        document.getElementById('numberCheck').innerText="User not exist? Please Sign up !!!"
+                    }
+            }
+        })
+    }
+    }
 
     function sendOtp() {
         const status = document.getElementById('Status').innerText = 'Otp Sent'

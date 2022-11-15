@@ -21,7 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(expressLayout)
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -36,6 +36,11 @@ const store = new mongodbStore({
 
 app.use(fileUpload())
 
+app.use(function (req, res, next) {
+  res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  next();
+});
+
 app.use((session({
   secret:'KeyProject1',
   store:store,
@@ -44,10 +49,7 @@ app.use((session({
 })))
 
 //Header Cache remover
-app.use(function (req, res, next) {
-  res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-  next();
-});
+
 
 app.use(auth.authInit);
 

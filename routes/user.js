@@ -19,6 +19,8 @@ router.get('/user_signout',userController.getLogout)
 
 router.get('/otp_page', auth.mustLogoutUser,userController.getOtp)
 
+router.post('/otpNumberFind',auth.mustLogoutUser,userController.checkNumber)
+
 router.get('/otp_login', userController.getOtplogin)
 
 router.get('/otp_verify', userController.getOtpverify)
@@ -33,6 +35,24 @@ router.get('/wishlist', auth.verifyUser , userController.getWishlist)
 
 router.get('/cart', auth.verifyUser , userController.getCart)
 
-router.get('/about', userController.getAbout)
+router.get('/addtoCart/:id', auth.verifyUser , userController.addtoCart)
+
+router.post('/changeProductQuantity',auth.verifyUser, userController.changeProductQuantity)
+
+router.post('/deleteCartItems',auth.verifyUser, userController.deleteCartItems)
+
+router.get('/checkout/',auth.verifyUser, userController.checkOut)
+
+router.get('/checkoutAddress/:id',auth.verifyUser, userController.checkOutPost)
+
+router.post('/place-order',auth.verifyUser, userController.placeOrder)
+
+router.get('/orders', auth.verifyUser, userController.Orders)
+
+router.post('/orders', auth.verifyUser, userController.OrdersCancel)
+
+router.get('/about',auth.verifyUser, userController.getAbout)
+
+router.get('/orderSuccess',auth.verifyUser,userController.getSuccessPage)
 
 module.exports = router;

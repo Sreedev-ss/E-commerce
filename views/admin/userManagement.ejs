@@ -120,12 +120,13 @@
                                                             <%  const dataToReadable=(date)=>{
 
                                                                 const date_ = new Date(date);
-                                                        
+                                                                let month = ['Jan','Feb','March','April','May','June','July','Aug','Sept','Nov','Dec']
                                                                 let dd = date_.getDate();
-                                                                let mm = date_.getMonth()+1;
+                                                                let mm = date_.getMonth()-1;
+                                                                let monthText = month[mm]
                                                                 let yyyy = date_.getFullYear();
                                                         
-                                                                return `${isNaN(dd)?'00':dd}-${isNaN(mm)?'00':mm}-${isNaN(yyyy)?'0000':yyyy}`;
+                                                                return `${isNaN(dd)?'00':dd}-${monthText}-${isNaN(yyyy)?'0000':yyyy}`;
                                                                 }; %>
 
                                                             <% const status=(data)=>{
@@ -145,18 +146,17 @@
                                                                 <td class="text-center"  style="border-bottom: 1px solid #dee0e0"><%= element.email %></td>
                                                                 <td class="text-center"  style="border-bottom: 1px solid #dee0e0"><%= element.contactNo %></td>
                                                                 <td class="text-center"  style="border-bottom: 1px solid #dee0e0"><%= dataToReadable(element.createdAt) %></td>
-                                                                <td class="text-center text-white" style="background-color: <%= element.status?'rgb(53,200,0)':'rgb(200,0,0)' %>; border-bottom: 1px solid #dee0e0;" id="color"><%= status(element.status) %></td>
+                                                                <td class="text-center" style="color: <%= element.status?'rgb(53,200,0)':'rgb(200,0,0)' %>; border-bottom: 1px solid #dee0e0;" id="color"><%= status(element.status) %></td>
                                                                 <td class="text-center"  style="border-bottom: 1px solid #dee0e0">
-
-                                                                    <a href="./user_management/edit_user/<%=element._id%>" class="btn me-1 my-2"
-                                                                            style="background-color: #005bc5;">Edit</a>
-                                                                    <a href="./user_management/block_user/<%=element._id%>" class="btn me-1 my-2" id="btn1"
+                                                                    <% if(element.status){ %>
+                                                                    <a href="./user_management/block_user/<%=element._id%>" class="btn me-1 my-2 rounded" id="btn1"
                                                                         onclick="return confirm('Are you sure want to unblock this user ?')"
-                                                                        style="background-color: rgb(200, 0, 0);">Block</a>
-                                                                    <a href="./user_management/unblock_user/<%=element._id%>" class="btn" id="btn2"
-
+                                                                        style="background-color: rgb(200, 0, 0); width: 100px;">Block</a>
+                                                                    <% }else{ %>
+                                                                    <a href="./user_management/unblock_user/<%=element._id%>" class="btn rounded" id="btn2"
                                                                     onclick="return confirm('Are you sure want to unblock this user ?')"
-                                                                        style="background-color: rgb(53, 200, 0);">Unblock</a>
+                                                                        style="background-color: rgb(53, 200, 0); width: 100px;">Unblock</a>
+                                                                    <%} %>
                                                                 </td>
                                                             </tr>
                                                              <%})%>
