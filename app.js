@@ -87,7 +87,7 @@ admin.set('view engine', 'ejs');
 admin.use(expressLayout)
 
 // admin.use(logger('dev'));
-admin.use(bodyParser.json({ limit: '10mb' }));
+admin.use(express.json({ limit: '10mb' }));
 admin.use(express.urlencoded({limit: '10mb',
 extended: true}));
 admin.use(cookieParser());
