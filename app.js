@@ -88,7 +88,9 @@ admin.use(expressLayout)
 
 // admin.use(logger('dev'));
 admin.use(express.json());
-admin.use(express.urlencoded({ extended: false }));
+admin.use(express.urlencoded({limit: '50mb',
+extended: true,
+parameterLimit:50000}));
 admin.use(cookieParser());
 admin.use(express.static(path.join(__dirname, 'public-admin')));
 admin.use(express.static(path.join(__dirname, 'public')));
