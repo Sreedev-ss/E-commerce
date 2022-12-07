@@ -1,139 +1,897 @@
 <div class="page-wrapper">
-    
 
-    <main class="main">
-        <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
-            <div class="container">
-                <h1 class="page-title">My Account<span>Shop</span></h1>
-            </div><!-- End .container -->
-        </div><!-- End .page-header -->
-     
 
-        <div class="page-content mt-5">
-            <div class="dashboard">
-                <div class="container">
-                    <div class="row">
-                        <aside class="col-md-4 col-lg-3">
-                            <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Dashboard</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab-downloads-link" data-toggle="tab" href="#tab-downloads" role="tab" aria-controls="tab-downloads" aria-selected="false">Downloads</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Account Details</a>
-                                </li>
-                                <li class="nav-item">
-                                    <% if(locals.user) { %> 
-                                        <a class="nav-link" href="/user_signout">Sign Out</a>
-                                        <% }else{ %>
-                                            <a class="nav-link" href="/user_signin">Sign In</a>
-                                        <% } %>
-                                    
-                                </li>
-                            </ul>
-                        </aside><!-- End .col-lg-3 -->
+  <main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+      <div class="container">
+        <h1 class="page-title">My Account<span>Shop</span></h1>
+      </div><!-- End .container -->
+    </div><!-- End .page-header -->
 
-                        <div class="col-md-8 col-lg-9">
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
-                                    <p>Hello <span class="font-weight-normal text-dark">User</span> (not <span class="font-weight-normal text-dark">User</span>? <a href="#">Log out</a>) 
-                                    <br>
-                                    From your account dashboard you can view your <a href="#tab-orders" class="tab-trigger-link link-underline">recent orders</a>, manage your <a href="#tab-address" class="tab-trigger-link">shipping and billing addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your password and account details</a>.</p>
-                                </div><!-- .End .tab-pane -->
 
-                                <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
-                                    <p>No order has been made yet.</p>
-                                    <a href="/shop" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
-                                </div><!-- .End .tab-pane -->
+    <div class="page-content mt-5">
+      <div class="dashboard">
+        <div class="container">
+          <div class="row">
+            <aside class="col-md-4 col-lg-3">
+              <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active " id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="tab-downloads-link" data-toggle="tab" href="#tab-downloads" onclick="getUserData()" role="tab" aria-controls="tab-downloads" aria-selected="false">Wallet</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Account Details</a>
+                </li>
+                <li class="nav-item">
+                  <% if(locals.user) { %>
+                  <a class="nav-link" href="/user_signout">Sign Out</a>
+                  <% }else{ %>
+                  <a class="nav-link" href="/user_signin">Sign In</a>
+                  <% } %>
 
-                                <div class="tab-pane fade" id="tab-downloads" role="tabpanel" aria-labelledby="tab-downloads-link">
-                                    <p>No downloads available yet.</p>
-                                    <a href="/shop" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
-                                </div><!-- .End .tab-pane -->
+                </li>
+              </ul>
+            </aside><!-- End .col-lg-3 -->
 
-                                <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
-                                    <p>The following addresses will be used on the checkout page by default.</p>
+            <div class="col-md-8 col-lg-9">
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+                  <p>Hello <span class="font-weight-normal text-dark">User</span> (not <span class="font-weight-normal text-dark">User</span>? <a href="#">Log out</a>)
+                    <br>
+                    From your account dashboard you can view your <a href="#tab-orders" class="tab-trigger-link link-underline">recent orders</a>, manage your <a href="#tab-address" class="tab-trigger-link">shipping and billing addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your password and account details</a>.
+                  </p>
+                </div><!-- .End .tab-pane -->
 
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="card card-dashboard">
-                                                <div class="card-body">
-                                                    <h3 class="card-title">Billing Address</h3><!-- End .card-title -->
+                <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+                  <p></p>
+                  <a href="/orders" class="btn btn-outline-primary-2"><span>VIEW ORDERS</span><i class="icon-long-arrow-right"></i></a>
+                </div><!-- .End .tab-pane -->
 
-                                                    <p>User Name<br>
-                                                    User Company<br>
-                                                    John str<br>
-                                                    New York, NY 10001<br>
-                                                    1-234-987-6543<br>
-                                                    yourmail@mail.com<br>
-                                                    <a href="#">Edit <i class="icon-edit"></i></a></p>
-                                                </div><!-- End .card-body -->
-                                            </div><!-- End .card-dashboard -->
-                                        </div><!-- End .col-lg-6 -->
+                <div class="tab-pane fade" id="tab-downloads" role="tabpanel" aria-labelledby="tab-downloads-link">
+                 <div class="d-flex"><p>Balance : </p><p id="walletPrice"> Rs: 0</p></div> 
+                  <a href="/shop" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
+                </div><!-- .End .tab-pane -->
 
-                                        <div class="col-lg-6">
-                                            <div class="card card-dashboard">
-                                                <div class="card-body">
-                                                    <h3 class="card-title">Shipping Address</h3><!-- End .card-title -->
+                <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+                  <a class="text-info ms-auto" data-toggle="modal" data-target="#exampleModal">Add new address<i class="icon-delete"></i></a>
+                  <p>The following addresses will be used on the checkout page by default.</p>
+                  <!-- Button trigger modal -->
+                  <!-- <button type="button" class="btn btn-primary" >
+                    Launch demo modal
+                  </button> -->
 
-                                                    <p>You have not set up this type of address yet.<br>
-                                                    <a href="#">Edit <i class="icon-edit"></i></a></p>
-                                                </div><!-- End .card-body -->
-                                            </div><!-- End .card-dashboard -->
-                                        </div><!-- End .col-lg-6 -->
-                                    </div><!-- End .row -->
-                                </div><!-- .End .tab-pane -->
-
-                                <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
-                                    <form action="#">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <label>First Name *</label>
-                                                <input type="text" class="form-control" required>
-                                            </div><!-- End .col-sm-6 -->
-
-                                            <div class="col-sm-6">
-                                                <label>Last Name *</label>
-                                                <input type="text" class="form-control" required>
-                                            </div><!-- End .col-sm-6 -->
-                                        </div><!-- End .row -->
-
-                                        <label>Display Name *</label>
-                                        <input type="text" class="form-control" required>
-                                        <small class="form-text">This will be how your name will be displayed in the account section and in reviews</small>
-
-                                        <label>Email address *</label>
-                                        <input type="email" class="form-control" required>
-
-                                        <label>Current password (leave blank to leave unchanged)</label>
-                                        <input type="password" class="form-control">
-
-                                        <label>New password (leave blank to leave unchanged)</label>
-                                        <input type="password" class="form-control">
-
-                                        <label>Confirm new password</label>
-                                        <input type="password" class="form-control mb-2">
-
-                                        <button type="submit" class="btn btn-outline-primary-2">
-                                            <span>SAVE CHANGES</span>
-                                            <i class="icon-long-arrow-right"></i>
-                                        </button>
-                                    </form>
-                                </div><!-- .End .tab-pane -->
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Add new address</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="" class="p-3">
+                            <div class="col-12">
+                              <div class="d-flex">
+                                <label for="" class="w-25">First Name</label>
+                                <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                              </div>
+                              <input id="fNameNew" type="text" name="name" class="form-control">
                             </div>
-                        </div><!-- End .col-lg-9 -->
-                    </div><!-- End .row -->
-                </div><!-- End .container -->
-            </div><!-- End .dashboard -->
-        </div><!-- End .page-content -->
-    </main><!-- End .main -->
+                            <div class="col-12">
+                              <div class="d-flex">
+                                <label for="" class="w-25">Last Name</label>
+                                <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                              </div>
+                              <input id="lNameNew" type="text" name="name" class="form-control">
+                            </div>
+                            <div class="col-12">
+                              <div class="d-flex">
+                                <label for="" class="w-25">Address</label>
+                                <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                              </div>
+                              <input id="addressNew" type="text" name="name" class="form-control">
+                            </div>
+                            <div class="col-12">
+                              <div class="d-flex">
+                                <label for="" class="w-25">Landmark</label>
+                                <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                              </div>
+                              <input id="landmarkNew" type="text" name="name" class="form-control">
+                            </div>
 
+                            <div class="col-12">
+                              <div class="d-flex">
+                                <label for="" class="w-25">Town</label>
+                                <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                              </div>
+                              <input id="townNew" type="text" name="name" class="form-control">
+                            </div>
+
+                            <div class="col-12">
+                              <div class="d-flex">
+                                <label for="" class="w-25">Country</label>
+                                <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                              </div>
+                              <select name="" id="countryNew" class="form-control w-100 my-0">
+                                <option value="" disabled selected hidden data-removable>Select your Country</option>
+                                <% countries.forEach((element,index) => { %>
+                                <option><%= element.name %></option>
+                                <%  });  %>
+                              </select>
+                            </div>
+
+                            <div class="col-12">
+                              <div class="d-flex">
+                                <label for="" class="w-25">Postcode</label>
+                                <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                              </div>
+                              <input id="postcodeNew" type="text" name="name" class="form-control">
+                            </div>
+                            <div class="col-12">
+                              <div class="d-flex">
+                                <label for="" class="w-25">Mobile No:</label>
+                                <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                              </div>
+                              <input id="mobileNew" type="text" name="name" class="form-control">
+                            </div>
+                            <div class="col-12">
+                              <div class="d-flex">
+                                <label for="" class="w-25">Email</label>
+                                <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                              </div>
+                              <input id="emailNew" type="text" name="name" class="form-control">
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary" onclick="validateNew()">Add Address</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <% address.forEach(element => { %>
+                    <% for(i=0;i<element.address.length;i++){ %>
+                    <div class="col-lg-6 ">
+                      <div class="card card-dashboard">
+                        <div class="card-body" style="height: 370px !important;">
+                          <h3 class="card-title"><%= i==0? 'Primary Address': 'Secondary Address' %></h3>
+                          <p class="mt-2"><span style="font-weight: 500;"><%= element.address[i].fName%> <%=element.address[i].lName%></span> <br>
+                            <%= element.address[i].address %> <br>
+                            <%= element.address[i].landmark %><br>
+                            <%= element.address[i].town %><br>
+                            <%= element.address[i].postcode %> <%= element.address[i].country %><br>
+                            <%= element.address[i].mobile %> <br>
+                            <%= element.address[i].email %><br>
+                            <a class="text-primary" data-toggle="modal" data-target="#exampleModalLong<%=element.address[i]._id%>">Edit <i class="icon-edit"></i></a>
+                            <a class="text-danger mx-4" onclick="popupDisplay('<%=element.address[i]._id%>')">Delete<i class="icon-delete"></i></a>
+                          </p>
+                        </div><!-- End .card-body -->
+                      </div><!-- End .card-dashboard -->
+                    </div><!-- End .col-lg-6 -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalLong<%=element.address[i]._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Edit address</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="" class="p-3">
+                              <div class="col-12">
+                                <div class="d-flex">
+                                  <label for="" class="w-25">First Name</label>
+                                  <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                                </div>
+                                <input id="fName" type="text" name="name" class="form-control" value="<%= element.address[i].fName %> ">
+                              </div>
+                              <div class="col-12">
+                                <div class="d-flex">
+                                  <label for="" class="w-25">Last Name</label>
+                                  <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                                </div>
+                                <input id="lName" type="text" name="name" class="form-control" value="<%= element.address[i].lName %> ">
+                              </div>
+                              <div class="col-12">
+                                <div class="d-flex">
+                                  <label for="" class="w-25">Address</label>
+                                  <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                                </div>
+                                <input id="address" type="text" name="name" class="form-control" value="<%= element.address[i].address %> ">
+                              </div>
+                              <div class="col-12">
+                                <div class="d-flex">
+                                  <label for="" class="w-25">Landmark</label>
+                                  <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                                </div>
+                                <input id="landmark" type="text" name="name" class="form-control" value="<%= element.address[i].landmark %> ">
+                              </div>
+
+                              <div class="col-12">
+                                <div class="d-flex">
+                                  <label for="" class="w-25">Town</label>
+                                  <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                                </div>
+                                <input id="town" type="text" name="name" class="form-control" value="<%= element.address[i].town %> ">
+                              </div>
+
+                              <div class="col-12">
+                                <div class="d-flex">
+                                  <label for="" class="w-25">Country</label>
+                                  <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                                </div>
+                                <input id="country" type="text" name="name" class="form-control" value="<%= element.address[i].country %> ">
+                              </div>
+
+                              <div class="col-12">
+                                <div class="d-flex">
+                                  <label for="" class="w-25">Postcode</label>
+                                  <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                                </div>
+                                <input id="postcode" type="text" name="name" class="form-control" value="<%= element.address[i].postcode %> ">
+                              </div>
+                              <div class="col-12">
+                                <div class="d-flex">
+                                  <label for="" class="w-25">Mobile No:</label>
+                                  <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                                </div>
+                                <input id="mobile" type="text" name="name" class="form-control" value="<%= element.address[i].mobile %> ">
+                              </div>
+                              <div class="col-12">
+                                <div class="d-flex">
+                                  <label for="" class="w-25">Email</label>
+                                  <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                                </div>
+                                <input id="email" type="text" name="name" class="form-control" value="<%= element.address[i].email %> ">
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" onclick="validator('<%= element.address[i]._id%>',this)" class="btn btn-primary">Save changes</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <% } %>
+                    <% }); %>
+                  </div><!-- End .row -->
+                </div><!-- .End .tab-pane -->
+
+
+
+                <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+                  <form action="#">
+                    <div class="row"></P>
+                      <div class="col-md-6">
+                        <div class="d-flex">
+                          <label class="w-25">First Name *</label>
+                          <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                        </div>
+                        <input type="text" id="fNamePro" class="form-control" required>
+                      </div><!-- End .col-sm-6 -->
+
+                      <div class="col-sm-6">
+                        <div class="d-flex">
+                          <label class="w-25">Last Name *</label>
+                          <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                        </div>
+                        <input type="text" id="lNamePro" class="form-control" required>
+                      </div><!-- End .col-sm-6 -->
+                    </div><!-- End .row -->
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="d-flex">
+                          <label class="w-25">Email address *</label>
+                          <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                        </div>
+                        <input type="email" id="emailPro" class="form-control" required>
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="d-flex">
+                          <label class="w-50">Current password </label>
+                          <p class="d-flex w-50 justify-content-end " id="passwordChange" style="color: rgb(230, 43, 40);"></p>
+                        </div>
+                        <input type="password" id="currentPasswordPro" class="form-control">
+                      </div>
+
+
+                      <div class="col-md-12">
+                        <div class="d-flex">
+                          <label class="w-50">New password </label>
+                          <p class="d-flex w-50 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                        </div>
+                        <input type="password" id="newPasswordPro" class="form-control">
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="d-flex">
+                          <label class="w-25">Confirm new password</label>
+                          <p class="d-flex w-75 justify-content-end " style="color: rgb(230, 43, 40);"></p>
+                        </div>
+                        <input type="password" id="confirmPasswordPro" class="form-control mb-2">
+                      </div>
+
+                      <div class="col-12">
+                        <button type="button" onclick="changeProfile()" class="btn btn-outline-primary-2">
+                          <span>SAVE CHANGES</span>
+                          <i class="icon-long-arrow-right"></i>
+                        </button>
+                        <!-- <div hidden>ldsa;fdsf</div> -->
+                      </div>
+                  </form>
+                </div><!-- .End .tab-pane -->
+              </div>
+            </div><!-- End .col-lg-9 -->
+          </div><!-- End .row -->
+        </div><!-- End .container -->
+      </div><!-- End .dashboard -->
+    </div><!-- End .page-content -->
+  </main><!-- End .main -->
+
+  <script>
+    function validator(Id, input) {
+      console.log(Id);
+
+      const fName = input.parentElement.parentElement.querySelector('#fName')
+      const lName = input.parentElement.parentElement.querySelector('#lName')
+      const street = input.parentElement.parentElement.querySelector('#address')
+      const apartment = input.parentElement.parentElement.querySelector('#landmark')
+      const town = input.parentElement.parentElement.querySelector('#town')
+      const country = input.parentElement.parentElement.querySelector('#country')
+      const postcode = input.parentElement.parentElement.querySelector('#postcode')
+      const mobile = input.parentElement.parentElement.querySelector('#mobile')
+      const email = input.parentElement.parentElement.querySelector('#email')
+
+
+      const fNameValue = fName.value.trim()
+      const lNameValue = lName.value.trim()
+      const streeValue = street.value.trim()
+      const apartmentValue = apartment.value.trim()
+      const townValue = town.value.trim()
+      const countryValue = country.value.trim()
+      const postcodeValue = postcode.value.trim()
+      const mobileValue = mobile.value.trim()
+      const emailValue = email.value.trim()
+
+
+      const error1 = fName.parentElement.querySelector('p')
+      const error2 = lName.parentElement.querySelector('p')
+      const error3 = street.parentElement.querySelector('p')
+      const error4 = apartment.parentElement.querySelector('p')
+      const error5 = town.parentElement.querySelector('p')
+      const error6 = postcode.parentElement.querySelector('p')
+      const error7 = mobile.parentElement.querySelector('p')
+      const error8 = email.parentElement.querySelector('p')
+      const error9 = country.parentElement.querySelector('p')
+
+
+      let flag = 1
+
+      error1.innerText = ""
+      error2.innerText = ""
+      error3.innerText = ""
+      error4.innerText = ""
+      error5.innerText = ""
+      error6.innerText = ""
+      error7.innerText = ""
+      error8.innerText = ""
+      error9.innerText = ""
+
+
+      let arr = [fName, lName, street, apartment, town, country, postcode, mobile, email]
+
+      arr.forEach((element) => {
+        element.addEventListener("keyup", () => {
+          element.parentElement.querySelector('p').innerText = ""
+        })
+      })
+
+      //First Name
+      if (fNameValue == "") {
+        error1.innerText = 'This field is required'
+        flag = 2
+      } else if (fNameValue.length <= 2) {
+        error1.innerText = "First name must be minimum 2 characters"
+        flag = 2
+      } else if (!fNameValue.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/)) {
+        error1.innerText = "Enter valid details"
+        flag = 2
+      }
+
+      //Last Name
+      if (lNameValue == "") {
+        error2.innerText = 'This field is required'
+      } else if (lNameValue.length < 2) {
+        error2.innerText = "Last name must be minimum 1 characters"
+        flag = 2
+      } else if (!lNameValue.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/)) {
+        error2.innerText = "Enter valid details"
+        flag = 2
+      }
+
+      //Street Value
+      if (streeValue == "") {
+        error3.innerText = 'This field is required'
+        flag = 2
+      }
+
+      //Apartment Value
+      if (apartmentValue == "") {
+        error4.innerText = 'This field is required'
+        flag = 2
+      }
+
+      //Town Value
+      if (townValue == "") {
+        error5.innerText = 'This field is required'
+        flag = 2
+      }
+
+      //Postcode Value
+      if (postcodeValue == "") {
+        error6.innerText = 'This field is required'
+        flag = 2
+      } else if (postcodeValue.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/)) {
+        error6.innerText = 'Enter valid details'
+        flag = 2
+      }
+
+      //Phone Number
+      if (mobileValue == "") {
+        error7.innerText = "This field is required"
+        flag = 2
+      } else if (!mobileValue.match(/^(\+\d{1,3}[- ]?)?\d{10}$/)) {
+        error7.innerText = 'Enter valid phone number'
+        flag = 2
+      }
+
+      //Email Valued
+      if (emailValue == "") {
+        error8.innerText = "This field is required"
+        flag = 2
+      } else if (!emailValue.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        error8.innerText = "Enter a valid email"
+        flag = 2
+      }
+
+      if (countryValue == "") {
+        error9.innerText = "This field is required"
+        flag = 2
+      }
+
+
+      if (flag == 1) {
+        submit(fNameValue, lNameValue, streeValue, apartmentValue, townValue, countryValue, postcodeValue, mobileValue, emailValue, Id)
+      }
+    }
+
+    function submit(fName, lName, address, landmark, town, country, postcode, mobile, email, Id) {
+
+      $.ajax({
+        url: '/accounts/address/' + Id,
+        method: 'PUT',
+        data: {
+          fName: fName,
+          lName: lName,
+          address: address,
+          landmark: landmark,
+          town: town,
+          country: country,
+          postcode: postcode,
+          mobile: mobile,
+          email: email,
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.responseJSON.message,
+          })
+        },
+        success: (response) => {
+          if (response.status) {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Your address has been updated',
+              showConfirmButton: false,
+              timer: 1000
+            }).then(() => {
+              setTimeout(() => {
+                location.reload()
+              }, 500)
+            })
+
+          }
+        }
+      })
+    }
+
+    function popupDisplay(Id) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#6CB858',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success',
+            setTimeout(() => {
+              deleteAddress(Id)
+            }, 1000)
+          )
+        }
+      })
+    }
+
+    function deleteAddress(Id) {
+      $.ajax({
+        url: '/accounts/deleteAddress/' + Id,
+        method: 'delete',
+        success: (response) => {
+          if (response.status) {
+            location.reload()
+          }
+        }
+      })
+    }
+
+    function validateNew() {
+      const fName = document.getElementById('fNameNew')
+      const lName = document.getElementById('lNameNew')
+      const street = document.getElementById('addressNew')
+      const apartment = document.getElementById('landmarkNew')
+      const town = document.getElementById('townNew')
+      const country = document.getElementById('countryNew')
+      const postcode = document.getElementById('postcodeNew')
+      const mobile = document.getElementById('mobileNew')
+      const email = document.getElementById('emailNew')
+
+      const fNameValue = fName.value.trim()
+      const lNameValue = lName.value.trim()
+      const streeValue = street.value.trim()
+      const apartmentValue = apartment.value.trim()
+      const townValue = town.value.trim()
+      const countryValue = country.options[country.selectedIndex].text
+      const postcodeValue = postcode.value.trim()
+      const mobileValue = mobile.value.trim()
+      const emailValue = email.value.trim()
+
+
+      const error1 = fName.parentElement.querySelector('p')
+      const error2 = lName.parentElement.querySelector('p')
+      const error3 = street.parentElement.querySelector('p')
+      const error4 = apartment.parentElement.querySelector('p')
+      const error5 = town.parentElement.querySelector('p')
+      const error6 = postcode.parentElement.querySelector('p')
+      const error7 = mobile.parentElement.querySelector('p')
+      const error8 = email.parentElement.querySelector('p')
+      const error9 = country.parentElement.querySelector('p')
+
+
+      let flag = 1
+
+      error1.innerText = ""
+      error2.innerText = ""
+      error3.innerText = ""
+      error4.innerText = ""
+      error5.innerText = ""
+      error6.innerText = ""
+      error7.innerText = ""
+      error8.innerText = ""
+      error9.innerText = ""
+
+      let arr = [fName, lName, street, apartment, town, country, postcode, mobile, email]
+
+      arr.forEach((element) => {
+        element.addEventListener("keyup", () => {
+          element.parentElement.querySelector('p').innerText = ""
+        })
+      })
+
+
+      //First Name
+      if (fNameValue == "") {
+        error1.innerText = 'This field is required'
+        flag = 2
+      } else if (fNameValue.length <= 2) {
+        error1.innerText = "First name must be minimum 2 characters"
+        flag = 2
+      } else if (!fNameValue.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/)) {
+        error1.innerText = "Enter valid details"
+        flag = 2
+      }
+
+      //Last Name
+      if (lNameValue == "") {
+        error2.innerText = 'This field is required'
+      } else if (lNameValue.length < 2) {
+        error2.innerText = "Last name must be minimum 1 characters"
+        flag = 2
+      } else if (!lNameValue.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/)) {
+        error2.innerText = "Enter valid details"
+        flag = 2
+      }
+
+      //Street Value
+      if (streeValue == "") {
+        error3.innerText = 'This field is required'
+        flag = 2
+      }
+
+      //Apartment Value
+      if (apartmentValue == "") {
+        error4.innerText = 'This field is required'
+        flag = 2
+      }
+
+      //Town Value
+      if (townValue == "") {
+        error5.innerText = 'This field is required'
+        flag = 2
+      }
+
+      //Postcode Value
+      if (postcodeValue == "") {
+        error6.innerText = 'This field is required'
+        flag = 2
+      } else if (postcodeValue.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/)) {
+        error6.innerText = 'Enter valid details'
+        flag = 2
+      }
+
+      //Phone Number
+      if (mobileValue == "") {
+        error7.innerText = "This field is required"
+        flag = 2
+      } else if (!mobileValue.match(/^(\+\d{1,3}[- ]?)?\d{10}$/)) {
+        error7.innerText = 'Enter valid phone number'
+        flag = 2
+      }
+
+      //Email Valued
+      if (emailValue == "") {
+        error8.innerText = "This field is required"
+        flag = 2
+      } else if (!emailValue.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        error8.innerText = "Enter a valid email"
+        flag = 2
+      }
+
+      if (countryValue == 'Select your Country') {
+        error9.innerText = "This field is required"
+        flag = 2
+      }
+
+      if (flag == 1) {
+        addressNew(fNameValue, lNameValue, streeValue, apartmentValue, townValue, countryValue, postcodeValue, mobileValue, emailValue)
+      }
+
+    }
+
+    function addressNew(fName, lName, address, landmark, town, country, postcode, mobile, email) {
+      $.ajax({
+        url: '/accounts/add_address',
+        method: 'PUT',
+        data: {
+          fName: fName,
+          lName: lName,
+          address: address,
+          landmark: landmark,
+          town: town,
+          country: country,
+          postcode: postcode,
+          mobile: mobile,
+          email: email,
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.responseJSON.message,
+          })
+        },
+        success: (response) => {
+          if (response.status) {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Address added successfully',
+              showConfirmButton: false,
+              timer: 1000
+            }).then(() => {
+              setTimeout(() => {
+                location.reload()
+              }, 500)
+            })
+
+          }
+        }
+      })
+    }
+
+    function changeProfile() {
+      const fName = document.getElementById('fNamePro')
+      const lName = document.getElementById('lNamePro')
+      const email = document.getElementById('emailPro')
+      const currentPassword = document.getElementById('currentPasswordPro')
+      const newPasswordPro = document.getElementById('newPasswordPro')
+      const confirmPasswordPro = document.getElementById('confirmPasswordPro')
+
+      const fNameValue = fName.value
+      const lNameValue = lName.value
+      const emailValue = email.value
+      const currentPasswordValue = currentPassword.value
+      const newPasswordProValue = newPasswordPro.value
+      const confirmPasswordProValue = confirmPasswordPro.value
+
+      const error1 = fName.parentElement.querySelector('p')
+      const error2 = lName.parentElement.querySelector('p')
+      const error3 = email.parentElement.querySelector('p')
+      const error4 = currentPassword.parentElement.querySelector('p')
+      const error5 = newPasswordPro.parentElement.querySelector('p')
+      const error6 = confirmPasswordPro.parentElement.querySelector('p')
+
+      error1.innerText = ""
+      error2.innerText = ""
+      error3.innerText = ""
+      error4.innerText = ""
+      error5.innerText = ""
+      error6.innerText = ""
+
+      let flag = 1
+
+      let arr = [fName, lName, email, currentPassword, newPasswordPro, confirmPasswordPro]
+
+      arr.forEach((element) => {
+        element.addEventListener("keyup", () => {
+          element.parentElement.querySelector('p').innerText = ""
+        })
+      })
+
+
+      /////////////////////////////////First Name Validation////////////////////////
+
+      if (fNameValue == "") {
+        error1.innerText = "This field is required"
+        flag = 2
+      } else if (fNameValue.length <= 2) {
+        error1.innerText = "First name must be minimum 2 characters"
+        flag = 2
+      } else if (!fNameValue.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/)) {
+        error1.innerText = "Enter valid details"
+        flag = 2
+      }
+
+
+      /////////////////////////////////Last Name Validation////////////////////////
+
+      if (lNameValue == "") {
+        error2.innerText = "This field is required"
+        flag = 2
+      } else if (!lNameValue.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/)) {
+        error2.innerText = "Enter valid details"
+        flag = 2
+      }
+
+
+      ///////////////////////////////Email Validation//////////////////////////////
+
+      if (emailValue == "") {
+        error3.innerText = "This field is required"
+        flag = 2
+
+      } else if (!emailValue.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        error3.innerText = "Enter a valid email"
+        flag = 2
+      }
+
+
+      ///////////////////////////////Password Validation//////////////////////////////
+
+      if (currentPasswordValue == "") {
+        error4.innerText = "This field is required"
+        flag = 2
+
+      } else if (currentPasswordValue.length < 8) {
+        error4.innerText = "Password Not valid"
+        flag = 2
+      }
+
+
+
+      if (newPasswordProValue == "") {
+        error5.innerText = "This field is required"
+        flag = 2
+
+      } else if (newPasswordProValue.length < 8) {
+        error5.innerText = "Must be minimum 8 characters"
+        flag = 2
+      } else if (!newPasswordProValue.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+        error5.innerText = "Password should contain atleast one letter and one number"
+        error5.style.textAlign = 'end'
+        flag = 2
+      }
+
+
+      ///////////////////////////////Confirm Password Validation//////////////////////////////
+
+      if (confirmPasswordProValue == "") {
+        error6.innerText = "This field is required"
+        flag = 2
+      } else if (confirmPasswordProValue !== newPasswordProValue) {
+        error6.innerText = "Enter password correctly"
+        flag = 2
+      }
+      if (flag == 1) {
+        updateProfile(fNameValue,lNameValue, emailValue,currentPasswordValue,confirmPasswordProValue)
+      }
+
+    }
+
+    function updateProfile(fNameValue,lNameValue, emailValue,currentPasswordValue,confirmPasswordProValue) {
+      $.ajax({
+        url: "/accounts/updateProfile",
+        method: 'PUT',
+        data:{
+          fName:fNameValue, 
+          lName:lNameValue, 
+          email:emailValue, 
+          currentPassword:currentPasswordValue, 
+          confirmPasswordPro:confirmPasswordProValue
+        },
+        success: (response) => {
+          if(response.status==true){
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Your profile has been updated',
+              showConfirmButton: false,
+              timer: 1000
+            }).then(() => {
+              setTimeout(() => {
+                location.reload()
+              }, 500)
+            })
+          }else{
+            document.getElementById('passwordChange').innerText = "Wrong password"
+          }
+        }
+      })
+    }
     
+    function getUserData(){
+      $.ajax({
+        url:'/accounts/user_data',
+        method:'get',
+        success:(response)=>{
+          document.getElementById('walletPrice').innerText =" Rs "+ response.totalWallet
+        }
+      })
+    }
+  </script>

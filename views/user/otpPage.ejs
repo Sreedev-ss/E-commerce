@@ -1,133 +1,176 @@
 <section>
 
-    <div class="page-wrapper">
+  <div class="page-wrapper">
 
-        <main class="main">
+    <main class="main">
 
-            <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17"
-                style="background-image: url('/images/backgrounds/login-bg.jpg')">
-                <div class="container">
-                    <div class="form-box">
-                        <div class="form-tab">
-                            <ul class="nav nav-pills nav-fill" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2"
-                                        role="tab" aria-controls="signin-2" aria-selected="false">Login in with OTP</a>
-                                </li>
+      <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('/images/backgrounds/login-bg.jpg')">
+        <div class="container">
+          <div class="form-box">
+            <div class="form-tab">
+              <ul class="nav nav-pills nav-fill" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="false">Login in with OTP</a>
+                </li>
 
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="signin-2" role="tabpanel"
-                                    aria-labelledby="signin-tab-2">
-                                    <form action="#">
-                                        <p id="numberCheck" style="color: rgb(200,0,0);"></p>
-                                        <div class="form-group">
-                                            <label for="singin-email-2">Your Number <span
-                                                    class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="number" name="singin-email"
-                                                required>
-                                        </div><!-- End .form-group -->
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+                  <form action="#">
+                    <p id="numberCheck" style="color: rgb(200,0,0);"></p>
+                    <div class="form-group">
+                      <label for="singin-email-2">Your Number <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="number" name="singin-email" required>
+                    </div><!-- End .form-group -->
 
-                                        <div class="d-flex">
-                                            <button type="button" onclick="findNumber()"
-                                                class="btn btn-outline-primary-2 mt-1">
-                                                <span>Send OTP</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </button>
-                                            <p id="Status" style='color: rgb(53,200,0);' class="mx-5 mt-2"></p>
-                                        </div>
+                    <div class="d-flex">
+                      <button type="button" onclick="findNumber()" class="btn btn-outline-primary-2 mt-1">
+                        <span>Send OTP</span>
+                        <i class="icon-long-arrow-right"></i>
+                      </button>
+                      <p id="Status" style='color: rgb(53,200,0);' class="mx-5 mt-2"></p>
+                    </div>
 
 
-                                        <div class="form-group mt-2">
-                                            <label for="singin-password-2">Enter OTP <span
-                                                    class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="verify" name="singin-password">
+                    <div class="form-group mt-2">
+                      <label for="singin-password-2">Enter OTP <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="verify" name="singin-password">
 
-                                        </div><!-- End .form-group -->
+                    </div><!-- End .form-group -->
 
-                                        <div class="form-footer">
-                                            <button type="button" onclick="verifyOtp()"
-                                                class="btn btn-outline-primary-2">
-                                                <span>Confirm</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </button>
-                                            <p id="confirm" style='color: rgb(300,0,0)'></p>
+                    <div class="form-footer">
+                      <button type="button" onclick="verifyOtp()" class="btn btn-outline-primary-2">
+                        <span>Confirm</span>
+                        <i class="icon-long-arrow-right"></i>
+                      </button>
+                      <p id="confirm" style='color: rgb(300,0,0)'></p>
+                      <p id="ResentTimer" class="text-info"></p>
+                      <a class="mx-2" id="resentOtp" onclick="sendOtp()" hidden>Resent Otp</a>
 
-                                            <a href="/user_registration" class="forgot-link">Don't have an account?</a>
-                                        </div><!-- End .form-footer -->
-                                    </form>
+                      <a href="/user_registration" class="forgot-link">Don't have an account?</a>
+                    </div><!-- End .form-footer -->
+                  </form>
 
-                                </div><!-- .End .tab-pane -->
+                </div><!-- .End .tab-pane -->
 
-                            </div><!-- End .tab-content -->
-                        </div><!-- End .form-tab -->
-                    </div><!-- End .form-box -->
-                </div><!-- End .container -->
-            </div><!-- End .login-page section-bg -->
-        </main><!-- End .main -->
+              </div><!-- End .tab-content -->
+            </div><!-- End .form-tab -->
+          </div><!-- End .form-box -->
+        </div><!-- End .container -->
+      </div><!-- End .login-page section-bg -->
+    </main><!-- End .main -->
 
-    </div><!-- End .page-wrapper -->
+  </div><!-- End .page-wrapper -->
 
-    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+  <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
 
-    <!-- Mobile Menu -->
+  <!-- Mobile Menu -->
 
 </section>
 
 <script>
-
-    function findNumber(){
-        const number = document.getElementById('number').value.trim()
-        if(number==""){
-            document.getElementById('numberCheck').innerText="Enter number"
-        }else{
-            document.getElementById('numberCheck').innerText=""
-        $.ajax({
-            url:'/otpNumberFind',
-            method:'post',
-            data:{
-                number:number
-            },
-            success:(response)=>{
-                console.log(response);
-                    if(response.status==true){
-                        sendOtp()
-                    }else if(response.blocked==true){
-                        document.getElementById('numberCheck').innerText="You are currently blocked"
-                    }else{
-                        document.getElementById('numberCheck').innerText="User not exist? Please Sign up !!!"
-                    }
-            }
-        })
+  function findNumber() {
+    const number = document.getElementById('number').value.trim()
+    if (number == "") {
+      document.getElementById('numberCheck').innerText = "Enter number"
+    } else {
+      document.getElementById('numberCheck').innerText = ""
+      $.ajax({
+        url: '/otpNumberFind',
+        method: 'PUT',
+        data: {
+          number: number
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.responseJSON.message,
+          })
+        },
+        success: (response) => {
+          console.log(response);
+          if (response.status == true) {
+            sendOtp()
+          } else if (response.blocked == true) {
+            document.getElementById('numberCheck').innerText = "You are currently blocked"
+          } else {
+            document.getElementById('numberCheck').innerText = "User not exist? Please Sign up !!!"
+          }
+        }
+      })
     }
-    }
+  }
 
-    function sendOtp() {
-        const status = document.getElementById('Status').innerText = 'Otp Sent'
-        const number = document.getElementById('number').value.trim()
-        fetch('/otp_login?phoneNumber=91' + number + '&channel=sms', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-    }
 
-    function verifyOtp() {
-        const number = document.getElementById('number').value.trim()
-        const verify = document.getElementById('verify').value.trim()
-        fetch('/otp_verify?phoneNumber=91' + number + '&code=' + verify, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then((res) => res.json())
-            .then((res) => {
-                if (res.value == "success") {
-                    window.location.href = '/'
-                } else {
-                    document.getElementById('confirm').innerText = 'Otp not valid'
+  function sendOtp() {
+    const resentOtp = document.getElementById('resentOtp')
+    resentOtp.setAttribute("hidden", "")
+    document.getElementById('ResentTimer').innerText=""
+    const status = document.getElementById('Status').innerText = 'Otp Sent'
+    const number = document.getElementById('number').value.trim()
+    fetch('/otp_login?phoneNumber=91' + number + '&channel=sms', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+
+      }).then((res) => res.json())
+      .then((res) => {
+        if (res.status == 'error') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.responseJSON.message,
+          })
+        }
+      })
+  }
+
+  function verifyOtp() {
+    const number = document.getElementById('number').value.trim()
+    const verify = document.getElementById('verify').value.trim()
+    fetch('/otp_verify?phoneNumber=91' + number + '&code=' + verify, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((res) => res.json())
+      .then((res) => {
+        if (res.status == 'error') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.responseJSON.message,
+          })
+        } else {
+          if (res.value == "success") {
+            window.location.href = '/'
+          } else {
+            document.getElementById('confirm').innerText = 'Otp not valid'
+              var c = 0
+              var d = setInterval(() => {
+                document.getElementById('confirm').innerText = ''
+                c += 1
+                if (c == 60) {
+                  clearInterval(d)
                 }
-            })
-    }
+                // console.log("hi");
+                if(c<=50){
+                document.getElementById('ResentTimer').innerText = "00:" + (60 - c)
+              }else{
+                  document.getElementById('ResentTimer').innerText = "00:0" + (60 - c)
+                }
+              }, 1000)
+
+              setTimeout(() => {
+                document.getElementById('ResentTimer').innerText = ""
+                const resentOtp = document.getElementById('resentOtp')
+                resentOtp.removeAttribute("hidden")
+              }, 68000)
+
+          }
+        }
+      })
+  }
 </script>

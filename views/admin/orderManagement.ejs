@@ -20,7 +20,26 @@
     padding-right: 50px;
 
   }
+/* 
+  table {
+    border-collapse: separate ;
+    border-spacing: 0 2em !important;
+    border: 1px solid rgb(222,226,230) !important
+} */
 
+table {
+    border-collapse: collapse;
+}
+
+th{
+  border: 0.8px solid rgb(222,226,230) !important;
+}
+
+td {
+  border: 0.8px solid rgb(222,226,230) !important;
+    padding-top: .5em !important;
+    padding-bottom: .5em !important;
+}
   .line {
     width: 100.5%;
     height: 1px;
@@ -53,18 +72,11 @@
   }
 </style>
 <section>
-  <div class="row w-100 p-4 nav">
-    <div class="col-md-2 mx-5  profile">
-      <div class="profileiconMain">
-        <img src="/images/admin-profile.png" alt="">
-      </div>
-      <h4>Admin</h4>
-    </div>
-
-    <div class="col-md-9 d-flex align-items-center">
+  <div class="row w-100 nav">
+    <div class="col-md-12 p-5 d-flex justify-content-center align-items-center ">
       <div class="headBar d-flex text-center ">
         <a href="/admin_panel">
-          <h6 class="">Dashboard</h6>
+          <h6 >Dashboard</h6>
         </a>
         <a href="/admin_panel/products">
           <h6>Product Mangement</h6>
@@ -78,11 +90,10 @@
         <a href="/admin_panel/order_management">
           <h6 class="text-info">Orders Mangement</h6>
         </a>
-        <span class="nav mx-auto">
-        </span>
+        <a href="/admin_panel/coupen_management">
+          <h6>Coupen Mangement</h6>
+        </a>
       </div>
-
-    </div>
   </div>
   <div class="row line ">
 
@@ -106,44 +117,36 @@
 
                         <div id="table" class="table-responsive  table-editable">
 
-                          <table class="table table-white table-bordered" id="dataTable" width="100%" cellspacing="0">
+                          <table class="table table-white " id="dataTable" width="100%" cellspacing="0">
                             <thead>
                               <tr>
                                 <th style="font-weight: bold; color:black" class="text-center">Sl.No</th>
-                                <th style="font-weight: bold; color:black" class="text-center">User Id</th>
-                                <th style="font-weight: bold; color:black" class="text-center">Order Id</th>
-                                <th style="font-weight: bold; color:black" class="text-center">Product Image</th>
-                                <th style="font-weight: bold; color:black" class="text-center">Items (No)</th>
+                                <th style="font-weight: bold; color:black" class="text-center ">User</th>
+                                <th style="font-weight: bold; color:black" class="text-center">Order</th>
+                                <th style="font-weight: bold; color:black; width: 150px;" class="text-center">Total Items</th>
                                 <th style="font-weight: bold; color:black" class="text-center">Total price</th>
-                                <th style="font-weight: bold; color:black" class="text-center">Delivery status</th>
+                                <th style="font-weight: bold; color:black; width: 150px;" class="text-center">Ordered On</th>
                                 <th style="font-weight: bold; color:black" class="text-center">Status</th>
-                                <th style="font-weight: bold; color:black" class="text-center">Action</th>
+                                <th style="font-weight: bold; color:black; width: 100px;" class="text-center"></th>
 
                               </tr>
                             </thead>
 
 
                             <tbody>
-                              <% const status=(status)=>{
-                                                                if(status==true){
-                                                                    return `${'Order Placed'}`
-                                                                }else{
-                                                                    return `${'Order Cancelled'}`
-                                                                }
-                                                            } %>
                               <%  const dataToReadable=(date)=>{
 
                                                                 const date_ = new Date(date);
-                                                                let month = ['Jan','Feb','March','April','May','June','July','Aug','Sept','Nov','Dec']
+                                                                let month = ['Jan','Feb','March','April','May','June','July','Aug','Sept','Oct','Nov','Dec']
                                                                 let dd = date_.getDate();
-                                                                let mm = date_.getMonth()-1;
+                                                                let mm = date_.getMonth();
                                                                 let monthText = month[mm]
                                                                 let yyyy = date_.getFullYear();
 
                                                                 return `${isNaN(dd)?'00':dd}-${monthText}-${isNaN(yyyy)?'0000':yyyy}`;
                                                                 }; %>
 
-
+                                                    
                               <% orders?.forEach((element,index) => { %>
                               <tr>
                                 <td class="text-center" style="border-bottom: 1px solid rgb(222,226,230);font-weight: 600; width: 100px;">
@@ -151,57 +154,41 @@
                                 </td>
 
 
-                                <td class="text-center" style="width: 250px;border-bottom: 1px solid rgb(222,226,230);font-weight: 500">
+                                <td class="text-center p-4" style="width: 250px;border-bottom: 1px solid rgb(222,226,230);font-weight: 500; text-align: left !important;">
+                                  Name: <span style="color: #ea9802;"><%=element.orders.fName %></span><br>
                                   Id: <%=element.userId %>
-                                  Name: <span style="color: #ea9802;"><%=element.orders.fName %></span>
                                 </td>
 
-                                <td class="text-center" style="width: 250px;border-bottom: 1px solid rgb(222,226,230);font-weight: 500">
+                                <td class="text-center p-2" style="width: 250px;border-bottom: 1px solid rgb(222,226,230);font-weight: 500">
                                   Id: <%=element.orders._id %>
-                                  Product: <%=element.orders.productDetails.productName.slice(0,15)+". . ." %>
-                                </td>
-
-                                <td style="width: 200px;border-bottom: 1px solid rgb(222,226,230);font-weight: 500;">
-                                  <img class="mx-auto" style="width: 50px; height:50px; object-fit: contain;" src="/productImages/<%=element.orders.productDetails._id%>0.jpg" alt="">
                                 </td>
 
                                 <td class="text-center" style="width: 130px;border-bottom: 1px solid rgb(222,226,230);font-weight: 500">
-                                  <%=element.orders.productDetails.quantity %>
+                                <%=element.orders.totalQuantity %>
                                 </td>
 
                                 <td class="text-center" style="width: 130px;border-bottom: 1px solid rgb(222,226,230);font-weight: 500">
-                                  Rs :<%=element.orders.productDetails.productPrice%>
+                                  Rs :<%=element.orders.totalPrice%>
+                                </td>
+                                
+                                <td class="text-center">
+                                  <%= dataToReadable(element.orders.createdAt) %>
                                 </td>
 
-                                <% if(element.orders.productDetails.status==true){ %>
-                                <td class="text-center" style="width: 130px;border-bottom: 1px solid rgb(222,226,230);font-weight: 500">
-                                  <input class="text-center" style="background: transparent; border: none; " onclick="deliveryStatus(this,'<%= element.orders._id %>','<%= element.orders.productDetails._id  %>')" value="<%= element.orders.productDetails.delivery%>" >
+                                <td class="text-center text-white" style="width: 130px;border-bottom: 1px solid rgb(222,226,230);font-weight: 500; background-color: <%= element.orders.paymentStatus=="Paid"?'#1b8f2cd6':'rgb(200,30,0)' %>">
+                                  <%=element.orders.paymentStatus%>
                                 </td>
-                                <% }else{ %>
-                                  <td class="text-center" style="width: 130px;border-bottom: 1px solid rgb(222,226,230);font-weight: 500">
-                                  <input class="text-center" style="background: transparent; border: none; "  value="Cancelled" disabled >
+                               
+                                <td class="text-center cnlbtn p-2" style="border-bottom: 1px solid rgb(222,226,230);font-weight: 500">
+                                  <a href="/admin_panel/order_management/order_details/<%= element.orders._id %>"><button class="viewOrders btn text-white mt-1" style="border-radius: 5px; width: 130px; background-color: #272727d6;">View Details</button></a>
                                 </td>
-                                  <% } %>
-
-                                <td class="text-center" style="width: 130px;border-bottom: 1px solid rgb(222,226,230);font-weight: 500">
-                                  <span style="color: <%= element.orders.productDetails.status?'#1b8f2cd6':'rgb(200,30,0)' %>"><%=status(element.orders.productDetails.status)%></span>
-                                </td>
-                                <% if(element.orders.productDetails.status==true){ %>
-                                <td class="text-center cnlbtn" style="width: 220px;border-bottom: 1px solid rgb(222,226,230);font-weight: 500">
-                                  <button class="cancel btn text-white" style="border-radius: 10px; width: 130px; background-color: rgb(216, 0, 0);" onclick="cancelOrder('<%=element?.orders?.productDetails?._id%>','<%=element?.orders?._id%>')">Cancel Order</button>
-                                  <button class="viewOrders btn text-white mt-1" style="border-radius: 10px; width: 130px; background-color: #1b8f2cd6;">View Details</button>
-                                </td>
-                                <% }else{ %>
-                                  <td class="text-center cnlbtn" style="width: 220px;border-bottom: 1px solid rgb(222,226,230);font-weight: 500">
-                                <button class="viewOrders btn text-white" style="border-radius: 10px; width: 130px; background-color: #1b8f2cd6;">View Details</button>
-                                  </td>
-                                <% } %>
                               </tr>
                               <% }); %>
 
                             </tbody>
                           </table>
                         </div>
+
                       </div>
                     </div>
 
@@ -250,50 +237,20 @@
 </section>
 
 <script>
-  function cancelOrder(proId, orderId) {
-    console.log(proId, orderId);
+
+  function getDetails(orderId){
     $.ajax({
-      url: '/orders',
-      data: {
-        proId: proId,
-        orderId: orderId
-      },
-      method: 'post',
-      beforeSend: () => {
-        return confirm('Are you sure want to cancel this order?')
-      },
-      success: (response) => {
-        if (response.status) {
-          location.reload()
-        }
-      }
-    })
-  }
-
-
-  function deliveryStatus(value, orderId, proId) {
-    console.log(value);
-
-    value.addEventListener("keypress", function(event) {
-      if (event.key === "Enter") {
-        $.ajax({
-          url: '/admin_panel/updateOrders',
-          data: {
-            delivery: value.value,
-            order: orderId,
-            product: proId
-          },
-          method: 'POST',
-          beforeSend: () => {
-            return confirm('Are you sure want to update the delivery status?')
-          },
-          success: (response) => {
-            if (response.status) {
-              location.reload()
-            }
-          }
+      url:'/admin_panel/order_management/order_details/'+orderId,
+      method:'get',
+      error: (error) => {
+        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text:  error.responseJSON.message,
         })
-      }
+      },
     })
   }
+
 </script>

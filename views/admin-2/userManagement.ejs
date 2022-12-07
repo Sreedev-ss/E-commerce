@@ -1,0 +1,90 @@
+
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>User Management</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Contact</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created At</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                  <th class="text-secondary opacity-7"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <%  const dataToReadable=(date)=>{
+
+                        const date_ = new Date(date);
+                        let month = ['Jan','Feb','March','April','May','June','July','Aug','Sept','Nov','Dec']
+                        let dd = date_.getDate();
+                        let mm = date_.getMonth()-1;
+                        let monthText = month[mm]
+                        let yyyy = date_.getFullYear();
+                
+                        return `${isNaN(dd)?'00':dd}-${monthText}-${isNaN(yyyy)?'0000':yyyy}`;
+                        }; %>
+
+                <% const status=(data)=>{
+                        
+                        if(data == true){
+                            return `${'Active'}`
+                        }else{
+                            return `${'Blocked'}`
+                        }
+                    }%>
+                <% users.forEach((element,index)=>{%>
+                <tr>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div>
+                        <h6 class="mb-0 text-sm mt-1 me-3"><%= index+1%>.</h6>
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm"><%= element.fName %> <%= element.lName %></h6>
+                        <p class="text-xs text-secondary mb-0"><%= element.email %></p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0"><%= element.contactNo %></p>
+                    <!-- <p class="text-xs text-secondary mb-0">Organization</p> -->
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-secondary text-xs font-weight-bold"><%= dataToReadable(element.createdAt) %></span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <% if(element.status){ %>
+                        <span class="text-secondary text-xs font-weight-bold"><%= status(element.status) %></span>
+                    <% }else{ %>
+                        <span class="text-secondary text-xs font-weight-bold"><%= status(element.status) %></span>
+                        <%} %>
+                  </td>
+                  <td class="align-middle">
+                    <% if(element.status){ %>
+                        <a href="./userManagement/block_user/<%=element._id%>" onclick="return confirm('Are you sure want to unblock this user ?')"><span class="badge badge-sm bg-gradient-danger w-75"> Block</span></a>
+                    <% }else{ %>
+                        <a  href="./userManagement/unblock_user/<%=element._id%>"onclick="return confirm('Are you sure want to unblock this user ?')"><span class="badge badge-sm bg-gradient-success w-75">Unblock</span></a>
+                    <%} %>
+                  </td>
+                  </td>
+                </tr>
+                <%}) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+
+</script>

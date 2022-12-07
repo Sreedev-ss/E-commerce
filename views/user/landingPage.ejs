@@ -1,7 +1,6 @@
 
 <section>
     <div class="page-wrapper">
-    
         <main class="main">
             <div class="intro-section pt-3 pb-3 mb-2">
                 <div class="container">
@@ -18,24 +17,28 @@
                                             }
                                         }
                                     }'>
+                                    <% banner?.forEach(element => { %>
+                                        <% if(element.checked == true){ %> 
                                     <div class="intro-slide">
                                         <figure class="slide-image">
                                             <picture>
-                                                <source media="(max-width: 480px)" srcset="/images/demos/demo-3/slider/slide-1-480w.jpg">
-                                                <img src="/images/demos/demo-3/slider/slide-1.jpg" alt="Image Desc">
+                                                <source media="(max-width: 480px)" class="img-fluid" srcset="/bannerImages/<%= element._id  %>.jpg">
+                                                <img  src="/bannerImages/<%= element._id %>.jpg" alt="Image Desc">
                                             </picture>
                                         </figure><!-- End .slide-image -->
 
                                         <div class="intro-content">
                                             <h3 class="intro-subtitle text-primary">Daily Deals</h3><!-- End .h3 intro-subtitle -->
-                                            <h1 class="intro-title">
-                                                AirPods <br>Earphones
+                                            <h1 class="intro-title intro-price mb-0">
+                                                <span><%= element.mainBannerTitle.slice(0,10) %>  <br></span> 
                                             </h1><!-- End .intro-title -->
 
-                                            <div class="intro-price">
-                                                <sup>Today:</sup>
-                                                <span class="text-primary">
-                                                    $247<sup>.99</sup>
+                                            <div class="intro-subtitle">
+                                                <!-- <sup>Today:</sup> -->
+                                                
+                                                 <span class="text-primary ">
+
+                                                    <sup><%= element?.mainBannerDescription %></sup>
                                                 </span>
                                             </div><!-- End .intro-price -->
 
@@ -45,35 +48,36 @@
                                             </a>
                                         </div><!-- End .intro-content -->
                                     </div><!-- End .intro-slide -->
+                                    <% } %> 
+                                    <% }); %> 
 
-                                    <div class="intro-slide">
+                                    <!-- <div class="intro-slide">
                                         <figure class="slide-image">
                                             <picture>
                                                 <source media="(max-width: 480px)" srcset="/images/demos/demo-3/slider/slide-2-480w.jpg">
                                                 <img src="/images/demos/demo-3/slider/slide-2.jpg" alt="Image Desc">
                                             </picture>
-                                        </figure><!-- End .slide-image -->
-
+                                        </figure>
                                         <div class="intro-content">
-                                            <h3 class="intro-subtitle text-primary">Deals and Promotions</h3><!-- End .h3 intro-subtitle -->
+                                            <h3 class="intro-subtitle text-primary">Deals and Promotions</h3>
                                             <h1 class="intro-title">
                                                 Echo Dot <br>3rd Gen
-                                            </h1><!-- End .intro-title -->
+                                            </h1>
 
                                             <div class="intro-price">
                                                 <sup class="intro-old-price">$49,99</sup>
                                                 <span class="text-primary">
                                                     $29<sup>.99</sup>
                                                 </span>
-                                            </div><!-- End .intro-price -->
+                                            </div>
 
                                             <a href="category.html" class="btn btn-primary btn-round">
                                                 <span>Click Here</span>
                                                 <i class="icon-long-arrow-right"></i>
                                             </a>
-                                        </div><!-- End .intro-content -->
-                                    </div><!-- End .intro-slide -->
-                                </div><!-- End .intro-slider owl-carousel owl-simple -->
+                                        </div>
+                                    </div> -->
+                                   </div>
                                 
                                 <span class="slider-loader"></span><!-- End .slider-loader -->
                             </div><!-- End .intro-slider-container -->

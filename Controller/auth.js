@@ -2,70 +2,117 @@ const db = require('../Model/connection');
 
 module.exports = {
     authInit: async (req, res, next) => {
-        if(req.session?.user){
-            let userData = await db.users.findOne({_id:req.session.user});
-            if(userData.status==false){
+        try {
+            if (req.session?.user) {
+                let userData = await db.users.findOne({ _id: req.session.user });
+                if (userData.status == false) {
+                    req.user = null;
+                } else {
+                    req.user = userData;
+                };
+            } else {
                 req.user = null;
-            }else{
-                req.user = userData;
             };
-        }else{
-            req.user = null;
-        };
+        } catch (error) {
+            console.log(error);
+        }
 
-        if(req.session?.admin){
-            let adminData = await db.admin.findOne({_id:req.session.admin});
-            if(adminData.status==false){
+        try {
+            if (req.session?.admin) {
+                let adminData = await db.admin.findOne({ _id: req.session.admin });
+                if (adminData.status == false) {
+                    req.admin = null;
+                } else {
+                    req.admin = adminData;
+                };
+            } else {
                 req.admin = null;
-            }else{
-                req.admin = adminData;
             };
-        }else{
-            req.admin = null;
-        };
-        next();
+            next();
+        } catch (error) {
+            console.log(error);
+        }
     },
     verifyUser: function (req, res, next) {
-        if (req.user) {
-            next();
-        } else {
-            res.redirect('/user_signin');
+        try {
+            if (req.user) {
+                next();
+            } else {
+                res.redirect('/user_signin');
+            }
+        } catch (err) {
+            console.log(err);
         }
     },
     verifyAdmin: function (req, res, next) {
-        if (req.admin) {
-            next();
-        } else {
-            res.redirect('/admin_panel/admin_login');
+        try {
+            if (req.admin) {
+                next();
+            } else {
+                res.redirect('/admin_panel/admin_login');
+            }
+        } catch (err) {
+            console.log(err);
         }
     },
     mustLogoutUser: function (req, res, next) {
-        if (req.user) {
-            res.redirect('/');
-        } else {
-            next();
+        try {
+            if (req.user) {
+                res.redirect('/');
+            } else {
+                next();
+            }
+        } catch (err) {
+            console.log(err);
         }
     },
-    mustLogoutAdmin:(req,res,next)=>{
-        if (req.admin) {
-            res.redirect('/admin_panel');
-        } else {
-            next();
+    mustLogoutAdmin: (req, res, next) => {
+        try {
+            if (req.admin) {
+                res.redirect('/admin_panel');
+            } else {
+                next();
+            }
+        } catch (err) {
+            console.log(err);
         }
     },
 
     verifyUserAPI: function (req, res, next) {
-        if (req.user) {
-            next();
-        } else {
-            res.send('unauthorized');
+        try {
+            if (req.user) {
+                next();
+            } else {
+                res.status(401);
+                res.send({ status: 'error', message: 'Unauthorized Action' });
+            }
+        } catch (err) {
+            console.log(err);
         }
     },
+
+    verifyAdminAPI: function (req, res, next) {
+        try {
+            if (req.admin) {
+                next();
+            } else {
+                res.status(401);
+                res.send({ status: 'error', message: 'Unauthorized Action' });
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
     mustLogoutAPI: function (req, res, next) {
-        if (req.user) {
-            res.send('Forbidden');
-        } else {
-            next();
+        try {
+            if (req.user) {
+                res.send('Forbidden');
+            } else {
+                next();
+            }
+        } catch (err) {
+            console.log(err);
         }
     },
 };

@@ -1,0 +1,139 @@
+<style>
+  label {
+    font-weight: 600;
+    margin-bottom: 0px !important;
+  }
+
+  select,
+  textarea,
+  .addPro {
+    border-radius: 0px !important;
+    margin-top: 12px !important;
+  }
+</style>
+<section>
+  <div class="container mt-5 ">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-4 p-5">
+          <h2 class="text-center mt-1 mb-3">Add Banner</h2>
+          <p class="error text-dark text-center" id="errorBanner"></p>
+          <form enctype="multipart/form-data" method="post">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="">Title</label>
+                <input type="text" id="title" name="title" class="form-control addPro" required>
+              </div>
+              <div class="col-md-6">
+                <label for="">Category</label>
+                <select name="category" id="category" required class="form-control text-secondary w-100 my-2.3">
+                    <option hidden >Select Category</option>
+                    <% category.forEach((element,index)=>{ %>
+                        <option><%= element.categories %></option>
+                    <% })%>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="">Description</label>
+                <textarea type="text" id="description" name="description" rows="1" class="form-control" required></textarea><br>
+              </div>
+              <label for="">Banner Image</label>
+              <div class="col-md-12 mt-1 mx-auto" style="width: 778px; height: 400px; object-fit: contain; border: solid 1px rgba(0, 0, 0, 0.156);">
+
+                <img id="imgView1" class="img-fluid mb-4 p-2" alt="Banner image" style="width: 778px; height: 400px; object-fit: contain;">
+
+              </div>
+              <div class="row">
+                <div class="col-md-6 d-flex justify-content-between p-3">
+                  <label for="" class="mt-4 mx-2">Image1</label>
+                  <input type="file" id="image" name="Image" onchange="uploadFile(this.files[0])"  class="form-control addPro"><br>
+                </div>
+                <button type="button" class="btn btn-primary mt-3" onclick="validateBanner()">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  let fd = null
+  function viewImage1(event) {
+    document.getElementById('imgView1').src = URL.createObjectURL(event.target.files[0])
+  }
+
+  function validateBanner() {
+    errorBanner.innerText = ""
+    const title = document.getElementById('title').value
+    const description = document.getElementById('description').value
+    const category = document.getElementById('category')
+    const categoryValue = category.options[category.selectedIndex].text
+
+
+    let flag = 1
+
+    if (title == "") {
+      errorBanner.innerText = "Title is required"
+      errorBanner.style.background = "rgb(200,0,0,0.1)"
+      errorBanner.style.width = "100%"
+      flag = 2
+    } else if (description == "") {
+      errorBanner.innerText = "Description is required"
+      errorBanner.style.background = "rgb(200,0,0,0.1)"
+      errorBanner.style.width = "100%"
+      flag = 2
+    }else if (categoryValue == "Select Category") {
+      errorBanner.innerText = "Category is required"
+      errorBanner.style.background = "rgb(200,0,0,0.1)"
+      errorBanner.style.width = "100%"
+      flag = 2
+    } 
+     else if (input.files.length == 0) {
+      errorBanner.innerText = "Image is required"
+      errorBanner.style.background = "rgb(200,0,0,0.1)"
+      errorBanner.style.width = "100%"
+      flag = 2
+    } 
+
+    if (flag = 1) submit(title, description, fd, categoryValue)
+  }
+
+  const input = document.getElementById('image')
+//   input.addEventListener("change", () => {
+//     uploadFile(input.files[0])
+//   })
+
+  function uploadFile (file) {
+    console.log("xfgchv");
+    fd = new FormData()
+    fd.append('banner', file)
+  }
+  // 
+
+  function submit(title, description, fd,categoryValue) {
+
+    fd.append('data', JSON.stringify({
+      title: title,
+      description: description,
+      category:categoryValue
+    }))
+
+    if (fd == null || title == "" || description == "" ||categoryValue=="Select Category" ) {
+      errorBanner.innerText="Update all input"
+    } else {
+
+      fetch('/admin/bannerManagement/add_banner', {
+          method: 'POST',
+          body: fd
+        })
+        .then(res => res.json())
+        .then(json =>
+          location.href="/admin/bannerManagement")
+        .catch(err => console.error(err))
+
+
+    }
+  }
+</script>

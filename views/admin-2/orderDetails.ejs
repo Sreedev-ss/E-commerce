@@ -1,0 +1,338 @@
+<style>
+    
+    .swal2-deny {
+      margin-left: 10px;
+      border-radius: 3px;
+      height: 40px;
+    }
+  
+    .swal2-confirm {
+      border-radius: 3px;
+      height: 40px;
+    }
+  
+  
+    .btn {
+      min-width: 60px;
+      color: white;
+    }
+  
+    h6 {
+      padding-right: 50px;
+  
+    }
+  
+    .line {
+      width: 100.5%;
+      height: 1px;
+      background-color: #FCB941;
+    }
+  
+    .nav {
+      background-image: url('/images/page-header-bg.jpg');
+    }
+  
+    .fas.fa-angle-up {
+      display: none;
+    }
+  
+  
+  
+    /* Main */
+  
+    .mainDiv {
+      height: auto;
+      border: 1px solid #a1a1a1;
+      border-radius: 5px;
+    }
+  
+    .addrDiv {
+      height: auto;
+      border: 1px solid #a1a1a1;
+      border-radius: 5px;
+  
+    }
+  </style>
+  <div class="container-fluid ">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="mainbar ">
+          <section id="page-top">
+            <div id="wrapper">
+              <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                  <div class="container-fluid">
+                    <div class="card shadow mt-5 mb-4" style="border: 5px solid white; ">
+                      <div class="card-body mt-4">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-12">
+                              <%  const dataToReadable=(date)=>{
+
+                                    const date_ = new Date(date);
+                                    let month = ['Jan','Feb','March','April','May','June','July','Aug','Sept','Nov','Dec']
+                                    let dd = date_.getDate();
+                                    let mm = date_.getMonth()-1;
+                                    let monthText = month[mm]
+                                    let yyyy = date_.getFullYear();
+
+                                    return `${isNaN(dd)?'00':dd}-${monthText}-${isNaN(yyyy)?'0000':yyyy}`;
+                                    }; %>
+
+                              <% const changeMethod=(payment)=>{
+                                    if(payment == 'COD') return `${'COD (Cash on Delivery)'}`
+                                    else if(payment == 'Razorpay') return `${'Online Payment - Razorpay '}`
+                                    else return `${'Online Payment - Paypal'}`
+                                } %>
+                              <h3>Order Details</h3>
+
+                              <h6 style="font-weight: 400; font-size: small; color: #585858;">Ordered : <%= dataToReadable(orderDetails[0].orders.createdAt)  %> <span class="px-4 text-light">|</span>Order Id : #<%=orderDetails[0].orders._id  %> </h6>
+                            </div>
+                          </div>
+                          <div class="row mt-2">
+                            <div class="col-12 mainDiv">
+
+                              <% orderDetails?.forEach((element,index)=>{ %>
+                              <div class="row mt-2 p-3 mb-2">
+                                <div class="col-4 mx-3" style="float: left; position: relative;">
+                                  <div class="d-flex"><span style="margin-top: 0px;" >
+                                      <h6 class="w-100"><%= index+1 %> . <%= element.orders.productDetails.productName.slice(0,20) %></h6>
+                                    </span></div>
+                                  <div class="d-flex">
+                                    <img class="mx-2 mt-2" style="width: 80px; height:80px; object-fit:contain" src="/productImages/<%= element.orders.productDetails._id%>0.jpg" alt="">
+                                    <div class="d-flex-column mt-3 mx-2">
+                                        <div class="d-flex"><h6 class="mb-0 text-sm" style="color: #fb7e00;">Rs: <%= element.orders.productDetails.productPrice %><span class="text-dark"> X <%=element.orders.productDetails.quantity%></span> </h6></div>
+                                      <%if(element.orders.productDetails.delivery == "Product Returned"){%>
+                                        <span class="badge badge-sm bg-info w-auto" style="background-color: rgb(66, 145, 205) !important;">
+                                              Returned
+                                        </span>
+                                        <%}else if(element.orders.productDetails.delivery == "Delivered"){%>
+                                        <span class="badge badge-sm bg-info w-auto" style="background-color: rgb(109, 176, 85) !important;">
+                                              Delivered
+                                        </span>
+                                      <% }else if(element.orders.productDetails.status==true){%>
+                                        <span class="badge badge-sm bg-success w-auto" style="background-color: rgb(109, 176, 85) !important;">
+                                        Order Placed
+                                        </span>
+                                      <%}else{ %>
+                                        <span class="badge badge-sm bg-danger w-auto" style="background-color: rgb(205, 66, 66) !important;">
+                                        Cancelled
+                                        </span>
+                                      <%}%>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-7 " style="float: left;margin-top: 60px !important">
+                                  <div class="d-flex">
+                                    <div class="input-group ">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text text-dark bg-light" style="border-radius: 0px !important;" >
+                                          Delivery Status
+                                        </div>
+                                      </div>
+                                    
+                                    <% if(element.orders.productDetails.delivery == "Product Returned"){ %>
+                                      <select name="category" class="p-2 my-0" style="width: 150px !important;height: 40px !important; border:0.5px solid rgb(166, 166, 166);color: rgb(83, 83, 83);font-weight:500 !important">
+                                        <option selected disabled>Delivered</option>
+                                      </select>
+                                      <%}else if(element.orders.productDetails.status==false || element.orders.productDetails.delivery=='Cancelled'){%>
+                                      <select name="category" class="p-2 my-0" style="width: 150px !important;height: 40px !important; border:0.5px solid rgb(166, 166, 166);color: rgb(83, 83, 83);font-weight:500 !important">
+                                        <option selected disabled>Cancelled</option>
+                                      </select>
+                                      <%}else if(element.orders.productDetails.delivery=='Delivered'){ %>
+                                      <select name="category" class="p-2 my-0" style="width: 150px !important;height: 40px !important; border:0.5px solid rgb(166, 166, 166);color: rgb(83, 83, 83);font-weight:500 !important">
+                                        <option selected disabled >Delivered</option>
+                                      </select>
+                                      <%}else if(element.orders.paymentMethod!=='COD'&&element.orders.paymentStatus=='Pending'){ %>
+                                      <select name="category" onclick="swal(this,'<%= element.orders._id %>','<%= element.orders.productDetails._id  %>')" class="p-2 my-0" style="width: 150px !important;height: 40px !important; border:0.5px solid rgb(166, 166, 166);color: rgb(83, 83, 83);font-weight:500 !important">
+                                        <option selected >Pending</option>
+                                      </select>
+                                      <%}else{%>
+                                      <select name="category" id="selectDelivery" onchange="swal(this,'<%= element.orders._id %>','<%= element.orders.productDetails._id  %>')" class="p-2 my-0" style="width: 150px !important;height: 40px !important; border:0.5px solid rgb(166, 166, 166);color: rgb(83, 83, 83);font-weight:500 !important" >
+                                        <option selected disabled hidden data-change><%=element.orders.productDetails.delivery%></option>
+                                        <option>Processing</option>
+                                        <option>Confirmed</option>
+                                        <option>Shipping</option>
+                                        <option>Out of Delivery</option>
+                                        <option>Delivered</option>
+                                      </select>
+                                      <%}%>
+                                    </div>
+                                    <%if(element.orders.productDetails.delivery=='Delivered'){%>
+                                      <button class="cancel btn text-white bg-danger" style="border-radius: 10px; width: 230px; " disabled>Cancel Order</button>
+                                      <%}else if(element.orders.productDetails.status==true){%>
+                                      <button class="cancel btn text-white " style="border-radius: 10px; width: 230px; background-color: rgb(234, 34, 4);" onclick="popUp('<%=element?.orders?.productDetails?._id%>','<%=element?.orders?._id%>')">Cancel Order</button>
+                                      <%}else{%>
+                                      <button class="cancel btn text-white bg-danger" style="border-radius: 10px; width: 230px; " disabled>Cancel Order</button>
+                                      <%}%>
+                                  </div>
+                                </div>
+                              </div>
+                              <% }) %>
+                                    </div>
+                                  </div>
+
+                                  <div class="row mt-3">
+                                    <div class="col-12">
+                                      <div class="row addrDiv pb-2">
+                                        <div class="col-4  " style="float: left;">
+                                          <h6 class="mt-2 mx-4">Shipping address</h6>
+                                          <p class="mx-4 mt-1 text-sm text-secondary">
+                                            <span style="font-weight: 500;"><%= orderDetails[0].orders.fName %></span> <br>
+                                            <%= orderDetails[0].orders.shippingAddress.address  %>
+                                            <%= orderDetails[0].orders.shippingAddress.landmark  %>
+                                            <%= orderDetails[0].orders.shippingAddress.town  %>
+                                            <%= orderDetails[0].orders.shippingAddress.postcode  %> <br>
+                                            <%= orderDetails[0].orders.shippingAddress.mobile  %> <br>
+                                            <%= orderDetails[0].orders.shippingAddress.email  %> <br>
+                                            <%= orderDetails[0].orders.shippingAddress.country  %>
+                                          </p>
+                                        </div>
+
+                                        <div class="col-4 ">
+                                          <h6 class="mt-2 mx-4 ">Payment Method</h6>
+                                          <p class="mx-4 mt-1 text-sm text-secondary"><%=changeMethod(orderDetails[0].orders.paymentMethod) %></p>
+                                          <div class="mt-5">
+                                            <h6 class="mt-2 mx-4 ">Payment Status</h6>
+                                            <p class="mx-4 mt-1 text-sm text-secondary"><%=orderDetails[0]?.orders.paymentStatus?orderDetails[0]?.orders.paymentStatus:'No data Available' %></p>
+                                          </div>
+                                        </div>
+                                        <div class="col-4">
+
+                                          <h6 class="mt-2 mx-4 ">Total Price</h6>
+                                          <span class="mx-4 mt-2 " style="color: #fb6400; font-size: x-large !important; font-weight: 500; ">Rs: <%= orderDetails[0].orders.totalPrice %></span>
+
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                  </div>
+
+
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+
+                  </div>
+
+                </div>
+
+                <a class="scroll-to-top rounded" href="#page-top">
+                  <i class="fas fa-angle-up"></i>
+                </a>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function popUp(proId, OrderId) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Do you want to cancel ?',
+      text: "You won't be able to revert this!",
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Saved!', '', 'success').then(() => {
+          cancelOrder(proId, OrderId)
+        })
+      }
+    })
+  }
+
+  function cancelOrder(proId, orderId) {
+    console.log(proId, orderId);
+    $.ajax({
+      url: '/admin/orderManagement/order_details/orderCancel',
+      data: {
+        proId: proId,
+        orderId: orderId
+      },
+      method: 'post',
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.responseJSON.message,
+        })
+      },
+      success: (response) => {
+        if (response.status) {
+          location.reload()
+        }
+      }
+    })
+  }
+
+  function swal(value, orderId, proId) {
+    
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            denyButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+
+        })
+        swalWithBootstrapButtons.fire({
+          icon: 'warning',
+          title: 'Do you want to save the changes?',
+          showDenyButton: true,
+          confirmButtonText: 'Save',
+          denyButtonText: `Don't save`,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire('Saved!', '', 'success').then(() => {
+              deliveryStatus(value, orderId, proId)
+            })
+          }else{
+            location.reload()
+          }
+        })
+      
+    
+  }
+
+
+  function deliveryStatus(value, orderId, proId) {
+    $.ajax({
+      url: '/admin/orderManagement/order_details/updateOrders',
+      data: {
+        delivery: value.value,
+        order: orderId,
+        product: proId
+      },
+      method: 'POST',
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.responseJSON.message,
+        })
+      },
+      success: (response) => {
+        console.log(response);
+        if (response.status) {
+          location.reload()
+        }
+      }
+    })
+
+  }
+</script>
+

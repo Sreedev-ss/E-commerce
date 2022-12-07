@@ -28,7 +28,6 @@
       <div class="row rounded" style="background-color: rgb(247, 247, 247); border-radius: 10px !important">
 
         <% address[0]?.address?.forEach((element,index) => { %>
-        <% console.log(element) %>
         <div class="d-flex col-12 mt-1" style="width: 500px; ">
           <input onclick="getAddress('<%= element._id %>')" id="addressRadio<%=index%>" name="addressRadio" class="collapsed" type="radio" role="button" value=" " data-toggle="collapse" href="#collapse-3" aria-expanded="true" aria-controls="collapse-3">
           <div class="mt-1"><label for="addressRadio<%=index%>" style="font-size: small; font-weight: 500; " class="mx-4 text-dark"><%= element.fName %>, <%= element.address %>, <%= element.postcode%> . . . </label></div>
@@ -134,54 +133,80 @@
                 <label class="text-dark">Order notes (optional)</label>
                 <textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. Delivery Instructions"></textarea>
               </div><!-- End .col-lg-9 -->
+
               <aside class="col-lg-3 mt-5" style="margin-top: 85px !important;">
-                <div class="summary">
-                  <h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
-
-                  <table class="table table-summary">
-                    <thead>
-                      <tr>
-                        <th>Product</th>
-                        <th>Total</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      <% cartItems.forEach(element => { %>
-                      <tr>
-                        <td><a href="#"><%= element.product?.name %></a></td>
-                        <td>Rs <%= element.product?.price %></td>
-                      </tr>
-                      <% }); %>
-
-                      <tr class="summary-total">
-                        <td>Total:</td>
-                        <td>Rs <%= total %> </td>
-                      </tr><!-- End .summary-total -->
-                    </tbody>
-                  </table><!-- End .table table-summary -->
-
-                  <div class="accordion-summary" id="accordion-payment">
-                    <div class="card">
+                <p class="mx-auto" id="errorCoupon"></p>
+                <div class="card">
+                  <div class="cart-discount">
+                    <div class="input-group">
+                      <input type="text" id="couponId" class="form-control" placeholder="coupon code">
+                      <div class="input-group-append">
+                        <a class="btn btn-outline-primary h-75" onclick="couponCheck()"><i class="icon-long-arrow-right text-primary"></i></a>
+                      </div><!-- .End .input-group-append -->
+                    </div><!-- End .input-group -->
+                  </div><!-- End .cart-discount -->
 
 
-                      <div class="card mb-3">
-                        <div class="card-header" id="heading-3">
-                          <h2 class="card-title">
-                            <p class="d-flex w-75 justify-content-start mb-1" style="color: rgb(230, 43, 40);"></p>
-                            <input class="collapsed" id="cod" required checked type="radio" name="cod" role="button" value="COD" data-toggle="collapse" href="#collapse-3" aria-expanded="true" aria-controls="collapse-3">
-                            Cash on delivery
-                            </input>
-                          </h2>
-                        </div><!-- End .card-header -->
+                  <div class="summary">
+                    <h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
 
-                      </div><!-- End .card -->
-                    </div><!-- End .accordion -->
-                    <button type="button" onclick="validator()" class="btn btn-outline-primary-2 btn-order btn-block">
-                      <span class="btn-text">Place Order</span>
-                      <span class="btn-hover-text">Place Order</span>
-                    </button>
-                  </div><!-- End .summary -->
+                    <table class="table table-summary">
+                      <thead>
+                        <tr>
+                          <th>Product</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <% cartItems.forEach(element => { %>
+                        <tr>
+                          <td><a href="/product/<%= element.product?._id  %> "><%= element.product?.name %></a></td>
+                          <td>Rs <%= element.product?.price %></td>
+                        </tr>
+                        <% }); %>
+
+                        <tr class="summary-total" style="width: 50px;">
+                          <td>Total:</td>
+                          <td>Rs <%= total %> </td>
+
+                        </tr><!-- End .summary-total -->
+                        <tr class="summary-total">
+                          <td class="">Price after Discount: <br>
+                            <p style="font-size: xx-small;" class="text-dark">(Discount will be applicable only if coupon is applied)</p>
+                          </td>
+                          <td id="totalCartPrice">Rs <%=total%></td>
+                        </tr>
+
+                      </tbody>
+                    </table><!-- End .table table-summary -->
+
+                    <div class="accordion-summary" id="accordion-payment">
+                      <div class="card">
+                        <div class="card mb-3">
+                          <div class="card-header" id="heading-3">
+                            <h2 class="card-title">
+                              <p class="d-flex w-75 justify-content-start mb-1" style="color: rgb(230, 43, 40);"></p>
+                              <input class="collapsed" id="cod" checked type="radio" name="payment" role="button" value="COD" data-toggle="collapse" href="#collapse-3">
+                              <label for="cod">Cash on delivery</label>
+                              </input><br>
+                              <input class="collapsed mt-2" id="upi" type="radio" name="payment" role="button" value="Razorpay" data-toggle="collapse" href="#collapse-3">
+                              <label for="upi">UPI / Card / Net banking</label>
+                              </input><br>
+                              <input class="collapsed mt-2" id="pay" type="radio" name="payment" role="button" value="paypal" data-toggle="collapse" href="#collapse-3" aria-expanded="true">
+                              <label for="pay">Paypal</label>
+                              </input>
+                              <div id="paypal" class="mt-2"></div>
+                            </h2>
+                          </div><!-- End .card-header -->
+
+                        </div><!-- End .card -->
+                      </div><!-- End .accordion -->
+                      <button type="button" onclick="validator()" class="btn btn-outline-primary-2 btn-order btn-block">
+                        <span class="btn-text">Place Order</span>
+                        <span class="btn-hover-text">Place Order</span>
+                      </button>
+                    </div><!-- End .summary -->
               </aside><!-- End .col-lg-3 -->
             </div><!-- End .row -->
           </form>
@@ -200,7 +225,81 @@
 
 </html>
 
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 <script>
+  let couponData = ""
+
+  function couponCheck() {
+    let couponName = document.getElementById('couponId').value
+    couponData = couponName
+    $.ajax({
+      url: '/checkout/coupon_verify',
+      method: 'post',
+      data: {
+        coupon: couponName
+      },
+      success: (response) => {
+        if (response.status == true || response.coupon == true) {
+          $.ajax({
+            url: '/checkout/verify_coupon_checked',
+            method: 'post',
+            data: {
+              couponCheck: couponName
+            },
+            success: (response) => {
+              console.log(response);
+              if (response.purchased == false) {
+                console.log("hi not purchased");
+                $.ajax({
+                  url: '/checkout/apply_coupon',
+                  method: 'post',
+                  data: {
+                    couponName: couponName
+                  },
+                  success: (response) => {
+                    if (response.couponExpired == true) {
+                      let errorCoupon = document.getElementById('errorCoupon')
+                      errorCoupon.innerText = "This coupon is already expired."
+                      errorCoupon.style.color = 'rgb(300,0,0) '
+                      errorCoupon.style.fontSize = 'x-small'
+                    }
+                    console.log(response);
+                    if (response.finalAmount) {
+                      document.getElementById('totalCartPrice').innerText = "Rs " + response.finalAmount
+                      let errorCoupon = document.getElementById('errorCoupon')
+                      errorCoupon.innerText = "Coupen applied successfully."
+                      errorCoupon.style.color = 'rgb(53,200,0) '
+                      errorCoupon.style.fontSize = 'x-small'
+                    } else if (response.couponNotApplicable == true) {
+                      let errorCoupon = document.getElementById('errorCoupon')
+                      errorCoupon.innerText = "This coupon is only valid for products between Rs " + response.amountValid[0] + " and " + response.amountValid[1] + "."
+                      errorCoupon.style.color = 'rgb(300,0,0) '
+                      errorCoupon.style.fontSize = 'x-small'
+                    }
+                  }
+                })
+              } else {
+                let errorCoupon = document.getElementById('errorCoupon')
+                errorCoupon.innerText = "This coupon is already used."
+                errorCoupon.style.color = 'rgb(300,0,0) '
+                errorCoupon.style.fontSize = 'x-small'
+              }
+            }
+          })
+        } else {
+          let errorCoupon = document.getElementById('errorCoupon')
+          errorCoupon.innerText = "Invalid Coupon !"
+          errorCoupon.style.color = 'rgb(300,0,0) '
+          errorCoupon.style.fontSize = 'x-small'
+        }
+      }
+    })
+  }
+
+
+
+
   const inputsId = ['fName', 'lName', 'address', 'landmark', 'town', 'country', 'postcode', 'mobile', 'email'];
   const addressRadios = [];
   const addressLen = '<%=address[0]?.address?.length%>';
@@ -228,7 +327,6 @@
     const postcode = document.getElementById('postcode')
     const mobile = document.getElementById('mobile')
     const email = document.getElementById('email')
-    const cod = document.getElementById('cod')
 
     const fNameValue = fName.value.trim()
     const lNameValue = lName.value.trim()
@@ -239,9 +337,7 @@
     const postcodeValue = postcode.value.trim()
     const mobileValue = mobile.value.trim()
     const emailValue = email.value.trim()
-    const codValue = cod.checked
-    const codMain = cod.value
-
+    const paymentValue = document.querySelector("input[name='payment']:checked").value
 
     const error1 = fName.parentElement.querySelector('p')
     const error2 = lName.parentElement.querySelector('p')
@@ -252,7 +348,6 @@
     const error7 = mobile.parentElement.querySelector('p')
     const error8 = email.parentElement.querySelector('p')
     const error9 = country.parentElement.querySelector('p')
-    const error10 = cod.parentElement.querySelector('p')
 
 
     let flag = 1
@@ -266,7 +361,7 @@
     error7.innerText = ""
     error8.innerText = ""
     error9.innerText = ""
-    error10.innerText = ""
+
 
 
     //First Name
@@ -342,18 +437,14 @@
       flag = 2
     }
 
-    if (codValue == false) {
-      error10.innerText = "This field is required"
-      flag = 2
-    }
-
     if (flag == 1) {
-      submit(fNameValue, lNameValue, streeValue, apartmentValue, townValue, countryValue, postcodeValue, mobileValue, emailValue, codMain)
+      submit(fNameValue, lNameValue, streeValue, apartmentValue, townValue, countryValue, postcodeValue, mobileValue, emailValue, paymentValue)
     }
 
   }
 
-  function submit(fName, lName, address, landmark, town, country, postcode, mobile, email, cod) {
+  function submit(fName, lName, address, landmark, town, country, postcode, mobile, email, payment) {
+    console.log(payment);
     $.ajax({
       url: '/place-order',
       method: 'post',
@@ -367,18 +458,217 @@
         postcode: postcode,
         mobile: mobile,
         email: email,
-        paymentMethod: cod,
+        paymentMethod: payment,
+        couponName: couponData
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.responseJSON.message,
+        })
       },
       success: (response) => {
-        if (response.status) {
-          setTimeout(() => {
-            location.href = '/orderSuccess'
-          }, 500)
+        if (response.codSuccess) {
+          let timerInterval
+          Swal.fire({
+            icon: 'success',
+            title: 'Payment Success!',
+            html: 'You will be redirected to orders in  <b></b> milliseconds.',
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading()
+              const b = Swal.getHtmlContainer().querySelector('b')
+              timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log('I was closed by the timer')
+            }
+          }).then(function() {
+            window.location = "/orders";
+          });
+        } else if (response.paypal == true) {
+          paypalVerify(response.total)
 
+        } else {
+          console.log(response);
+          razorpay(response)
         }
       }
     })
   }
+
+  function razorpay(data) {
+    var options = {
+      "key": "rzp_test_PdwtMXXUvy5iDK", // Enter the Key ID generated from the Dashboard
+      "amount": data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Dev Mart",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function(response) {
+        verifyPayment(response, data)
+      },
+      "prefill": {
+        "name": data.userName,
+        "email": data.email,
+        "contact": data.mobile
+      },
+      "notes": {
+        "address": "DM Corporate Office"
+      },
+      "theme": {
+        "color": "#3399cc"
+      }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+  }
+
+  function verifyPayment(payment, order) {
+    $.ajax({
+      url: '/verify-payment',
+      method: 'post',
+      data: {
+        payment,
+        order
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.responseJSON.message,
+        })
+      },
+      success: (response) => {
+        if (response.status) {
+          let timerInterval
+          Swal.fire({
+            icon: 'success',
+            title: 'Order Success!',
+            html: 'You will be redirected to orders in  <b></b> milliseconds.',
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading()
+              const b = Swal.getHtmlContainer().querySelector('b')
+              timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log('I was closed by the timer')
+            }
+          }).then(function() {
+            window.location = "/orders";
+          });
+        } else {
+          Swal.fire({
+            title: 'Payment failed',
+            icon: 'question',
+            iconHtml: 'X',
+          })
+        }
+      }
+    })
+  }
+
+  function paypalVerify(total) {
+    console.log("heyyy/API");
+    paypal
+      .Buttons({
+        createOrder: function() {
+          return fetch("/create-order", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                total: total,
+                items: [{
+                  id: 1,
+                }],
+              }),
+            })
+            .then(res => {
+              if (res.ok) return res.json()
+              return res.json().then(json => Promise.reject(json))
+            })
+            .then(({
+              id
+            }) => {
+              return id
+            })
+            .catch(e => {
+              console.error(e.error)
+            })
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(() => {
+            console.log("hi", data);
+
+            $.ajax({
+              url: '/verify-payment-paypal',
+              method: 'post',
+              success: (response) => {
+                if (response.status) {
+                  let timerInterval
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Order Success!',
+                    html: 'You will be redirected to orders in  <b></b> milliseconds.',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                      Swal.showLoading()
+                      const b = Swal.getHtmlContainer().querySelector('b')
+                      timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                      }, 100)
+                    },
+                    willClose: () => {
+                      clearInterval(timerInterval)
+                    }
+                  }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                      console.log('I was closed by the timer')
+                    }
+                  }).then(function() {
+                    window.location = "/orders";
+                  });
+                } else {
+                  Swal.fire({
+                    title: 'Payment failed',
+                    icon: 'question',
+                    iconHtml: 'X',
+                  })
+                }
+
+              }
+            })
+
+          })
+        },
+      })
+      .render("#paypal")
+  }
+
+
 
   function clearInputs() {
     inputsId.forEach(e => {
@@ -412,7 +702,7 @@
     const postcode = document.getElementById('postcode')
     const mobile = document.getElementById('mobile')
     const email = document.getElementById('email')
-    const cod = document.getElementById('cod')
+
 
     const error1 = fName.parentElement.querySelector('p')
     const error2 = lName.parentElement.querySelector('p')
@@ -423,7 +713,7 @@
     const error7 = mobile.parentElement.querySelector('p')
     const error8 = email.parentElement.querySelector('p')
     const error9 = country.parentElement.querySelector('p')
-    const error10 = cod.parentElement.querySelector('p')
+
 
 
     error1.innerText = ""
@@ -435,7 +725,7 @@
     error7.innerText = ""
     error8.innerText = ""
     error9.innerText = ""
-    error10.innerText = ""
+
 
     $.ajax({
       url: '/checkoutAddress/' + address,

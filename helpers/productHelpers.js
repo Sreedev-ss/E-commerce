@@ -18,6 +18,25 @@ module.exports={
         })
     },
 
+    getProductData:()=>{
+        return new Promise(async(resolve, reject) => {
+            try {
+                let products = await db.products.aggregate([
+                    {
+                        $project:{
+                            name:'$name',
+                            category:'$category',
+                        }
+                    }
+                ])
+                resolve(products)
+                console.log(products);
+            } catch (error) {
+                console.log(error);
+            }
+        })
+    },
+
     addProducts:(product)=>{
         console.log(product)
         return new Promise(async(resolve, reject) => {

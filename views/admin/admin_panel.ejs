@@ -1,286 +1,563 @@
 <style>
-    .btn {
-        min-width: 60px;
-        color: white;
-    }
-    h6{
-        padding-right: 50px;
+  .btn {
+    min-width: 60px;
+    color: white;
+  }
 
-    }
-    .line{
-        width: 102%;
-        height: 1px;
-        background-color: #FCB941;
-    }
-    .earningsOverview .card-body{
-      padding-bottom: 74px !important;
-    }
-    body{
-        background-image: url('/images/page-header-bg.jpg');
-    }
-    .btn {
-        min-width: 60px;
-        color: white;
-    }
+  h6 {
+    padding-right: 50px;
 
-    h6 {
-        padding-right: 50px;
+  }
 
-    }
-    .no-gutters>[class*=col-]{
-        margin-top: 28px;
-    }
+  .line {
+    width: 102%;
+    height: 1px;
+    background-color: #FCB941;
+  }
 
-    .line {
-        width: 100.5%;
-        height: 1px;
-        background-color: #FCB941;
-    }
+  .earningsOverview .card-body {
+    padding-bottom: 74px !important;
+  }
 
-    .addProduct {
-        border-radius: 3px;
-        border: #ebebeb;
-        /* width: 300px; */
-        background-color: #1B7D8F;
-        font-weight: 700;
-    }
+  body {
+    background-image: url('/images/page-header-bg.jpg');
+  }
 
-    .nav {
-        background-image: url('/images/page-header-bg.jpg');
-    }
+  .btn {
+    min-width: 60px;
+    color: white;
+  }
 
-    #myTable_previous a.page-link,
-    #myTable_next a.page-link {
-        color: black !important;
-    }
+  h6 {
+    padding-right: 50px;
 
-    li.paginate_button a.page-link {
-        color: rgb(0, 0, 0) !important;
-    }
-    .fas.fa-angle-up{
-        display: none;
-    }
+  }
 
+  .no-gutters>[class*=col-] {
+    margin-top: 28px;
+  }
 
+  .line {
+    width: 100.5%;
+    height: 1px;
+    background-color: #FCB941;
+  }
+
+  .addProduct {
+    border-radius: 3px;
+    border: #ebebeb;
+    /* width: 300px; */
+    background-color: #1B7D8F;
+    font-weight: 700;
+  }
+
+  .nav {
+    background-image: url('/images/page-header-bg.jpg');
+  }
+
+  #myTable_previous a.page-link,
+  #myTable_next a.page-link {
+    color: black !important;
+  }
+
+  li.paginate_button a.page-link {
+    color: rgb(0, 0, 0) !important;
+  }
+
+  .fas.fa-angle-up {
+    display: none;
+  }
 </style>
+
 <section>
+
+  <div class="row ">
+
+    <div class="col-md-12 p-5 d-flex justify-content-center align-items-center ">
+      <div class="headBar d-flex text-center ">
+        <a href="/admin_panel">
+          <h6 class="text-info">Dashboard</h6>
+        </a>
+        <a href="/admin_panel/products">
+          <h6>Product Mangement</h6>
+        </a>
+        <a href="/admin_panel/category_management">
+          <h6>Category Mangement</h6>
+        </a>
+        <a href="/admin_panel/user_management">
+          <h6>User Mangement</h6>
+        </a>
+        <a href="/admin_panel/order_management">
+          <h6>Orders Mangement</h6>
+        </a>
+        <a href="/admin_panel/coupen_management">
+          <h6>Coupen Mangement</h6>
+        </a>
+
+      </div>
+    </div>
+  </div>
+  <div class="row line ">
+
+  </div>
+  </div>
+
+  <div class="container-fluid ">
     <div class="row ">
-        <div class="col-md-2 p-4 mx-5  profile">
-            <div class="profileiconMain">
-                <img src="/images/admin-profile.png" alt="">
-            </div>
-            <h4>Admin</h4>
-        </div>
-        <div class="col-md-9 d-flex align-items-center ">
-            <div class="headBar d-flex text-center ">
-                <a href="/admin_panel">
-                    <h6 class="text-info">Dashboard</h6>
-                </a>
-                <a href="/admin_panel/products" >
-                    <h6 >Product Mangement</h6>
-                </a>
-                <a href="/admin_panel/category_management" >
-                    <h6 >Category Mangement</h6>
-                </a>
-                <a href="/admin_panel/user_management" >
-                    <h6>User Mangement</h6>
-                </a>
-                <a href="/admin_panel/order_management" >
-                    <h6>Orders Mangement</h6>
-                </a>
-               
-            </div>
-        </div>
-    </div>
-    <div class="row line ">
 
-    </div>
-    </div>
+      <div class="col-md-12">
+        <div class="mainbar">
+          <section id="page-top">
 
-    <div class="container-fluid ">
-        <div class="row ">
-            
-            <div class="col-md-12">
-                <div class="mainbar">
-                    <section id="page-top">
+            <!-- Page Wrapper -->
+            <div id="wrapper">
 
-                        <!-- Page Wrapper -->
-                        <div id="wrapper">
-                    
-                            <!-- Content Wrapper -->
-                            <div id="content-wrapper" class="d-flex flex-column">
-                    
-                                <!-- Main Content -->
-                                <div id="content">
+              <!-- Content Wrapper -->
+              <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                  <!-- Begin Page Content -->
+                  <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                      <h1 class="h3 mb-0 text-gray-800 mt-3">Dashboard</h1>
+
+                    </div>
+
+
+                    <!-- Content Row -->
+                    <div class="row">
+                      <% const pricetoReadable=function(price){
+  
+                        return price?.toString()?.replace(/\B(?=(?:(\d\d)+(\d)(?!\d))+(?!\d))/g, ',');
                      
-                                    <!-- Begin Page Content -->
-                                    <div class="container-fluid">
-                    
-                                        <!-- Page Heading -->
-                                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                            <h1 class="h3 mb-0 text-gray-800 mt-3">Dashboard</h1>
-                                            
-                                        </div>
-                    
-                                        <!-- Content Row -->
-                                        <div class="row">
-                    
-                                            <!-- Earnings (Monthly) Card Example -->
-                                            <div class="col-xl-3 col-md-6 mb-4">
-                                                <div class="card border-left-primary shadow h-100 py-2">
-                                                    <div class="card-body">
-                                                        <div class="row no-gutters align-items-center">
-                                                            <div class="col mr-2">
-                                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                                    Earnings (Monthly)</div>
-                                                                <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                                            </div>
-                                                            <div class="col-auto justify-content-center">
-                                                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                    
-                                            <!-- Earnings (Monthly) Card Example -->
-                                            <div class="col-xl-3 col-md-6 mb-4">
-                                                <div class="card border-left-success shadow h-100 py-2">
-                                                    <div class="card-body">
-                                                        <div class="row no-gutters align-items-center">
-                                                            <div class="col mr-2">
-                                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                                    Earnings (Annual)</div>
-                                                                <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                                            </div>
-                                                            <div class="col-auto mt-3">
-                                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                    
-                                            <!-- Earnings (Monthly) Card Example -->
-                                            <div class="col-xl-3 col-md-6 mb-4">
-                                                <div class="card border-left-info shadow h-100 py-2">
-                                                    <div class="card-body">
-                                                        <div class="row no-gutters align-items-center">
-                                                            <div class="col mr-2">
-                                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                                                </div>
-                                                                <div class="row no-gutters align-items-center">
-                                                                    <div class="col-auto">
-                                                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                                    </div>
-                                                                    <div class="col">
-                                                                        <div class="progress progress-sm mr-2">
-                                                                            <div class="progress-bar bg-info" role="progressbar"
-                                                                                style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                                                aria-valuemax="100"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-auto mt-3">
-                                                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                    
-                                            <!-- Pending Requests Card Example -->
-                                            <div class="col-xl-3 col-md-6 mb-4">
-                                                <div class="card border-left-warning shadow h-100 py-2">
-                                                    <div class="card-body">
-                                                        <div class="row no-gutters align-items-center">
-                                                            <div class="col mr-2">
-                                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                                    Pending Requests</div>
-                                                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                                            </div>
-                                                            <div class="col-auto mt-3">
-                                                                <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                    
-                                        <!-- Content Row -->
-                    
-                                        <div class="row">
-                    
-                                            <!-- Area Chart -->
-                                            <div class="col-xl-8 col-lg-7 earningsOverview">
-                                                <div class="card shadow mb-4">
-                                                    <!-- Card Header - Dropdown -->
-                                                    <div
-                                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                                        <h6 class="m-0 font-weight-bold text-primary mx-4 mt-2">Earnings Overview</h6>
-                                                        
-                                                    </div>
-                                                    <!-- Card Body -->
-                                                    <div class="card-body p-5">
-                                                        <div class="chart-area">
-                                                            <canvas id="myAreaChart" style="height: 190px;"></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                    
-                                            <!-- Pie Chart -->
-                                            <div class="col-xl-4 col-lg-5">
-                                                <div class="card shadow mb-4">
-                                                    <!-- Card Header - Dropdown -->
-                                                    <div
-                                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                                        <h6 class="m-0 font-weight-bold text-primary mx-4 mt-2">Revenue Sources</h6>
-                                                    </div>
-                                                    <!-- Card Body -->
-                                                    <div class="card-body">
-                                                        <div class="chart-pie pt-4 pb-2">
-                                                            <canvas id="myPieChart"></canvas>
-                                                        </div>
-                                                        <div class="mt-4 text-center small">
-                                                            <span class="mr-2">
-                                                                <i class="fas fa-circle " style="color: #4e73df;"></i> Direct
-                                                            </span>
-                                                            <span class="mr-2">
-                                                                <i class="fas fa-circle text-success" style="color: #36b9cc;"></i> Social
-                                                            </span>
-                                                            <span class="mr-2">
-                                                                <i class="fas fa-circle text-info" style="color: #1bc88a"></i> Referral
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                    
-                                    
-                                    </div>
-                                    <!-- /.container-fluid -->
-                    
-                                </div>
-                                <!-- End of Main Content -->
-                    
-                    
+                     
+                      } %>
+
+                      <!-- Earnings (Monthly) Card Example -->
+                      <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                          <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                  Earnings (Monthly)</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">Rs <%=pricetoReadable(priceData)%></div>
+                              </div>
+                              <div class="col-auto justify-content-center">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                              </div>
                             </div>
-                            <!-- End of Content Wrapper -->
-                    
+                          </div>
                         </div>
-                        <!-- End of Page Wrapper -->
-                    
-                        <!-- Scroll to Top Button-->
-                       
-                       
-                    </section>
+                      </div>
+
+                      <!-- Earnings (Monthly) Card Example -->
+                      <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                          <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                  Total Orders</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 mx-2"><%=count[0].count%></div>
+                              </div>
+                              <div class="col-auto mt-3">
+
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Earnings (Monthly) Card Example -->
+                      <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                          <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                  <div class="col-auto">
+                                    <div class="h5   mr-3 font-weight-bold text-gray-800">50%</div>
+                                  </div>
+                                  <div class="col">
+                                    <div class="progress progress-sm mr-2">
+                                      <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-auto mt-3">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Pending Requests Card Example -->
+                      <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                          <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                  Pending Requests</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                              </div>
+                              <div class="col-auto mt-3">
+                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                      <!-- Area Chart -->
+                      <div class="col-xl-8 col-lg-7 earningsOverview">
+                        <div class="card shadow mb-4">
+                          <!-- Card Header - Dropdown -->
+                          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold mx-5 mt-2" style="color: rgb(74, 73, 67);">Earnings Overview</h6>
+                          </div>
+                          <!-- Card Body -->
+                          <div class="card-body p-5">
+                            <div class="chart-area">
+                              <div class="d-flex">
+                                <span class="ml-auto font-weight-bold mt-2 px-4">Daily</span>
+                              </div>
+                              <canvas id="chart-daily"></canvas>
+                            </div>
+                          </div>
+
+                          <div class="card-body p-5">
+                            <div class="chart-area">
+                              <div class="d-flex">
+                                <span class="ml-auto font-weight-bold mt-2 px-4">Monthly</span>
+                              </div>
+                              <canvas id="myAreaChart"></canvas>
+                            </div>
+                          </div>
+                          <div class="card-body p-5">
+                            <div class="chart-area">
+                              <div class="d-flex">
+                                <span class="ml-auto font-weight-bold mt-2 px-4">Yearly</span>
+                              </div>
+                              <canvas id="chart-yearly"></canvas>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Pie Chart -->
+                      <div class="col-xl-4 col-lg-5">
+                        <div class="card shadow mb-4">
+                          <!-- Card Header - Dropdown -->
+                          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold  mx-4 mt-2" style="color: rgb(74, 73, 67);">Payment Method</h6>
+                          </div>
+                          <!-- Card Body -->
+                          <div class="card-body">
+                            <div class="chart-pie" style="height: 365px;">
+                              <canvas id="myPieChart" class="mt-4 p-4" height="200px"></canvas>
+                            </div>
+                            <div class="mt-4 text-center ">
+                              <span class="mr-2">
+                                <i class="fas fa-circle" style="color: #4e73df;"></i> <small id="pie-1"></small>
+                              </span>
+                              <span class="mr-2">
+                                <i class="fas fa-circle text-success" style="color: #36b9cc;"></i><small id="pie-2"></small>
+                              </span>
+                              <span class="mr-2">
+                                <i class="fas fa-circle text-info" style="color: #1bc88a"></i> <small id="pie-3"></small>
+                              </span>
+                            </div>
+                          </div>
+                          <!-- Button trigger modal -->
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                            Sales report
+                          </button>
+
+                          <!-- Modal -->
+                          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle">Report</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body p-2">
+                                  <div style="display: flex; justify-content: center;">
+                                    <button onclick="generatePdfDaily()" type="button" style="width: 150px;" class="btn btn-secondary mb-2 mt-2 mx-1">Daily report</button><br>
+                                    <button onclick="generatePdfMonth()" type="button" style="width: 150px;" class="btn btn-secondary mb-2 mt-2 mx-1">Monthly report</button><br>
+                                    <button onclick="generatePdfYearly()" type="button" style="width: 150px;" class="btn btn-secondary mb-2 mt-2 mx-1">Yearly report</button>
+                                    <button onclick="generateExcel()" type="button" style="width: 150px;" class="btn btn-secondary mb-2 mt-2 mx-1">Excel</button>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="col-8 bg-white">
+                      <!-- <canvas id="myChart3"></canvas> -->
+
+                    </div>
+
+
+                  </div>
+                  <!-- /.container-fluid -->
+
                 </div>
+                <!-- End of Main Content -->
+
+
+              </div>
+              <!-- End of Content Wrapper -->
+
             </div>
+            <!-- End of Page Wrapper -->
+
+            <!-- Scroll to Top Button-->
+
+
+          </section>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+<script>
+  function generateExcel() {
+    $.ajax({
+      url: '/admin_panel/generateExcel',
+      method: 'get',
+      success: (res) => {
+        if (res.status) {
+
+          location.reload()
+        }
+      }
+    })
+  }
+  var doc = new jsPDF()
+
+  function generatePdfMonth() {
+    const dateToRead1 = (month) => {
+      // let mm = parseInt(new Date().getMonth())+1
+      let months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+      let mm = months[parseInt(month) - 1]
+      return `${mm}`
+    }
+    fetch('/admin_panel/orderData?year=' + new Date().getFullYear(), {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }).then(res => res.json())
+      .then((res) => {
+        // monthlyReport(res.dataMonth)
+        console.log("1", res[0]);
+
+        var columns = [{
+            title: "Sl.no",
+            dataKey: "id"
+          },
+          {
+            title: "Total",
+            dataKey: "Total"
+          },
+          {
+            title: "Orders",
+            dataKey: "Orders"
+          },
+          {
+            title: "Total Orders (paid)",
+            dataKey: "Total Order"
+          },
+          {
+            title: "Month",
+            dataKey: "month"
+          }
+        ];
+        var rows = []
+        for (i = 0; i < res.length; i++) {
+          rows[i] = [{
+            "id": i + 1,
+            "month": dateToRead1(res[i]._id),
+            "Total": "Rs " + res[i].totalCount,
+            "Total Order": res[i].orders,
+            "Orders": res[i].totalQuantity
+          }, ];
+        }
+        var doc = new jsPDF('p', 'pt');
+        var header = function(data) {
+          doc.setFontSize(18);
+          doc.setTextColor(40);
+          doc.setFontStyle('normal');
+          doc.text("Monthly Report", data.settings.margin.left, 50);
+        };
+        for (i = 0; i < res.length; i++) {
+          doc.autoTable(columns, rows[i], {
+            margin: {
+              top: 80
+            },
+            beforePageContent: header
+          });
+        }
+
+        doc.save("Monthly-Sales.pdf");
+      })
+  }
+
+  function generatePdfYearly() {
+    fetch('/admin_panel/orderDataAdminYearly', {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }).then(res => res.json())
+      .then((res) => {
+        // monthlyReport(res.dataYearly)
+        console.log("2", res.dataYearly);
+        var columns = [{
+            title: "Sl.no",
+            dataKey: "id"
+          },
+          {
+            title: "Total",
+            dataKey: "Total"
+          },
+          {
+            title: "Orders",
+            dataKey: "Orders"
+          },
+          {
+            title: "Total Orders (paid)",
+            dataKey: "Total Order"
+          }
+        ];
+        var rows = [{
+          "id": 1,
+          "Total": "Rs " + res.dataYearly.total,
+          "Orders": res.dataYearly.orders,
+          "Total Order": res.dataYearly.totalOrder
+        }, ];
+        var doc = new jsPDF('p', 'pt');
+        var header = function(data) {
+          doc.setFontSize(18);
+          doc.setTextColor(40);
+          doc.setFontStyle('normal');
+          doc.text("Yearly Report", data.settings.margin.left, 50);
+        };
+        doc.autoTable(columns, rows, {
+          margin: {
+            top: 80
+          },
+          beforePageContent: header
+        });
+
+        doc.save("Yearly-Sales.pdf");
+
+
+
+      })
+  }
+
+  function generatePdfDaily() {
+    const dateToread = (date) => {
+      let mm = parseInt(new Date().getMonth()) + 1
+      return `${date}-${mm}-${new Date().getFullYear()}`
+    }
+    let month = parseInt(new Date().getMonth()) + 1
+    fetch(`/admin_panel/orderDataAdminDaily?month=${month}&year=${new Date().getFullYear()}`, {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }).then(res => res.json())
+      .then((res) => {
+        // monthlyReport(res.dataTodayRevenue)
+        console.log("3", res);
+        var columns = []
+        columns[0] = [{
+            title: "Sl.no",
+            dataKey: "id"
+          },
+          {
+            title: "Total",
+            dataKey: "Total"
+          },
+          {
+            title: "Orders",
+            dataKey: "orders"
+          },
+          {
+            title: "Total Quantity",
+            dataKey: "totalQ"
+          },
+          // {
+          //   title: "Category",
+          //   dataKey: "Category"
+          // },
+          {
+            title: "Date",
+            dataKey: "Day"
+          },
+        ];
+        var rows = []
+        for (i = 0; i < res.length; i++) {
+          rows[i] = [{
+            "id": i + 1,
+            "Total": "Rs " + res[i].totalCount,
+            "orders": res[i].orders,
+            "totalQ": res[i].totalQuantity,
+            "Day": dateToread(res[i]._id),
+          }, ];
+        }
+       
+
+        var doc = new jsPDF('p','pt');
+        var header = function(data) {
+          doc.setFontSize(18);
+          doc.setTextColor(40);
+          doc.setFontStyle('normal');
+          doc.text("Daily Report", data.settings.margin.left, 50);
+        };
+        rows.forEach((e, i) => {
+          doc.autoTable(columns[0], e, {
+            margin: {
+              top: 80
+            },
+            beforePageContent: header
+          });
+        })
+
+        doc.save("Daily-Sales.pdf");
+
+
+      })
+  }
+</script>

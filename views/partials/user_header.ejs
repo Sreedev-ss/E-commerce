@@ -1,223 +1,366 @@
+<style>
+  .search-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+  }
+
+  .card {
+    border-bottom: 0.4px solid black;
+    /* background-color: white; */
+    padding: 1.0rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .card>.header {
+    margin-bottom: .25rem;
+  }
+
+  .card>.body {
+    font-size: .8rem;
+    color: #777;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .sdiv {
+    position: absolute;
+    z-index: 3;
+    top: 114px;
+    left: 30.08%;
+    width: 570px;
+
+  }
+
+  .searchBar {
+    z-index: 3;
+  }
+</style>
+
+
 <% if(locals.nav){ %>
-    <header class="header header-intro-clearance header-3" style="width: 100%; height: 100px;">
+<header class="header header-intro-clearance header-3" style="width: 100%; height: 100px;">
 
-        <div class="header-middle">
-            <div class="container" style="position :relative;">
+  <div class="header-middle">
+    <div class="container" style="position :relative;">
 
-                <div class="header-left ">
-                    <button class="mobile-menu-toggler">
-                        <span class="sr-only">Toggle mobile menu</span>
-                        <i class="icon-bars"></i>
-                    </button>
-
-
-
-                </div><!-- End .header-left -->
-
-                <div class="header-center justify-content-center">
-                    <button class="mobile-menu-toggler">
-                        <span class="sr-only">Toggle mobile menu</span>
-                        <i class="icon-bars"></i>
-
-                    </button>
+      <div class="header-left ">
+        <button class="mobile-menu-toggler">
+          <span class="sr-only">Toggle mobile menu</span>
+          <i class="icon-bars"></i>
+        </button>
 
 
 
-                    <a href="/" class="logo">
-                        <img src="/images/demos/demo-3/logo.png" style="position: absolute; left: 45%; top: 24%;"
-                            alt="Dmart Logo" width="105" height="25">
-                    </a>
+      </div><!-- End .header-left -->
 
-                </div><!-- End .header-left -->
+      <div class="header-center justify-content-center">
+        <button class="mobile-menu-toggler">
+          <span class="sr-only">Toggle mobile menu</span>
+          <i class="icon-bars"></i>
 
-            </div><!-- End .container -->
-        </div><!-- End .header-middle -->
-
-    </header><!-- End .header -->
-
-    <% } else{ %>
-
-
-        <header class="header header-intro-clearance header-3">
-
-
-            <div class="header-top">
-                <div class="container">
-                    <div class="header-left">
-                        <a href="tel:#"><i class="icon-phone"></i>Call: +91 730 635 8118</a>
-                    </div><!-- End .header-left -->
-
-                    <div class="header-right">
-
-                        <ul class="top-menu">
-                            <li>
-                                <a href="#">Links</a>
-                                <ul>
-                                    <% if(locals.user) { %> 
-                                        <li><a href="/user_signout" onclick="return confirm('Are you sure want to Signout ?')">Sign out</a></li>
-                                       
-                                    <% } %>
-                                    <!-- <li><a href="/user_registration">Sign up</a></li> -->
-                                </ul>
-                            </li>
-                        </ul><!-- End .top-menu -->
-                    </div><!-- End .header-right -->
-
-                </div><!-- End .container -->
-            </div><!-- End .header-top -->
-
-
-            <div class="header-middle">
-                <div class="container">
-                    <div class="header-left">
-                        <button class="mobile-menu-toggler">
-                            <span class="sr-only">Toggle mobile menu</span>
-                            <i class="icon-bars"></i>
-                        </button>
+        </button>
 
 
 
-                        <a href="/" class="logo">
-                            <img src="/images/demos/demo-3/logo.png" alt="Dmart Logo" width="105" height="25">
-                        </a>
+        <a href="/" class="logo">
+          <img src="/images/demos/demo-3/logo.png" style="position: absolute; left: 45%; top: 24%;" alt="Dmart Logo" width="105" height="25">
+        </a>
 
-                    </div><!-- End .header-left -->
+      </div><!-- End .header-left -->
 
-                    <div class="header-center">
+    </div><!-- End .container -->
+  </div><!-- End .header-middle -->
 
-                        <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
-                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
-                                <div class="header-search-wrapper search-wrapper-wide">
-                                    <label for="q" class="sr-only">Search</label>
-                                    <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-                                    <input type="search" class="form-control" name="q" id="q"
-                                        placeholder="Search product ..." required>
-                                </div><!-- End .header-search-wrapper -->
-                            </form>
-                        </div><!-- End .header-search -->
+</header><!-- End .header -->
 
-                    </div>
-
-                    <div class="header-right ">
-                        <% if(locals.user){ %>
-                        <div class="wishlist">
-                            <a href="/accounts" title="My account">
-                                <div class="icon">
-                                    <i class="icon-user"></i>
-                                </div>
-                                <% if(locals.user) { %> 
-                                <p><%= user.fName %> <%= user.lName %></p>
-                                <% }else{ %>
-                                <p>Account</p>
-                                <% } %>
-                            </a>
-                        </div>
-
-                        <div class="wishlist">
-                            <a href="/wishlist" title="Wishlist">
-                                <div class="icon">
-                                    <i class="icon-heart-o"></i>
-                                    <span class="wishlist-count badge">3</span>
-                                </div>
-                                <p>Wishlist</p>
-                            </a>
-                        </div>
+<% } else{ %>
 
 
-                        <div class="cart-dropdown">
-                            <a href="/cart" class="dropdown-toggle">
-                                <div class="icon">
-                                    <i class="icon-shopping-cart"></i>
-                                    <span class="cart-count" id="cart-count"><%= locals.cartCount %></span>
-                                </div>
-                                <p>Cart</p>
-                            </a>
-                        </div>
+<header class="header header-intro-clearance header-3" >
 
-                        <% } else{%>
-                       <a href="/user_signin"><button class="btn btn-primary" type="button" >
-                            Login
-                        </button></a>
-                            <% }%>
 
-                    </div><!-- End .header-right -->
-                </div><!-- End .container -->
-            </div><!-- End .header-middle -->
+  <div class="header-top">
+    <div class="container">
+      <div class="header-left">
+        <a href="tel:#"><i class="icon-phone"></i>Call: +91 730 635 8118</a>
+      </div><!-- End .header-left -->
 
-            <div class="header-bottom sticky-header">
-                <div class="container">
-                    <div class="header-left">
-                        <div class="dropdown category-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" data-display="static"
-                                title="Browse Categories">
-                                Browse Categories <i class="icon-angle-down"></i>
-                            </a>
+      <div class="header-right">
 
-                            <div class="dropdown-menu">
-                                <nav class="side-nav">
-                                    <ul class="menu-vertical sf-arrows">
-                                        <li class="item-lead"><a href="#">Electronics</a></li>
-                                        <li><a href="#">Laptops</a></li>
-                                        <li><a href="#">Mobiles</a></li>
-                                        <li><a href="#">Speakers</a></li>
-                                        <li><a href="#">Monitor</a></li>
-                                        <li><a href="#">Tablets</a></li>
+        <ul class="top-menu">
+          <li>
+            <a href="#">Links</a>
+            <ul>
+              <% if(locals.user) { %>
+              <li><a onclick="swalpopUpSign()">Sign out</a></li>
 
-                                        <li class="item-lead"><a href="#">Outdoors & Sports</a></li>
-                                        <li><a href="#">Cricket Bat</a></li>
-                                        <li><a href="#">Football</a></li>
-                                        <li><a href="#">Badminton</a></li>
-                                        <li><a href="#">Jersey</a></li>
+              <% } %>
+              <!-- <li><a href="/user_registration">Sign up</a></li> -->
+            </ul>
+          </li>
+        </ul><!-- End .top-menu -->
+      </div><!-- End .header-right -->
 
-                                        <li class="item-lead"><a href="#">Home Appliances</a></li>
-                                        <li><a href="#">Refrigerator</a></li>
-                                        <li><a href="#">Washing machine</a></li>
-                                        <li><a href="#">Microwave oven</a></li>
-                                        <li><a href="#">Grinder</a></li>
-                                    </ul><!-- End .menu-vertical -->
-                                </nav><!-- End .side-nav -->
-                            </div><!-- End .dropdown-menu -->
-                        </div><!-- End .category-dropdown -->
-                    </div><!-- End .header-left -->
+    </div><!-- End .container -->
+  </div><!-- End .header-top -->
 
-                    <div class="header-center">
-                        <nav class="main-nav">
-                            <ul class="menu sf-arrows">
-                                <li class="megamenu-container ">
-                                    <a href="/">Home</a>
-                                </li>
-                                <li>
-                                    <a href="/shop">Shop</a>
 
-                                </li>
-                                <li>
-                                    <a href="#">Product</a>
-                                </li>
-                                <% if(locals.user){ %>
-                                <li>
-                                    <a href="#">Deals</a>
-                                </li>
-                                <li>
-                                    <a href="/orders">Orders</a>
-                                </li>
-                                <li>
-                                    <a href="/about">About</a>
+  <div class="header-middle">
+    <div class="container">
+      <div class="header-left">
+        <button class="mobile-menu-toggler">
+          <span class="sr-only">Toggle mobile menu</span>
+          <i class="icon-bars"></i>
+        </button>
 
-                                </li>
-                                <% } %>
-                            </ul><!-- End .menu -->
-                        </nav><!-- End .main-nav -->
-                    </div><!-- End .header-center -->
 
-                    <div class="header-right">
-                        <i class="la la-lightbulb-o"></i>
-                        <p>Enjoy<span class="highlight">Shopping </span></p>
-                    </div>
 
-                </div><!-- End .container -->
-            </div><!-- End .header-bottom -->
+        <a href="/" class="logo">
+          <img src="/images/demos/demo-3/logo.png" alt="Dmart Logo" width="105" height="25">
+        </a>
 
-        </header><!-- End .header -->
-        <% } %>
+      </div><!-- End .header-left -->
+
+      <div class="header-center">
+        <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
+          <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+          <form action="#">
+            <div class="header-search-wrapper search-wrapper-wide" style="border-radius: 0px !important;">
+              <label for="search" class="sr-only">Search</label>
+              <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+              <input onkeyup="closeSearch()" autocomplete="off" type="search" class="form-control searchBar" name="q" id="search" data-search placeholder="Search product ..." required>
+            </div><!-- End .header-search-wrapper -->
+          </form>
+        </div><!-- End .header-search -->
+      </div>
+
+      <div class="header-right ">
+        <% if(locals.user){ %>
+        <div class="wishlist">
+          <a href="/accounts" title="My account">
+            <div class="icon">
+              <i class="icon-user"></i>
+            </div>
+            <% if(locals.user) { %>
+            <p><%= user.fName %> <%= user.lName %></p>
+            <% }else{ %>
+            <p>Account</p>
+            <% } %>
+          </a>
+        </div>
+
+        <div class="wishlist">
+          <a href="/wishlist" title="Wishlist">
+            <div class="icon">
+              <i class="icon-heart-o"></i>
+              <span class="wishlist-count badge">3</span>
+            </div>
+            <p>Wishlist</p>
+          </a>
+        </div>
+
+
+        <div class="cart-dropdown">
+          <a href="/cart" class="dropdown-toggle">
+            <div class="icon">
+              <i class="icon-shopping-cart"></i>
+              <span class="cart-count" id="cart-count"><%= locals.cartCount %></span>
+            </div>
+            <p>Cart</p>
+          </a>
+        </div>
+
+        <% } else{%>
+        <a href="/user_signin"><button class="btn btn-primary" type="button">
+            Login
+          </button></a>
+        <% }%>
+
+      </div><!-- End .header-right -->
+    </div><!-- End .container -->
+  </div><!-- End .header-middle -->
+
+  <div class="header-bottom sticky-header">
+    <div class="container">
+      <div class="header-left">
+        <div class="dropdown category-dropdown">
+          <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
+            Browse Categories <i class="icon-angle-down"></i>
+          </a>
+
+          <div class="dropdown-menu">
+            <nav class="side-nav">
+              <ul class="menu-vertical sf-arrows">
+                <li class="item-lead"><a href="#">Electronics</a></li>
+                <li><a href="#">Laptops</a></li>
+                <li><a href="#">Mobiles</a></li>
+                <li><a href="#">Speakers</a></li>
+                <li><a href="#">Monitor</a></li>
+                <li><a href="#">Tablets</a></li>
+
+                <li class="item-lead"><a href="#">Outdoors & Sports</a></li>
+                <li><a href="#">Cricket Bat</a></li>
+                <li><a href="#">Football</a></li>
+                <li><a href="#">Badminton</a></li>
+                <li><a href="#">Jersey</a></li>
+
+                <li class="item-lead"><a href="#">Home Appliances</a></li>
+                <li><a href="#">Refrigerator</a></li>
+                <li><a href="#">Washing machine</a></li>
+                <li><a href="#">Microwave oven</a></li>
+                <li><a href="#">Grinder</a></li>
+              </ul><!-- End .menu-vertical -->
+            </nav><!-- End .side-nav -->
+          </div><!-- End .dropdown-menu -->
+        </div><!-- End .category-dropdown -->
+      </div><!-- End .header-left -->
+
+      <div class="header-center">
+        <nav class="main-nav">
+          <ul class="menu sf-arrows">
+            <li class="megamenu-container ">
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="/shop">Shop</a>
+
+            </li>
+            <li>
+              <a href="#">Product</a>
+            </li>
+            <% if(locals.user){ %>
+            <li>
+              <a href="#">Deals</a>
+            </li>
+            <li>
+              <a href="/orders">Orders</a>
+            </li>
+            <li>
+              <a href="/about">About</a>
+
+            </li>
+            <% } %>
+          </ul><!-- End .menu -->
+        </nav><!-- End .main-nav -->
+      </div><!-- End .header-center -->
+
+      <div class="header-right">
+        <i class="la la-lightbulb-o"></i>
+        <p>Enjoy<span class="highlight">Shopping </span></p>
+      </div>
+
+    </div><!-- End .container -->
+  </div><!-- End .header-bottom -->
+
+</header><!-- End .header -->
+<div class=" mx-auto sdiv">
+  <div class="user-cards" data-user-cards-container></div>
+  <template data-user-template >
+    <div class="card" id="cardSearch" onclick="myFunction(this.querySelector('p'))" style="position: relative;">
+      <div class="header" data-header></div>
+      <div class="body" data-body></div>
+      <p class="_id" id="idSearch" hidden data-id></p>
+      <img data-img src="" style="height: 50px; width:50px; position: absolute; right: 10px;">
+    </div>
+  </template>
+</div>
+<% } %>
+
+<script>
+  const userCardTemplate = document.querySelector("[data-user-template]")
+  const userCardContainer = document.querySelector("[data-user-cards-container]")
+  const searchInput = document.querySelector("[data-search]")
+
+  let boolSearch = userCardContainer.classList
+  if (searchInput.value.trim().length == 0) {
+    boolSearch.add("hide")
+  } else {
+    boolSearch.remove("hide")
+  }
+
+  let products = [new Set()]
+
+  searchInput.addEventListener("input", e => {
+    const value = e.target.value.trim().toLowerCase()
+    products.forEach(product => {
+      const isVisible =
+        product.name.toLowerCase().includes(value) ||
+        product.category.includes(value)
+      product.element.classList.toggle("hide", !isVisible)
+    })
+  })
+
+
+
+    fetch("/getProductData", {
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(res => res.json())
+    .then(data => {
+      products = data.map(product => {
+        const card = userCardTemplate.content.cloneNode(true).children[0]
+        const header = card.querySelector("[data-header]")
+        const body = card.querySelector("[data-body]")
+        const id = card.querySelector("[data-id]")
+        const image = card.querySelector("[data-img]")
+        header.textContent = product.name
+        body.textContent = product.category
+        id.textContent = product._id
+        image.src = `/productImages/${product._id}1.jpg`
+        userCardContainer.append(card)
+        return {
+          name: product.name,
+          category: product.category,
+          id: product._id,
+          element: card
+        }
+      })
+    })
+
+
+  function myFunction(input) {
+    let tag = input.innerText
+    location.href = `/product/${tag}`
+  }
+
+
+
+
+  function closeSearch() {
+    let boolSearch = userCardContainer.classList
+    if (searchInput.value.trim().length == 0) {
+      boolSearch.add("hide")
+    } else {
+      boolSearch.remove("hide")
+    }
+  }
+
+
+
+  function swalpopUpSign() {
+    Swal.fire({
+
+      position: 'top',
+      icon: 'warning',
+      title: 'Are you sure',
+      text: 'want to Log out?',
+      showDenyButton: true,
+      confirmButtonText: 'Yes, Logout',
+      denyButtonText: `No`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Successfully logout!', '', 'success').then(() => {
+          location.href = "/user_signout"
+        })
+      }
+    })
+  }
+</script>

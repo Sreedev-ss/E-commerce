@@ -1,3 +1,68 @@
+<style>
+
+  /* The snackbar - position it at the bottom and in the middle of the screen */ 
+#snackbar {
+visibility: hidden; /* Hidden by default. Visible on click */
+min-width: 200px; /* Set a default minimum width */
+max-width: 200px;
+margin-left: -125px; /* Divide value of min-width by 2 */
+background-color: #ffffff; /* Black background color */
+color: rgb(0, 0, 0); /* White text color */
+text-align: center; /* Centered text */
+border: 0.5px solid rgb(203, 203, 203);
+border-radius: 50px; /* Rounded borders */
+padding: 16px; /* Padding */
+position: fixed; /* Sit on top of the screen */
+z-index: 1; /* Add a z-index if needed */
+left: 50%; /* Center the snackbar */
+bottom: 30px; /* 30px from the bottom */
+}
+.colored-toast.swal2-icon-warning {
+  background-color: #ffffff !important;
+}
+
+
+.colored-toast .swal2-title {
+  color: rgb(0, 0, 0);
+}
+
+.colored-toast .swal2-close {
+  color: rgb(255, 255, 255);
+}
+
+.colored-toast .swal2-html-container {
+  color: rgb(0, 0, 0);
+}
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+visibility: visible; /* Show the snackbar */
+/* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+However, delay the fade out process for 2.5 seconds */
+-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+from {bottom: 0; opacity: 0;}
+to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+from {bottom: 0; opacity: 0;}
+to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+from {bottom: 30px; opacity: 1;}
+to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+from {bottom: 30px; opacity: 1;}
+to {bottom: 0; opacity: 0;}
+}
+</style>
 <div class="page-content">
   <div class="row" style="width: 100%; height: 60px; background-color: white;">
 
@@ -7,6 +72,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="product-gallery product-gallery-vertical">
+            <div id="snackbar" class="d-flex justify-content-center align-items-center" ><i class="ri-checkbox-circle-fill mx-2 text-success" style="font-size: larger; position: absolute; left: 20%; top: 21%;"></i><span style="margin-left: 30px;">Added to Cart</span></div>
             <div class="row">
               <figure class="product-main-image">
                 <img id="product-zoom" src="/productImages/<%=products?._id%>0.jpg" data-zoom-image="/productImages/<%=products?._id%>0.jpg" alt="product image">
@@ -77,11 +143,12 @@
 
             <div class="product-details-action">
               <div class="details-action-col">
-                <div class="product-details-quantity">
-                  <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                </div><!-- End .product-details-quantity -->
-
-                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                <% if(products?.quantity!=0){ %>
+               
+                  <button onclick="addToCart('<%= products._id %>');myFunction()"  class="cartAdd text-primary bg-transparent btn-product btn-cart"><span class="cartAdd">add to cart</span></button>
+                  <% }else{ %>
+                  <h4 class="text-danger">Currently Out of Stock</h4>
+                  <% } %>
               </div><!-- End .details-action-col -->
 
               <div class="details-action-wrapper">
@@ -415,3 +482,51 @@
     </div><!-- End .owl-carousel -->
   </div><!-- End .container -->
 </div><!-- End .page-content -->
+
+<script>
+  function myFunction() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
+    // Add the "show" class to DIV
+    x.className = "show";
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function() {
+      x.className = x.className.replace("show", "");
+    }, 3000);
+  }
+
+
+  function addToCart(proId) {
+    $.ajax({
+      url: '/addtoCart/' + proId,
+      method: 'get',
+      success: (response) => {
+        if (response.status) {
+          console.log(response.status);
+          let count = $('#cart-count').html()
+          count = parseInt(count) + 1
+          $('#cart-count').html(count)
+        }
+      }
+    })
+  }
+
+
+  function toast() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'middle',
+      iconColor: 'red',
+      customClass: {
+        popup: 'colored-toast'
+      },
+      showConfirmButton:false,
+      timer: 1500,
+      timerProgressBar: true
+    })
+     Toast.fire({
+      icon: 'warning',
+      title: 'Currently out of stock'
+    })
+  }
+</script>

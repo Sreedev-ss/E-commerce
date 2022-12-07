@@ -1,0 +1,346 @@
+<style>
+  label {
+    font-weight: 600;
+  }
+
+  select,
+  textarea,
+  .addPro {
+    border-radius: 0px !important;
+    margin-top: 12px !important;
+  }
+
+  label {
+    margin-bottom: 0px !important;
+  }
+</style>
+<!-- <section>
+    <div class="container mt-5 ">
+        <div class="row">
+          <div class="card col-md-12 ">
+            <h2 class="text-center mt-4"><u>Add Coupon</u></h2>
+            <p class="error text-center" id="error"></p>
+              <div class="col-md-9 mx-auto">
+                <div class="row mt-5">
+                  <div id="errorDisplay" class="text-center mx-auto text-danger mb-2"></div>
+                  <div class="col-md-6 mx-auto mt-1">
+                    <label for="" class="text-center ">Coupen Name</label>
+                    <div class="input-group mb-3">
+                      <div onclick="generateCoupen()" class="input-group-text text-dark bg-light" style="border-radius: 0px !important;">
+                       Generate Coupon
+                      </div>
+                      <input type="text" placeholder="" id="coupenName" name="categories" class="form-control addPro" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mx-auto mt-1">
+                    <label for="" class="text-start">Amount</label>
+                    <select name="amount" class="form-control w-100 my-0" id="amountValidity">
+                      <option hidden disable selected>Select an amount</option>
+                      <option>5000-25000</option>
+                      <option>25001-50000</option>
+                      <option>50001-75000</option>
+                      <option>75001-10000</option>
+                      <option>100001-250000</option>
+                    </select>
+                  </div>
+    
+                  <div class="col-md-3  mt-1">
+                    <label for="" class="text-center mb-2">Discount Type</label><br>
+                    <input type="radio" onclick="show()" name="discountType" data-toggle="collapse" role="button" value="Amount" class=" mx-1 addPro">Amount</input>
+                    <input type="radio" onclick="show2()" name="discountType" role="button" data-toggle="collapse" value="Percentage" class=" mx-1 addPro">Percentage</input>
+                  </div>
+                  <div hidden class="discPer col-3 mt-1">
+                    <label for="" class="text-center">Discount percentage</label>
+                    <input type="text" name="hey" id="discountPercentage" style="background-color: #fafafa;" name="categories" class="form-control addPro" required>
+                  </div>
+    
+                  <div hidden class="discAmount col-3 mt-1">
+                    <label for="" class="text-center">Discount amount</label>
+                    <input type="text" name="hey" id="discountAmount" style="background-color: #fafafa;" name="categories" class="form-control addPro" required>
+                  </div>
+    
+                  <div class="col-md-3 mr-auto mt-1">
+                    <label for="" class="text-center">Max usage</label>
+                    <input type="text" id="usageMax" style="background-color: #fafafa;" name="maxUsage" class="form-control addPro" required>
+                  </div>
+    
+                  <div class="col-md-3 ml-auto mt-1">
+                    <label for="" class="text-center">Expiry Date</label>
+                    <input type="date" id="validity" name="categories" class="form-control addPro" required>
+                  </div>
+                  <div class="col-md-12">
+                    <label for="">Description</label>
+                    <textarea type="text" id="description" name="description" class="form-control" required></textarea><br>
+                  </div>
+                </div>
+                <div class="row"></div>
+                <div class="col-md-12 mx-auto mt-3">
+                  <button type="button" onclick="validatorCoupen()" class="btn btn-primary">Add</button>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      
+</section> -->
+
+<div class="container mt-5 ">
+  <div class="row ">
+    <div class="col-md-12 ">
+      <div class="card mb-4 p-5">
+        <h2 class="text-center  mt-1">Add Coupon</h2>
+        <p class="error text-dark text-center" id="error"></p>
+        <form action="/admin/productManagement/add_products" enctype="multipart/form-data" method="post">
+          <div class="row ">
+            <div class="col-md-6">
+              <label for="">Coupen Name</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <div onclick="generateCoupen()" class=" addPro input-group-text text-dark mt-3 bg-light" style="border-radius: 0px !important;">
+                    Generate Coupon
+                  </div>
+                </div>
+                <input type="text" placeholder="" id="coupenName" name="categories" class="form-control text-center addPro " required>
+              </div>
+            </div>
+
+
+            <div class="col-md-6">
+              <label for="">Amount Validity</label>
+              <select name="amount" required class="form-control text-secondary w-100 my-2.3" id="amountValidity">
+                <option hidden disable selected>Select an amount</option>
+                <option>5000-25000</option>
+                <option>25001-50000</option>
+                <option>50001-75000</option>
+                <option>75001-10000</option>
+                <option>100001-250000</option>
+              </select>
+              <!-- <input type="text" name="category" class="form-control" required> -->
+            </div>
+            <div class="col-md-6">
+              <label for="">Capped Amount</label>
+              <input hidden type="text" name="quantity" id="capAmount" class="form-control addPro" required>
+            </div>
+            <div class="col-md-3  mt-1">
+              <label for="" class="text-center mb-2">Discount Type</label><br>
+              <input type="radio" onclick="show()" name="discountType" data-toggle="collapse" role="button" value="Amount" class=" px-2 mx-2">Amount</input>
+              <input type="radio" onclick="show2()" name="discountType" role="button" data-toggle="collapse" value="Percentage" class=" mx-2">Percentage</input>
+            </div>
+
+            <div hidden class="discPer col-md-3 ">
+              <label for="" class="text-center">Discount percentage</label>
+              <input type="text" name="hey" id="discountPercentage" style="background-color: #ffffff;" name="categories" class="form-control addPro" required>
+            </div>
+
+            <div hidden class="discAmount col-md-3 ">
+              <label for="" class="text-center">Discount amount</label>
+              <input type="text" name="hey" id="discountAmount" style="background-color: #ffffff;" name="categories" class="form-control addPro" required>
+            </div>
+
+            <div class="col-md-6">
+              <label for="">Max Usage</label>
+              <input type="text" id="usageMax" name="quantity" class="form-control addPro" required>
+            </div>
+
+            <div class="col-md-6">
+              <label for="">Expiry Date</label>
+              <input type="date" name="price" id="validity" step="0.01" class="form-control addPro price" required>
+            </div>
+            <div class="col-md-12">
+              <label for="">Description</label>
+              <textarea type="text" id="description" name="description" class="form-control" rows="5" required></textarea><br>
+            </div>
+            <div class="row">
+              <button type="button" class="btn btn-primary mt-3" onclick="validatorCoupen()">Add Coupon</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<script>
+  function show() {
+    let discA = document.querySelector('div.discAmount')
+    let discP = document.querySelector('div.discPer')
+    let cap = document.getElementById('capAmount')
+    discA.removeAttribute("hidden")
+    discP.setAttribute("hidden", "")
+    cap.setAttribute("hidden", "")
+  }
+
+  function show2() {
+    let discP = document.querySelector('div.discPer')
+    let discA = document.querySelector('div.discAmount')
+    let cap = document.getElementById('capAmount')
+    discP.removeAttribute("hidden")
+    cap.removeAttribute("hidden")
+    discA.setAttribute("hidden", "")
+  }
+
+  function generateCoupen() {
+    console.log("hey");
+    $.ajax({
+      url: '/admin/coupenManagement/generate_coupen',
+      method: 'get',
+      success: (response) => {
+        console.log(response.coupenCode[0]);
+        document.getElementById('coupenName').value = response.coupenCode[0]
+      }
+    })
+  }
+
+  function validatorCoupen() {
+
+    const coupenName = document.getElementById('coupenName').value
+    const amountValidity = document.getElementById('amountValidity')
+    const amountValidityValue = amountValidity.options[amountValidity.selectedIndex].text
+    const redeemTime = document.getElementById('usageMax').value.trim()
+    const validity = document.getElementById('validity').value.trim()
+    const description = document.getElementById('description').value
+    const cap = document.getElementById('capAmount').value.trim()
+    const discType = document.querySelector("input[name='discountType']:checked")
+    const discTypeValue = discType?.value
+    let discountAmount = document.getElementById('discountAmount').value.trim()
+    let discountPercentage = document.getElementById('discountPercentage').value.trim()
+
+    const amountValue = amountValidityValue.split("-")
+
+    const error = document.getElementById('error')
+
+    let flag = 1
+
+
+    if (coupenName == "") {
+      error.innerText = "Generate coupen"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (amountValidityValue == "Select an amount") {
+      error.innerText = "Please select an amount"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (discType == null) {
+      error.innerText = "Select Discount type"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (discountAmount == "" && discountPercentage == "") {
+      error.innerText = "Discount value is required"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (!discountAmount.match(/^\d+$/) && !discountPercentage.match(/^\d+$/)) {
+      error.innerText = "Discount value should be a number"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (redeemTime == "") {
+      error.innerText = "Max usage cannot be empty"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (!redeemTime.match(/^\d+$/)) {
+      error.innerText = "Max usage should be a number"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (redeemTime <= 0) {
+      error.innerText = "Max usage should be a greater than 0"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (validity == "") {
+      error.innerText = "Expiry is required"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (new Date(validity) - new Date() < 0) {
+      error.innerText = "This date is already expired"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (description == "") {
+      error.innerText = "Description is required"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (discTypeValue == "Amount") {
+      if (discountAmount == "") {
+        error.innerText = "Discount Amount is required"
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      } else if (discountAmount > parseInt(amountValue[0])) {
+        error.innerText = "Discount Amount should be less than selected amount"
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      }
+    } else if (discTypeValue == "Percentage") {
+      if (discountPercentage == "") {
+        error.innerText = "Discount Percentage is required"
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      } else if (discountPercentage > 70) {
+        error.innerText = "Discount Percentage should be less than 70"
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      } else if (cap == "") {
+        error.innerText = "Capped Amount is required"
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      } else if (!cap.match(/^\d+$/)) {
+        error.innerText = "Capped Amount must be a number"
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      } else if ( cap >= (parseInt(amountValue[0])/100)*parseInt(discountPercentage)) {
+        error.innerText = `Capped Amount should be less than ${discountPercentage}% of minimum value`
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      } else {
+        error.innerText = "Coupen Sucess"
+        error.style.background = "rgb(53,200,0,0.1)"
+        error.style.width = "100%"
+      }
+    }
+
+    if (flag == 1) {
+      sumbitCoupon(coupenName, amountValidityValue, discTypeValue, discountAmount, discountPercentage,cap,redeemTime, new Date(validity), description)
+      console.log(coupenName, amountValidityValue, discTypeValue, discountAmount, discountPercentage,redeemTime, new Date(validity), description);
+    }
+  }
+
+  function sumbitCoupon(coupen, amountValidityValue, discountType, discountAmount, discountPercentage,cappedAmount, redeemTime, expiryDate, description) {
+
+    $.ajax({
+      url: '/admin/couponManagement/add_coupon',
+      method: 'POST',
+      data: {
+        coupen: coupen,
+        amountValidity: amountValidityValue,
+        cappedAmount:cappedAmount,
+        discountType: discountType,
+        discountAmount: discountAmount,
+        redeemTime: redeemTime,
+        discountPercentage: discountPercentage,
+        validity: expiryDate,
+        description: description
+      },
+      success: (response) => {
+        if (response.status == true) {
+          console.log("success");
+          location.href = "/admin/couponManagement"
+        }
+      }
+
+    })
+  }
+</script>

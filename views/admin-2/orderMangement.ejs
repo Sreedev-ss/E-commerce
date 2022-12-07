@@ -1,0 +1,119 @@
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>Order Management</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Order Id</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Quantity</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ordered At</th>
+                  <th class="text-secondary opacity-7"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% let pageNumber = page; %>
+                <%  const dataToReadable=(date)=>{
+
+                        const date_ = new Date(date);
+                        let month = ['Jan','Feb','March','April','May','June','July','Aug','Sept','Oct','Nov','Dec']
+                        let dd = date_.getDate();
+                        let mm = date_.getMonth();
+                        let monthText = month[mm]
+                        let yyyy = date_.getFullYear();
+
+                        return `${isNaN(dd)?'00':dd}-${monthText}-${isNaN(yyyy)?'0000':yyyy}`;
+                        }; %>
+
+
+                <% orders?.forEach((element,index) => { %>
+                <tr>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div>
+                        <h6 class="mb-0 mt-1 me-3 text-sm"><%= index+1+skip %>. </h6>
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm"><%=element.orders.fName %></h6>
+                        <p class="text-xs text-secondary mb-0">Id: <%=element.userId %></p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">Id: <%=element.orders._id %></p>
+                    <!-- <p class="text-xs text-secondary mb-0">Organization</p> -->
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <span class="badge badge-sm bg-gradient-info w-50"><%=element.orders.totalQuantity %></span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">Rs :<%=element.orders.totalPrice%></span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold"><%= dataToReadable(element.orders.createdAt) %></span>
+                  </td>
+                  <td class="align-middle">
+                    <a href="/admin/orderManagement/order_details/<%= element.orders._id %>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                      View Details
+                    </a>
+                  </td>
+                </tr>
+                <%}) %>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col-sm-12 col-md-5">
+      <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing <%= skip+1  %> to <%= limit-10+orders.length %> of <%= data %> entries</div>
+    </div>
+    <div class="col-sm-12 col-md-7 " style="display: flex; justify-content: end;">
+      <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+        <ul class="pagination ">
+          <li class="paginate_button page-item previous disabled mt-1" id="dataTable_previous"><a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" style="all:unset !important" class="page-link text-xs">Previous</a></li>
+          <li class="paginate_button page-item "><a onclick="getOrder(this)" aria-controls="dataTable" data-pageNumber="1" data-dt-idx="0" tabindex="10" class="page-link">1</a></li>
+          <li class="paginate_button page-item "><a onclick="getOrder(this)" aria-controls="dataTable" data-pageNumber="2" data-dt-idx="10" tabindex="20" class="page-link">2</a></li>
+          <li class="paginate_button page-item "><a onclick="getOrder(this)" aria-controls="dataTable" data-pageNumber="3" data-dt-idx="20" tabindex="30" class="page-link">3</a></li>
+          <li class="paginate_button page-item "><a onclick="getOrder(this)" aria-controls="dataTable" data-pageNumber="4" data-dt-idx="40" tabindex="50" class="page-link">4</a></li>
+          <li class="paginate_button page-item "><a onclick="getOrder(this)" aria-controls="dataTable" data-pageNumber="5" data-dt-idx="50" tabindex="60" class="page-link">5</a></li>
+          <li class="paginate_button page-item "><a onclick="getOrder(this)" aria-controls="dataTable" data-pageNumber="6" data-dt-idx="60" tabindex="70" class="page-link">6</a></li>
+          <li class="paginate_button page-item "><a onclick="getOrder(this)" aria-controls="dataTable" data-pageNumber="7" data-dt-idx="70" tabindex="80" class="page-link">7</a></li>
+          <li class="paginate_button page-item next mt-1" id="dataTable_next"><a href="#" aria-controls="dataTable" data-dt-idx="80" tabindex="90" style="all:unset !important" class="page-link">Next</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  let page = "<%= pageNumber %>"
+  let element = document.querySelector(`a[data-pageNumber="${page}"]`)
+  let a = element.classList
+  a.add("text-white")
+  let li = element.parentElement.classList
+  li.add("active")
+
+  function getOrder(thisValue) {
+
+    let skip = thisValue.getAttribute("data-dt-idx")
+    let limit = thisValue.getAttribute("tabindex")
+    let page = thisValue.getAttribute("data-pageNumber")
+
+    thisValue.setAttribute("href", `/admin/orderMangement?skip=${skip}&limit=${limit}&page=${page}`)
+
+
+  }
+</script>
