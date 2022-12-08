@@ -570,8 +570,6 @@ module.exports = {
 
   verifyCoupon: (req, res) => {
     try {
-
-
       let couponName = req.body.coupon
       couponHelpers.verifyCoupen(couponName, req.session.user).then((response) => {
         res.json(response)

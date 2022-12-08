@@ -9,7 +9,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-9">
-            <table class="table table-cart table-mobile">
+            <table class="table table-cart table-mobile ">
               <% if(cartItems.length!=0){ %>
               <thead>
                 <tr>
@@ -44,13 +44,13 @@
                   <td class="price-col">Rs <%= element.product?.price %>
                   </td>
                   <td class="quantity-col">
-                    <div style="display: flex; width: 100px;" class="mt-4">
+                    <div class="cart-product-quantity" style="display: flex;">
                       <% if(element?.product?.quantity!=0){%>
-                      <button class="btn btn-decrement btn-spinner mb-4" <% if(element.quantity<2){ %> disabled <% } %> onclick="changeQuantity('<%= element?._id %>','<%= element?.product?._id %>',-1,this.parentElement.querySelector('input'),'<%= user._id %>','<%= element?.product?.price %>','<%= element?.product?.quantity%>','<%= element?.quantity%>',this.parentElement.parentElement.parentElement.querySelector('td.one-col .outofStock'))">
+                      <button type="button" style="min-width: 26;" class="btn btn-decrement btn-spinner" <% if(element.quantity<2){ %> disabled <% } %> onclick="changeQuantity('<%= element?._id %>','<%= element?.product?._id %>',-1,this.parentElement.querySelector('input'),'<%= user._id %>','<%= element?.product?.price %>','<%= element?.product?.quantity%>','<%= element?.quantity%>',this.parentElement.parentElement.parentElement.querySelector('td.one-col .outofStock'))">
                         <i class="icon-minus"></i>
                       </button>
-                      <input class="form-control bg-white" id="cartCount" style="text-align: center;" type="text" value="<%= element.quantity%>" disabled>
-                      <button class="btn btn-increment btn-spinner mb-4" onclick="changeQuantity('<%= element?._id %>','<%= element?.product?._id %>',1,this.parentElement.querySelector('input'),'<%= user._id %>','<%= element?.product?.price %>','<%= element?.product?.quantity%>','<%= element?.quantity%>',this.parentElement.parentElement.parentElement.querySelector('td.one-col .outofStock'))">
+                      <input class="form-control border-0 bg-white" id="cartCount" style="text-align: center;" type="text" value="<%= element.quantity%>" disabled>
+                      <button type="button" style="min-width: 26;" class="btn btn-increment btn-spinner" onclick="changeQuantity('<%= element?._id %>','<%= element?.product?._id %>',1,this.parentElement.querySelector('input'),'<%= user._id %>','<%= element?.product?.price %>','<%= element?.product?.quantity%>','<%= element?.quantity%>',this.parentElement.parentElement.parentElement.querySelector('td.one-col .outofStock'))">
                         <i class="icon-plus"></i>
                       </button>
                       <%}else{ %>
