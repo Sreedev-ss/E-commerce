@@ -101,7 +101,7 @@
                                       <h6 class="w-100"><%= index+1 %> . <%= element.orders.productDetails.productName.slice(0,20) %></h6>
                                     </span></div>
                                   <div class="col-12 mx-md-0 mx-3">
-                                    <img class="mx-md-2  mt-2 " style="width: 80px; height:80px; object-fit:contain" src="/productImages/<%= element.orders.productDetails._id%>0.jpg" alt="">
+                                    <img class="mx-md-2 mt-2 mx-2" style="width: 80px; height:80px; object-fit:contain" src="/productImages/<%= element.orders.productDetails._id%>0.jpg" alt="">
                                     <div class="d-flex-column mt-md-3 mt-4 mx-md-2 mx-1">
                                         <div class="d-flex"><h6 class="mb-0 text-sm" style="color: #fb7e00;">Rs: <%= element.orders.productDetails.productPrice %><span class="text-dark"> X <%=element.orders.productDetails.quantity%></span> </h6></div>
                                       <%if(element.orders.productDetails.delivery == "Product Returned"){%>
