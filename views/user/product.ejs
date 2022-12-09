@@ -145,7 +145,7 @@ to {bottom: 0; opacity: 0;}
               <div class="details-action-col">
                 <% if(products?.quantity!=0){ %>
                
-                  <button onclick="addToCart('<%= products._id %>');myFunction()"  class="cartAdd text-primary bg-transparent btn-product btn-cart"><span class="cartAdd">add to cart</span></button>
+                  <button onclick="addToCart('<%= products._id %>');"  class="cartAdd text-primary bg-transparent btn-product btn-cart"><span class="cartAdd">add to cart</span></button>
                   <% }else{ %>
                   <h4 class="text-danger">Currently Out of Stock</h4>
                   <% } %>
@@ -484,34 +484,24 @@ to {bottom: 0; opacity: 0;}
 </div><!-- End .page-content -->
 
 <script>
-  function myFunction() {
-    // Get the snackbar DIV
-    var x = document.getElementById("snackbar");
-    // Add the "show" class to DIV
-    x.className = "show";
-    // After 3 seconds, remove the show class from DIV
-    setTimeout(function() {
-      x.className = x.className.replace("show", "");
-    }, 3000);
-  }
 
-
-  function addToCart(proId) {
-    $.ajax({
-      url: '/addtoCart/' + proId,
-      method: 'get',
-      success: (response) => {
-        if (response.status) {
-          console.log(response.status);
-          let count = $('#cart-count').html()
-          count = parseInt(count) + 1
-          $('#cart-count').html(count)
-        }
-      }
-      
+  function toast2() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'bottom',
+      iconColor: 'green',
+      customClass: {
+        popup: 'colored-toast'
+      },
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true
+    })
+    Toast.fire({
+      icon: 'success',
+      title: 'Added to cart'
     })
   }
-
 
   function toast() {
     const Toast = Swal.mixin({
@@ -521,13 +511,56 @@ to {bottom: 0; opacity: 0;}
       customClass: {
         popup: 'colored-toast'
       },
-      showConfirmButton:false,
+      showConfirmButton: false,
       timer: 1500,
       timerProgressBar: true
     })
-     Toast.fire({
+    Toast.fire({
       icon: 'warning',
       title: 'Currently out of stock'
     })
+  }
+
+
+  function addToCart(proId) {
+    $.ajax({
+      url: '/qtyFind/' + proId,
+      method: 'get',
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.responseJSON.message,
+        })
+      },
+      success: (response) => {
+        console.log(response);
+        if (response.proQty - response.cartQty <= 0) {
+          toast()
+        } else {
+          toast2()
+          $.ajax({
+            url: '/addtoCart/' + proId,
+            method: 'get',
+            error: (error) => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.responseJSON.message,
+              })
+            },
+            success: (response) => {
+              if (response.status) {
+                console.log(response.status);
+                let count = $('#cart-count').html()
+                count = parseInt(count) + 1
+                $('#cart-count').html(count)
+              }
+            }
+          })
+        }
+      }
+    })
+
   }
 </script>
