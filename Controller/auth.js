@@ -40,11 +40,12 @@ module.exports = {
                 let adminData2 = await db.admin.findOne({ _id: req.session.admin2 });
                 
                     req.admin2 = adminData2;
-                // };
+                    // };
+                    next();
             } else {
                 req.admin2 = null;
+                next();
             };
-            next();
         } catch (error) {
             console.log(error);
         }
