@@ -37,7 +37,7 @@ module.exports = {
     authInit2: async (req, res, next) => {
         try {
             if (req.session?.admin2) {
-                let adminData2 = await db.admin.findOne({ _id: req.session.admin });
+                let adminData2 = await db.admin.findOne({ _id: req.session.admin2 });
                 
                     req.admin2 = adminData2;
                 // };
