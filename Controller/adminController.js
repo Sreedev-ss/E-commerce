@@ -395,6 +395,7 @@ module.exports = {
   },
 
   getAdmin2logout:(req,res)=>{
+    req.admin2 = null
     req.session.admin2 = null
     res.redirect("/admin/login")
   },

@@ -8,9 +8,9 @@ const auth = require('../Controller/auth');
 
 router.get('/',adminController.getAdminPanel2)
 
-router.get('/logout',adminController.getAdmin2logout)
-
 router.get('/login',auth.mustLogoutAdmin2,adminController.adminLogin)
+
+router.get('/logout',adminController.getAdmin2logout)
 
 router.post('/login',adminController.postAdminlogin2)
 
