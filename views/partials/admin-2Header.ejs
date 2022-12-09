@@ -16,7 +16,7 @@
         </div>
         <ul class="navbar-nav justify-content-end">
           <li class="nav-item d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+            <a href="/admin/logout" onclick="return confirm('Are you sure want to logout ?')"  class="nav-link text-white font-weight-bold px-0">
               <i class="fa fa-user me-sm-1"></i>
               <% if(locals.admin2){ %> 
               <a href="/admin/logout" onclick="return confirm('Are you sure want to logout ?')" class="mt-1"><span class="d-sm-inline text-white font-weight-bold d-none" >Admin</span></a>
