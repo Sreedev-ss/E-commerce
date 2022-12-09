@@ -184,7 +184,7 @@ module.exports={
             try {
                 let category = await db.category.updateOne({_id:id},{
                     $set:{
-                        categories:data.category,
+                        categories:data.categories,
                         offer:data.offer
                     }
                 })

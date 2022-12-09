@@ -527,6 +527,7 @@ module.exports = {
   },
 
   posteditCategory: async (req, res) => {
+    console.log(req.body);
     try {
       let id = req.params.id
       let obj = {
