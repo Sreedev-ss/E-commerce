@@ -276,7 +276,7 @@ module.exports = {
                         _id:{'$year':"$orders.createdAt"},
                         totalCount:{$sum: { $multiply: ['$orders.productDetails.productPrice', '$orders.productDetails.quantity'] }},
                         orders:{$sum:1},
-                        totalQuantity:{$first:'$orders.totalQuantity'},
+                        totalQuantity:{$sum:'$orders.totalQuantity'},
                     }
                 }
         ]).then((data)=>{

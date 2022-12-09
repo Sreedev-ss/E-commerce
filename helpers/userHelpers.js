@@ -396,7 +396,7 @@ module.exports = {
         })
     },
 
-    placeOrder: (order, total) => {
+    placeOrder: (order, total,couponPrice) => {
         return new Promise(async (resolve, reject) => {
             try {
 
@@ -519,7 +519,9 @@ module.exports = {
                         totalQuantity: totalQuantity,
                         totalPrice: total,
                         createdAt: new Date(),
-                        shippingAddress: address
+                        shippingAddress: address,
+                        couponDiscount:couponPrice,
+                        couponName:order.couponName
                     }]
                 }
 
@@ -540,7 +542,9 @@ module.exports = {
                                     totalQuantity: totalQuantity,
                                     totalPrice: total,
                                     createdAt: new Date(),
-                                    shippingAddress: address
+                                    shippingAddress: address,
+                                    couponDiscount:couponPrice,
+                                    couponName:order.couponName
                                 }
                             ]
 
@@ -1200,6 +1204,19 @@ module.exports = {
             } catch (error) {
                 console.log(error);
             }
+        })
+    },
+
+    shopByCategory:(data)=>{
+        return new Promise(async(resolve, reject) => {
+           let product = await  db.products.aggregate([
+                {
+                    $match:{category:data}
+                }
+            ])
+
+            console.log(product,data);
+            resolve(product)
         })
     }
 

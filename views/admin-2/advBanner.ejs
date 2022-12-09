@@ -1,0 +1,56 @@
+<div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-header pb-0 d-flex justify-content-between">
+            <h6>Advertisement Management</h6>
+            <a class="btn btn-primary" href="/admin/bannerManagement/add-advBanner">Add Banner</a>
+          </div>
+          <div class="card-body px-0 pt-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Title</th>
+                    <th class="text-secondary opacity-7"></th>
+                    <!-- <th class="text-secondary opacity-7"></th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                    <% advBanner?.forEach((element,index)=>{%>
+                        <% console.log(element); %> 
+                        
+                        <tr>
+                            <td>
+                            <div class="d-flex px-2 py-1">
+                                <div>
+                                  <img src="/ads-banner-Images/<%= element._id%>.jpg" class="avatar avatar-sm me-3" style="width: 500px; height: 300px; object-fit: contain;" alt="user1">
+                                </div>
+                                <div class="d-flex flex-column justify-content-center">
+                                  <h6 class="mb-0 text-capitalize text-sm"><%= element.advBannerTitle %></h6>
+                                  <p class="text-xs text-capitalize text-secondary mb-0"><%= element.advBannerSpecify %></p>
+                                </div>
+                              </div>
+                            </td>
+
+                            <td class="align-end">
+                                <% if(element.checked){ %>
+                                    <a href="./bannerManagement/disable/<%= element._id  %>" ><span class="badge badge-sm bg-gradient-danger w-25">Disable</span></a>
+                                <% }else{ %>
+                                    <a  href="./bannerManagement/enable/<%= element._id  %>"><span class="badge badge-sm bg-gradient-success w-25">Enable</span></a>
+                                <%} %>
+                              </td>
+                             
+                        </tr>
+
+                    <% })%>
+                 
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>

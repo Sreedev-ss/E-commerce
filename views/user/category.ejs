@@ -1,22 +1,5 @@
 <style>
-  /* 
-  #snackbar {
-    visibility: hidden;
-    min-width: 200px;
-    max-width: 200px;
-    margin-left: -125px;
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    text-align: center;
-    border: 0.5px solid rgb(203, 203, 203);
-    border-radius: 50px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    bottom: 30px;
-  } */
-
+ 
 
   .colored-toast.swal2-icon-warning {
     background-color: #ffffff !important;
@@ -35,61 +18,6 @@
     color: rgb(0, 0, 0);
   }
 
-  /* Show the snackbar when clicking on a button (class added with JavaScript) */
-  /* #snackbar.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  } */
-
-  /* Animations to fade the snackbar in and out */
-  /* @-webkit-keyframes fadein {
-    from {
-      bottom: 0;
-      opacity: 0;
-    }
-
-    to {
-      bottom: 30px;
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadein {
-    from {
-      bottom: 0;
-      opacity: 0;
-    }
-
-    to {
-      bottom: 30px;
-      opacity: 1;
-    }
-  }
-
-  @-webkit-keyframes fadeout {
-    from {
-      bottom: 30px;
-      opacity: 1;
-    }
-
-    to {
-      bottom: 0;
-      opacity: 0;
-    }
-  }
-
-  @keyframes fadeout {
-    from {
-      bottom: 30px;
-      opacity: 1;
-    }
-
-    to {
-      bottom: 0;
-      opacity: 0;
-    }
-  } */
 </style>
 <section class="main">
   <div class="page-header text-center" style="background-image: url('/images/page-header-bg.jpg')">
@@ -107,7 +35,8 @@
         <div class="row">
 
           <% products.forEach(element => { %>
-          <% if(element.category!='sports') {%>
+            <% console.log(element,"asdffsd"); %> 
+          <% if(element.category=='electronics'||element.category=="mobiles"||element.category=="laptops"||element.category=="camera") {%>
           <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
             <div class="product">
               <figure class="product-media" style="background-color: #f3f3f3;">
@@ -204,12 +133,14 @@
             </div><!-- End .container-fluid -->
           </div><!-- End .page-header -->
 
-          <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
+          <% products.forEach(element => { %>
+            <% if(element.category=='home appliances') {%>
 
+          <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
             <div class="product">
-              <figure class="product-media">
-                <a href="product.html">
-                  <img src="/images/products/product-2.jpg" alt="Product image" class="product-image">
+              <figure class="product-media" style="background-color: #f3f3f3;">
+                <a href=/product/<%= element._id %>>
+                  <img style="width: 330px; height: 330px; object-fit: contain;" src="/productImages/<%= element._id %>0.jpg" alt="Product image" class="product-image">
                 </a>
 
                 <div class="product-action-vertical">
@@ -217,53 +148,21 @@
                 </div><!-- End .product-action -->
 
                 <div class="product-action action-icon-top">
-                  <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                  <% if(element.quantity>0){ %>
+                  <button onclick="addToCart('<%= element._id %>')" class="btn-product btn-cart border-0 "><span>add to cart</span></button>
+                  <% }else{ %>
+                  <button onclick="toast()" class="btn-product btn-cart border-0 "><span>add to cart</span></button>
+                  <% } %>
                 </div><!-- End .product-action -->
-              </figure><!-- End .product-media -->
+              </figure>
 
               <div class="product-body">
                 <div class="product-cat">
-                  <a href="#">Accessories</a>
+                  <a href="#"><%= element.category%>></a>
                 </div><!-- End .product-cat -->
-                <h3 class="product-title"><a href="product.html">Cras ornare tristique</a></h3><!-- End .product-title -->
+                <h3 class="product-title"><a href="/product/<%= element._id %>"><%= element.name%>></a></h3><!-- End .product-title -->
                 <div class="product-price">
-                  $32.00
-                </div><!-- End .product-price -->
-                <div class="ratings-container">
-                  <div class="ratings">
-                    <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                  </div><!-- End .ratings -->
-                  <span class="ratings-text">( 11 Reviews )</span>
-                </div><!-- End .rating-container -->
-              </div><!-- End .product-body -->
-            </div><!-- End .product -->
-
-          </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-
-          <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-            <div class="product">
-              <figure class="product-media">
-                <a href="product.html">
-                  <img src="/images/products/product-2.jpg" alt="Product image" class="product-image">
-                </a>
-
-                <div class="product-action-vertical">
-                  <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                </div><!-- End .product-action -->
-
-                <div class="product-action action-icon-top">
-                  <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                </div><!-- End .product-action -->
-              </figure><!-- End .product-media -->
-
-              <div class="product-body">
-                <div class="product-cat">
-                  <a href="#">Accessories</a>
-                </div><!-- End .product-cat -->
-                <h3 class="product-title"><a href="product.html">Cras ornare tristique</a></h3><!-- End .product-title -->
-                <div class="product-price">
-                  $32.00
+                  RS <%= element.price %>
                 </div><!-- End .product-price -->
                 <div class="ratings-container">
                   <div class="ratings">
@@ -274,75 +173,9 @@
               </div><!-- End .product-body -->
             </div><!-- End .product -->
           </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-          <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-            <div class="product">
-              <figure class="product-media">
-                <a href="product.html">
-                  <img src="/images/products/product-2.jpg" alt="Product image" class="product-image">
-                </a>
-
-                <div class="product-action-vertical">
-                  <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                </div><!-- End .product-action -->
-
-                <div class="product-action action-icon-top">
-                  <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                </div><!-- End .product-action -->
-              </figure><!-- End .product-media -->
-
-              <div class="product-body">
-                <div class="product-cat">
-                  <a href="#">Accessories</a>
-                </div><!-- End .product-cat -->
-                <h3 class="product-title"><a href="product.html">Cras ornare tristique</a></h3><!-- End .product-title -->
-                <div class="product-price">
-                  $32.00
-                </div><!-- End .product-price -->
-                <div class="ratings-container">
-                  <div class="ratings">
-                    <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                  </div><!-- End .ratings -->
-                  <span class="ratings-text">( 11 Reviews )</span>
-                </div><!-- End .rating-container -->
-              </div><!-- End .product-body -->
-            </div><!-- End .product -->
-          </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-          <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-            <div class="product">
-              <figure class="product-media">
-                <a href="product.html">
-                  <img src="/images/products/product-2.jpg" alt="Product image" class="product-image">
-                </a>
-
-                <div class="product-action-vertical">
-                  <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                </div><!-- End .product-action -->
-
-                <div class="product-action action-icon-top">
-                  <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                </div><!-- End .product-action -->
-              </figure><!-- End .product-media -->
-
-              <div class="product-body">
-                <div class="product-cat">
-                  <a href="#">Accessories</a>
-                </div><!-- End .product-cat -->
-                <h3 class="product-title"><a href="product.html">Cras ornare tristique</a></h3><!-- End .product-title -->
-                <div class="product-price">
-                  $32.00
-                </div><!-- End .product-price -->
-                <div class="ratings-container">
-                  <div class="ratings">
-                    <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                  </div><!-- End .ratings -->
-                  <span class="ratings-text">( 11 Reviews )</span>
-                </div><!-- End .rating-container -->
-              </div><!-- End .product-body -->
-            </div><!-- End .product -->
-
-          </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
+          <% } %>
+          <% }) %>
+          
         </div><!-- End .row -->
 
 

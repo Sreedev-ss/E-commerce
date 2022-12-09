@@ -201,6 +201,7 @@
                                                 <span class="mx-4 mt-2 " style="color: #fb6400; font-size: x-large !important; font-weight: 500; ">Rs: <%= element.orders.totalPrice %></span>
                                                 <div class="mt-5">
                                                   <h6 class="mt-2 mx-4 ">Coupon Discount</h6>
+                                                  <p class="mx-4 mt-1">Rs: <%=element.orders.couponDiscount?element?.orders.couponDiscount:'0' %></p>
                                                 </div>
                                               </div>
                                             </div>
@@ -310,7 +311,7 @@
         orderId: orderId
       },
       success: (response) => {
-        console.log("s2",response);
+        console.log("s2", response);
         if (response.status) {
           location.reload()
         } else {

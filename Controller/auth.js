@@ -33,6 +33,23 @@ module.exports = {
             console.log(error);
         }
     },
+
+    authInit2: async (req, res, next) => {
+        try {
+            if (req.session?.admin2) {
+                let adminData2 = await db.admin.findOne({ _id: req.session.admin });
+                
+                    req.admin2 = adminData2;
+                // };
+            } else {
+                req.admin2 = null;
+            };
+            next();
+        } catch (error) {
+            console.log(error);
+        }
+    
+    },
     verifyUser: function (req, res, next) {
         try {
             if (req.user) {
@@ -55,6 +72,17 @@ module.exports = {
             console.log(err);
         }
     },
+    verifyAdmin2:function(req,res,next){
+        try {
+            if (req.admin2) {
+                next();
+            } else {
+                res.redirect('/admin/login');
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    },
     mustLogoutUser: function (req, res, next) {
         try {
             if (req.user) {
@@ -70,6 +98,17 @@ module.exports = {
         try {
             if (req.admin) {
                 res.redirect('/admin_panel');
+            } else {
+                next();
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    mustLogoutAdmin2: (req, res, next) => {
+        try {
+            if (req.admin2) {
+                res.redirect('/admin');
             } else {
                 next();
             }

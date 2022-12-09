@@ -46,7 +46,8 @@ const adminSchema = new mongoose.Schema({
 })
 
 const categorySchema = new mongoose.Schema({
-    categories: String
+    categories: String,
+    offer:Number
 })
 
 const cartSchema = new mongoose.Schema({
@@ -90,6 +91,14 @@ const orderSchema = new mongoose.Schema({
         totalPrice: Number,
         shippingAddress: Object,
         createdAt: Date,
+        couponDiscount:{
+            type:Number,
+            default:0
+        },
+        couponName:{
+            type:String,
+            default:null
+        },
         paymentStatus: {
             type: String,
             default: 'Pending'
@@ -131,10 +140,12 @@ const bannerSchema = new mongoose.Schema({
 
 const advertisementBanner = new mongoose.Schema({
         advBannerTitle:String,
-        advBannerOffer : Number,  
-        advBannerAmount: Number,  
-        advBannerSpecify : String, //like Top product , Featured , Clearance , Top in the category
-        checked:Boolean
+        advBannerSpecify : String,
+        category:String, //like Top product , Featured , Clearance , Top in the category
+        checked:{
+            type:Boolean,
+            default:true
+        }
 })
 
 const advertisementBannerMini = new mongoose.Schema({

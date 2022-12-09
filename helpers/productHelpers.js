@@ -153,6 +153,46 @@ module.exports={
                 console.log(error);
             }
         })
+    },
+
+    postaddCategory:(data)=>{
+        return new Promise((resolve,reject)=>{
+            try {
+                db.category.find({categories:data.categories}).then(async(response)=>{
+
+                    if(response.length==0){
+                        let dataObj = {
+                            categories:data.categories,
+                            offer:data.offer
+                        }
+                            let category = await db.category(dataObj)
+                            await category.save()
+                            resolve({status:true})
+                            
+                    }else{
+                        resolve({status:false})
+                    }
+                })
+            } catch (error) {
+                
+            }
+        })
+    },
+
+    editCategory:(data,id)=>{
+        return new Promise(async(resolve, reject) => {
+            try {
+                let category = await db.category.updateOne({_id:id},{
+                    $set:{
+                        categories:data.category,
+                        offer:data.offer
+                    }
+                })
+                resolve({status:true})
+            } catch (error) {
+                
+            }
+        })
     }
     
 }

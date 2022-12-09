@@ -1,0 +1,88 @@
+<section>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="card col-md-12">
+                <h2 class="text-center mt-5"><u>Add Category</u></h2>
+                <p class="error text-center" id="error"></p>
+
+                    <div class="col-md-12">
+                        <div class="col-md-6 mx-auto mt-3">
+                            <label for="" class="text-center">Category</label>
+                            <input type="text" id="cate" name="categories" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 mx-auto mt-3">
+                            <label for="" class="text-center">Category Offer</label>
+                            <input type="text" id="offer" name="categories" class="form-control" required>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-6 mx-auto mt-3">
+                            <button type="button" onclick="add()" class="btn btn-primary" >Add</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+function add(){
+        const cate = document.getElementById('cate').value
+        const offer = document.getElementById('offer').value
+        const error = document.getElementById('error')
+
+        error.innerText=""
+
+        let flag = 1
+
+        if(cate==''){
+            error.innerText='Category field is required'
+            error.style.backgroundColor='rgb(200,0,0,0.1)'
+            flag=2
+        }else if(!offer.match(/^\d+$/)){
+            error.innerText='Offer should be a number'
+            error.style.backgroundColor='rgb(200,0,0,0.1)'
+            flag=2
+        }
+         else if(offer >= 70 || offer<0){
+            error.innerText='Offer should be less than 70% and not less than 0'
+            error.style.backgroundColor='rgb(200,0,0,0.1)'
+            flag=2
+        }
+        if(flag==1){
+            submit(cate,offer)
+        }
+    }
+
+    
+    function submit(category,offer){
+        fetch('/admin/categoryManagement/add_category',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify({
+                categories: category.toLowerCase(),
+                offer:offer
+            })
+        })
+        .then((res)=>res.json())
+        .then((res)=>{
+            if(res.status == false){
+                const error = document.getElementById('error')
+                error.style.backgroundColor='rgb(200,0,0,0.1)'
+                error.innerText = 'Category already exist'
+            }else{
+                const error = document.getElementById('error')
+                    error.innerText = 'Category added Succesfully'
+                    error.style.backgroundColor='rgb(530,200,0,0.1)'
+                    
+                    window.location.href='/admin/categoryManagement'
+            }
+        })
+        .catch(err=>console.log(err))
+    }
+</script>

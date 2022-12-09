@@ -5,7 +5,7 @@
         <div class="card mb-4">
           <div class="card-header pb-0 d-flex justify-content-between">
             <h6>Category Management</h6>
-            <a class="btn btn-primary" href="/admin/categoryManagement/addCategory">Add Category</a>
+            <a class="btn btn-primary" href="/admin/categoryManagement/add_category">Add Category</a>
           </div>
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
@@ -32,16 +32,16 @@
                       <span class="text-secondary text-capitalize text-xs font-weight-bold"><%= element.categories%></span>
                     </td>
                     <td class="align-middle text-start">
-                      <span class="text-secondary text-xs font-weight-bold">Rs : </span>
+                      <span class="text-secondary text-xs font-weight-bold">Rs: <%= element.offer?element.offer:0%> </span>
                     </td>
                     <td class="align-middle">
-                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                      <a href="/admin/categoryManagement/edit_category/<%= element._id %>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                         Edit
                       </a>
                       <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                         |
                       </a>
-                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                      <a href="/admin/categoryManagement/delete_category/<%= element._id %>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                         Delete
                       </a>
                     </td>

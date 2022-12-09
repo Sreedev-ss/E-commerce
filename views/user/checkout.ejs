@@ -166,11 +166,16 @@
                         </tr>
                         <% }); %>
 
-                        <tr class="summary-total" style="width: 50px;">
+                        <tr class="summary-total " style="width: 50px;">
                           <td>Total:</td>
                           <td>Rs <%= total %> </td>
 
                         </tr><!-- End .summary-total -->
+                        <tr class="summary-subtotal">
+                          <td class="" >Coupon Discount:<br>
+                          </td>
+                          <td id="discPrice">Rs 0 </td>
+                        </tr>
                         <tr class="summary-total">
                           <td class="">Price after Discount: <br>
                             <p style="font-size: xx-small;" class="text-dark">(Discount will be applicable only if coupon is applied)</p>
@@ -231,7 +236,7 @@
   let couponData = ""
 
   function couponCheck() {
-    let couponName = document.getElementById('couponId').value
+    let couponName = document.getElementById('couponId').value.trim()
     couponData = couponName
     $.ajax({
       url: '/checkout/coupon_verify',
@@ -271,6 +276,7 @@
                       errorCoupon.innerText = "Coupen applied successfully."
                       errorCoupon.style.color = 'rgb(53,200,0) '
                       errorCoupon.style.fontSize = 'x-small'
+                      discPrice.innerText ='Rs  '+ response.discountAmount
                     } else if (response.couponNotApplicable == true) {
                       let errorCoupon = document.getElementById('errorCoupon')
                       errorCoupon.innerText = "This coupon is only valid for products between Rs " + response.amountValid[0] + " and " + response.amountValid[1] + "."

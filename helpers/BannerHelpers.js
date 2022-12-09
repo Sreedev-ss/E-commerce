@@ -50,5 +50,17 @@ module.exports = {
             }
         })
 
+    },
+
+    advBanner:(data)=>{
+        return new Promise(async (resolve, reject) => {
+            try {
+                let banner = await db.advertisementBanner(data)
+                await banner.save()
+                resolve(banner._id)
+            } catch (error) {
+                console.log(error);
+            }
+        })
     }
 }

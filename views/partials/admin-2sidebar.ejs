@@ -62,14 +62,32 @@
               <span class="nav-link-text ms-1">Coupon</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link " href="/admin/bannerManagement">
+          <li class="nav-item" >
+            <a class="nav-link" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i class="ni ni-calendar-grid-58 text-info text-sm opacity-10"></i>
               </div>
               <span class="nav-link-text ms-1">Banner</span>
             </a>
           </li>
+          <div class="collapse" id="collapseExample">
+          <li class="nav-item">
+            <a class="nav-link " href="/admin/bannerManagement">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-tag text-danger text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Banner Management</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/admin/bannerManagement/add-advBanner">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-cart text-secondary text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Advertisement Banner</span>
+            </a>
+          </li>
+        </div>
         </ul>
       </div>
       <div class="sidenav-footer mx-3 ">
@@ -83,7 +101,29 @@
           </div>
         </div>
 
-        <a onclick="generatePdf();generatePdfDaily();generatePdfYearly()" target="_blank" class="btn btn-dark myDIV btn-sm w-100 mb-3">PDF</a>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-dark myDIV btn-sm w-100 mb-3">PDF</button>
         <a onclick="generateExcel()" class="btn btn-primary btn-sm mb-0 w-100" type="button">Excel</a>
+        
+      </div>
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Report</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div style="display: flex; justify-content: center;">
+                            <button onclick="generatePdfDaily()" type="button" style="width: 150px;" class="btn btn-secondary mb-2 mt-2 mx-1">Daily<br>report</button><br>
+                            <button onclick="generatePdfMonth()" type="button" style="width: 150px;" class="btn btn-secondary mb-2 mt-2 mx-1">Monthly<br>report</button><br>
+                            <button onclick="generatePdfYearly()" type="button" style="width: 150px;" class="btn btn-secondary mb-2 mt-2 mx-1">Yearly<br>report</button>
+                          </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
     </aside>
+    

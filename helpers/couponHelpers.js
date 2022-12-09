@@ -116,10 +116,17 @@ module.exports = {
                             }
                         } else {
                             if (total >= amountValid[0] && total <= amountValid[1]) {
+                                let cappedAmount = couponData?.cappedAmount
                                 let discountAmount = await ((total * couponData.percentage) / 100)
+                                if(discountAmount>cappedAmount){
+                                    discountAmount = cappedAmount
+                                    let finalAmount = Math.floor(total - cappedAmount)
+                                    resolve({finalAmount,discountAmount})
+                                }else{
                                 let finalAmount = Math.floor(total - discountAmount)
                                 discountAmount = Math.floor(discountAmount)
                                 resolve({ finalAmount, discountAmount })
+                                }
                             } else {
                                 resolve({ couponNotApplicable: true, amountValid })
                             }

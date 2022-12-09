@@ -31,23 +31,25 @@ module.exports = {
   landingpage: async (req, res, next) => {
     try {
       let user = req.user
+      let products = await db.products.find({})
       let cartCount = await userHelpers.getCartCount(req.session.user)
       let banner = await db.banner.find({})
-      res.render('user/landingPage', { cartCount, user ,banner});
+      let adBanner = await db.advertisementBanner.find({})
+      res.render('user/landingPage', { products,cartCount, user, banner ,adBanner});
     }
     catch (error) {
-      res.render('error',{message:error.message,code:500,layout:'error-layout'});
+      res.render('error', { message: error.message, code: 500, layout: 'error-layout' });
     }
 
 
   },
 
-  getProductData:async(req,res)=>{
-    try{
+  getProductData: async (req, res) => {
+    try {
       let data = await productHelpers.getProductData()
       res.send(data)
-    }catch(err){
-      res.render('error',{message:error?.message,code:500,layout:'error-layout'});
+    } catch (err) {
+      res.render('error', { message: error?.message, code: 500, layout: 'error-layout' });
     }
   },
 
@@ -59,7 +61,7 @@ module.exports = {
         res.render('user/signup', { nav: true })
       }
     } catch (error) {
-      res.render('error',{message:error.message,code:500,layout:'error-layout'});
+      res.render('error', { message: error.message, code: 500, layout: 'error-layout' });
     }
   },
 
@@ -76,7 +78,7 @@ module.exports = {
         }
       })
     } catch (error) {
-      res.render('error',{message:error.message,code:500,layout:'error-layout'});
+      res.render('error', { message: error.message, code: 500, layout: 'error-layout' });
     }
   },
 
@@ -121,8 +123,6 @@ module.exports = {
 
   getOtp: (req, res) => {
     try {
-
-
       res.render('user/otpPage', { nav: true })
     } catch (error) {
 
@@ -157,8 +157,6 @@ module.exports = {
 
   getOtplogin: (req, res) => {
     try {
-
-
       client
         .verify
         .services(otpConfig.serviceID)
@@ -177,8 +175,6 @@ module.exports = {
 
   getOtpverify: (req, res) => {
     try {
-
-
       client
         .verify
         .services(otpConfig.serviceID)
@@ -207,12 +203,12 @@ module.exports = {
   getAccounts: async (req, res) => {
     try {
       let user = req.user
-      let countries = await db.country.find({}) 
+      let countries = await db.country.find({})
       let address = await db.address.find({ user: req.session.user })
       let cartCount = await userHelpers.getCartCount(req.session.user)
       res.render('user/accounts', { cartCount, countries, address, user })
     } catch (error) {
-      res.render('error',{message:error.message,code:500,layout:'error-layout'});
+      res.render('error', { message: error.message, code: 500, layout: 'error-layout' });
     }
   },
 
@@ -284,14 +280,26 @@ module.exports = {
 
   getShop: async (req, res) => {
     try {
-
-
       let user = req.user
       let cartCount = await userHelpers.getCartCount(req.session.user)
       products = await productHelpers.getAllproducts()
       res.render('user/category', { cartCount, products, user })
     } catch (error) {
 
+    }
+  },
+
+  getShopCategory:async(req,res)=>{
+    try {
+      let user = req.user
+      let cartCount = await userHelpers.getCartCount(req.session.user)
+      let category = req.query.category
+      console.log(category);
+      userHelpers.shopByCategory(category).then((products)=>{
+        res.render('user/shop-category',{products,user,cartCount})
+      }).catch(error=>console.log(error))
+    } catch (error) {
+      
     }
   },
 
@@ -409,8 +417,6 @@ module.exports = {
 
   checkOutPost: async (req, res) => {
     try {
-
-
       userHelpers.addressFind(req.params.id, req.session.user).then((data) => {
         res.json(data);
       })
@@ -426,9 +432,9 @@ module.exports = {
       let total = await userHelpers.getTotalCount(req.session.user)
       console.log(couponPrice);
       total = total - couponPrice
-      couponPrice = 0
       let totalPrice = total
-      userHelpers.placeOrder(req.body, total).then((response) => {
+      userHelpers.placeOrder(req.body, total, couponPrice).then((response) => {
+        couponPrice = 0
         if (req.body.paymentMethod == "COD") {
           res.json({ codSuccess: true })
         } else if (req.body.paymentMethod == "Razorpay") {
@@ -560,8 +566,6 @@ module.exports = {
 
   getSuccessPage: (req, res) => {
     try {
-
-
       res.render('user/successPage', { nav: true })
     } catch (error) {
 
@@ -581,8 +585,6 @@ module.exports = {
 
   checkCoupon: (req, res) => {
     try {
-
-
       let coupenCheck = req.body.couponCheck
       couponHelpers.checkCoupon(coupenCheck, req.session.user).then((response) => {
         res.json(response)
@@ -594,7 +596,6 @@ module.exports = {
 
   applyCoupon: async (req, res) => {
     try {
-
       let couponName = req.body.couponName
       let total = await userHelpers.getTotalCount(req.session.user)
       couponHelpers.applyCoupon(couponName, req.session.user, total).then((response) => {
@@ -634,5 +635,5 @@ module.exports = {
 
     }
 
-  } 
+  }
 }

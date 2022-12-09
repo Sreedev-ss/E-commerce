@@ -40,17 +40,23 @@
 
 
 
-
+<% if(locals.nav==true){ %> 
+<%- body  %>
+<% }else{ %> 
 <body class="g-sidenav-show  hey bg-gray-100">
   <%- include('./partials/admin-2sidebar.ejs')%>
   <main class="main-content position-relative border-radius-lg ">
     <%- include('./partials/admin-2Header.ejs')%>
+
     <%- body  %>
+
     <!-- <%- include('./partials/admin-2-footer.ejs')%> -->
   </main>
   <%- include('./partials/admin-2-popSide.ejs')%>
+  
+</body>
 
-
+<% } %> 
 
 
 
@@ -79,7 +85,7 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
-</body>
+
 
 
 

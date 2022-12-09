@@ -39,6 +39,8 @@ router.put('/accounts/updateProfile',auth.verifyUserAPI,userController.updatePro
 
 router.get('/shop', userController.getShop)
 
+router.get('/shops',userController.getShopCategory)
+
 router.get('/product/:id', userController.getProduct)
 
 router.get('/wishlist', auth.verifyUser , userController.getWishlist)

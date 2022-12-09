@@ -58,7 +58,7 @@ app.use((session({
 app.use(auth.authInit);
 
 app.use('/', userRouter);
-app.use('/admin_panel', adminRouter);
+// app.use('/admin_panel', adminRouter);
 
 
 // catch 404 and forward to error handler
@@ -117,7 +117,7 @@ admin.use((session({
 //Header Cache remover
 
 
-// admin.use(auth.authInit);
+admin.use(auth.authInit2);
 
 admin.use('/admin', admin2Router);
 
@@ -135,7 +135,7 @@ admin.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error',{layout:'error-layout'});
 });
 
 admin.listen(8080)

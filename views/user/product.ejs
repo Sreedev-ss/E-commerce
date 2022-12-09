@@ -75,7 +75,7 @@ to {bottom: 0; opacity: 0;}
             <div id="snackbar" class="d-flex justify-content-center align-items-center" ><i class="ri-checkbox-circle-fill mx-2 text-success" style="font-size: larger; position: absolute; left: 20%; top: 21%;"></i><span style="margin-left: 30px;">Added to Cart</span></div>
             <div class="row">
               <figure class="product-main-image">
-                <img id="product-zoom" src="/productImages/<%=products?._id%>0.jpg" data-zoom-image="/productImages/<%=products?._id%>0.jpg" alt="product image">
+                <img style="max-width: 460px; max-height: 460px; object-fit: contain;" id="product-zoom" src="/productImages/<%=products?._id%>0.jpg" data-zoom-image="/productImages/<%=products?._id%>0.jpg" alt="product image">
 
                 <a href="#" id="btn-product-gallery" class="btn-product-gallery">
                   <i class="icon-arrows"></i>
@@ -508,6 +508,7 @@ to {bottom: 0; opacity: 0;}
           $('#cart-count').html(count)
         }
       }
+      
     })
   }
 

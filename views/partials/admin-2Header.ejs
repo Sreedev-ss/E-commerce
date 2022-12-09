@@ -18,7 +18,11 @@
           <li class="nav-item d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
               <i class="fa fa-user me-sm-1"></i>
-              <span class="d-sm-inline d-none">Sign In</span>
+              <% if(locals.admin2){ %> 
+              <a href="/admin/logout" onclick="return confirm('Are you sure want to logout ?')" class="mt-1"><span class="d-sm-inline text-white font-weight-bold d-none" >Admin</span></a>
+              <% }else{ %> 
+                <span class="d-sm-inline d-none">Sign In</span>
+                <% } %> 
             </a>
           </li>
           <li class="nav-item  ps-3 d-flex align-items-center">
@@ -50,7 +54,7 @@
                 <a class="dropdown-item border-radius-md" href="javascript:;">
                   <div class="d-flex py-1">
                     <div class="my-auto">
-                      <img src="./assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
+                      <img src="/assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="text-sm font-weight-normal mb-1">
@@ -68,7 +72,7 @@
                 <a class="dropdown-item border-radius-md" href="javascript:;">
                   <div class="d-flex py-1">
                     <div class="my-auto">
-                      <img src="./assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
+                      <img src="/assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="text-sm font-weight-normal mb-1">
