@@ -457,6 +457,7 @@ module.exports = {
 
   posteditProducts: (req, res) => {
     let imageName = req.params.id
+    console.log(req.files);
     productHelpers.updateProduct(req.params.id, req.body).then(() => {
       req.files?.Image1?.mv('./public/productImages/' + imageName + '0.jpg')
       req.files?.Image2?.mv('./public/productImages/' + imageName + '1.jpg')
