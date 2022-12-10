@@ -63,12 +63,21 @@ module.exports = {
 
 
                     ])
-                arr[i + 1] = price[0]?.total
-                arrData[i] = price[0]
+                arr[i + 1] = price[0]
             }
-            let dataMonth = arrData[new Date().getMonth()]
+            for (i = 0; i < 12; i++) {
+                if (arr[i + 1] == undefined) {
+                    arr[i + 1] = {
+                        total: 0,
+                        orders: 0,
+                        count: 0,
+                    }
+                } else {
+                    arr[i]
+                }
+            }
 
-            resolve({ arr, dataMonth })
+            resolve({ arr })
 
 
         })

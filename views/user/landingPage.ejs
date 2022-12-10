@@ -150,7 +150,9 @@
                   </div><!-- End .product-action -->
 
                   <div class="product-action product-action-dark">
-                    <% if(element.quantity>0){ %>
+                    <% if(user == null){ %> 
+                        <a onclick="toastLogin()" class="btn-product btn-cart"><span>add to cart</span></a>
+                    <% } else if(element.quantity>0){ %>
                         <a onclick="addToCart('<%= element._id %>')" class="btn-product btn-cart"><span>add to cart</span></a>
                         <% }else{ %>
                         <a onclick="toast()" class="btn-product btn-cart border-0 "><span>add to cart</span></a>
@@ -338,6 +340,13 @@
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
+    function toastLogin(){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Please login to continue",
+        })
+    }
 function toast2() {
     const Toast = Swal.mixin({
       toast: true,
@@ -383,7 +392,7 @@ function toast2() {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: error.responseJSON.message,
+          text: "Please login to continue",
         })
       },
       success: (response) => {
@@ -399,7 +408,7 @@ function toast2() {
               Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: error.responseJSON.message,
+                text: "Please login to continue",
               })
             },
             success: (response) => {

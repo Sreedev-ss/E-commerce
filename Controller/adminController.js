@@ -345,9 +345,13 @@ module.exports = {
       }else{
       let products = await db.products.find({})
       adminHelpers.getrevenuebyMonth().then((price) => {
-        adminHelpers.getorderCount().then((count) => {
+        adminHelpers.getorderCount().then(async(count) => {
+          let year = new Date().getFullYear()
+          let month = new Date().getMonth()+1
+          let daily = await adminHelpers.getRevenuebyDay(month, year)
+          let yearlyData = await adminHelpers.getRevenuebyYear(year)
           let priceData = price.arr[new Date().getMonth() + 1]
-          res.render('admin-2/admin2landingpage', {admin2, products, priceData, count, layout: data2.layout })
+          res.render('admin-2/admin2landingpage', {yearlyData,daily,admin2,price, products, priceData, count, layout: data2.layout })
         }).catch(err => console.log(err))
       }).catch(err => console.log(err))
     }

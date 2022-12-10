@@ -49,7 +49,9 @@
                 </div><!-- End .product-action -->
 
                 <div class="product-action action-icon-top">
-                  <% if(element.quantity>0){ %>
+                  <% if(user == null){ %> 
+                    <a onclick="toastLogin()" class="btn-product btn-cart"><span>add to cart</span></a>
+                  <%}else if(element.quantity>0){ %>
                   <button onclick="addToCart('<%= element._id %>')" class="btn-product btn-cart border-0 "><span>add to cart</span></button>
                   <% }else{ %>
                   <button onclick="toast()" class="btn-product btn-cart border-0 "><span>add to cart</span></button>
@@ -99,7 +101,9 @@
                 </div><!-- End .product-action -->
 
                 <div class="product-action action-icon-top">
-                  <% if(element.quantity>0){ %>
+                  <% if(user == null){ %> 
+                    <a onclick="toastLogin()" class="btn-product btn-cart"><span>add to cart</span></a>
+                  <%}else if(element.quantity>0){ %>
                   <button onclick="addToCart('<%= element._id %>')" class="btn-product btn-cart border-0 "><span>add to cart</span></button>
                   <% }else{ %>
                   <button onclick="toast()" class="btn-product btn-cart border-0 "><span>add to cart</span></button>
@@ -148,7 +152,9 @@
                 </div><!-- End .product-action -->
 
                 <div class="product-action action-icon-top">
-                  <% if(element.quantity>0){ %>
+                  <% if(user == null){ %> 
+                    <a onclick="toastLogin()" class="btn-product btn-cart"><span>add to cart</span></a>
+                  <%}else if(element.quantity>0){ %>
                   <button onclick="addToCart('<%= element._id %>')" class="btn-product btn-cart border-0 "><span>add to cart</span></button>
                   <% }else{ %>
                   <button onclick="toast()" class="btn-product btn-cart border-0 "><span>add to cart</span></button>
@@ -452,6 +458,13 @@
       title: 'Added to cart'
     })
   }
+  function toastLogin(){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Please login to continue",
+        })
+    }
 
   function toast() {
     const Toast = Swal.mixin({
@@ -480,7 +493,7 @@
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: error.responseJSON.message,
+          text: "Please login to continue",
         })
       },
       success: (response) => {

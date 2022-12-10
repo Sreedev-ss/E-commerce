@@ -278,6 +278,8 @@
                 }else{
                     document.getElementById('errorRegister').innerText="Email Already exist"
                 }
+            }).catch((error)=>{
+                console.log(error,"api");
             })
         
     }

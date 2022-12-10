@@ -28,23 +28,26 @@ module.exports = {
 
     doSignup: (userData) => {
         return new Promise((resolve, reject) => {
-            db.users.find({ email: userData.email }).then(async (data) => {
-                if (data.length == 0) {
-                    let response = {}
-                    try {
+            try {
+                db.users.find({ email: userData.email }).then(async (data) => {
+                    if (data.length == 0) {
+                        let response = {}
+
                         userData.password = await bcrypt.hash(userData.password, 10)
                         let data = await db.users(userData)
                         await data.save()
                         response.user = data;
                         response.status = true
                         resolve(response)
-                    } catch (error) {
-                        console.log(error);
+
+                    } else {
+                        resolve({ status: false })
                     }
-                } else {
-                    resolve({ status: false })
-                }
-            })
+
+                })
+            } catch (error) {
+                reject(error)
+            }
         })
     },
 
@@ -396,7 +399,7 @@ module.exports = {
         })
     },
 
-    placeOrder: (order, total,couponPrice) => {
+    placeOrder: (order, total, couponPrice) => {
         return new Promise(async (resolve, reject) => {
             try {
 
@@ -442,7 +445,7 @@ module.exports = {
                             status: '$cartItems.status',
                             delivery: '$cartItems.Delivery',
                             deliveredAt: '$cartItems.deliveredAt',
-                            productCategory:'$cartItems.category'
+                            productCategory: '$cartItems.category'
                         }
                     }
                 ])
@@ -520,8 +523,8 @@ module.exports = {
                         totalPrice: total,
                         createdAt: new Date(),
                         shippingAddress: address,
-                        couponDiscount:couponPrice,
-                        couponName:order.couponName
+                        couponDiscount: couponPrice,
+                        couponName: order.couponName
                     }]
                 }
 
@@ -543,8 +546,8 @@ module.exports = {
                                     totalPrice: total,
                                     createdAt: new Date(),
                                     shippingAddress: address,
-                                    couponDiscount:couponPrice,
-                                    couponName:order.couponName
+                                    couponDiscount: couponPrice,
+                                    couponName: order.couponName
                                 }
                             ]
 
@@ -617,6 +620,26 @@ module.exports = {
         } catch (error) {
             console.log(error)
         }
+    },
+
+    deleteRazorpay: (user) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let id = await db.order.find({ userId: user, 'orders.paymentMethod': 'Razorpay', 'orders.paymentStatus': 'Pending' })
+                let length = id[0].orders.length
+                let orderId = id[0].orders[length - 1]._id;
+                db.order.updateOne({ userId: user }, {
+                    $pull: {
+                        orders: { _id: orderId }
+                    }
+                }).then((e) => {
+                    console.log(e, "asdasdf");
+                    resolve()
+                })
+            } catch (error) {
+
+            }
+        })
     },
 
 
@@ -904,8 +927,8 @@ module.exports = {
 
         })
     },
-    getAdminOrderPag:(skip,limit)=>{
-        console.log(skip,limit);
+    getAdminOrderPag: (skip, limit) => {
+        console.log(skip, limit);
         return new Promise((resolve, reject) => {
             try {
                 db.order.aggregate([
@@ -916,10 +939,10 @@ module.exports = {
                         $sort: { 'orders.createdAt': -1 }
                     },
                     {
-                        $limit:limit
+                        $limit: limit
                     },
                     {
-                        $skip:skip
+                        $skip: skip
                     }
                 ]).then((data) => {
 
@@ -1118,7 +1141,7 @@ module.exports = {
                     ]).then((deliveryDate) => {
                         console.log(deliveryDate[0].dateDelivered);
                         let dateOrg = deliveryDate[0].dateDelivered
-                        if (new Date(new Date(dateOrg).setDate(new Date(dateOrg).getDate()+7) - new Date(dateOrg).setDate(new Date(dateOrg).getDate())) <= 0) {
+                        if (new Date(new Date(dateOrg).setDate(new Date(dateOrg).getDate() + 7) - new Date(dateOrg).setDate(new Date(dateOrg).getDate())) <= 0) {
                             console.log("hi");
                             resolve({ status: false })
                         } else {
@@ -1184,38 +1207,38 @@ module.exports = {
         })
     },
 
-    getOrderInvoice:(proId,orderId)=>{
-        console.log(proId,orderId);
-        return new Promise(async(resolve, reject) => {
+    getOrderInvoice: (proId, orderId) => {
+        console.log(proId, orderId);
+        return new Promise(async (resolve, reject) => {
             try {
                 let data = await db.order.aggregate([
                     {
-                        $unwind:'$orders'
+                        $unwind: '$orders'
                     },
                     {
-                        $unwind:'$orders.productDetails'
+                        $unwind: '$orders.productDetails'
                     },
                     {
-                        $match:{$and:[{'orders._id':ObjectId(orderId),'orders.productDetails._id':ObjectId(proId)}]}
+                        $match: { $and: [{ 'orders._id': ObjectId(orderId), 'orders.productDetails._id': ObjectId(proId) }] }
                     }
-            ])
-            console.log("invoice aggregate",data);
-            resolve({data,status:true})
+                ])
+                console.log("invoice aggregate", data);
+                resolve({ data, status: true })
             } catch (error) {
                 console.log(error);
             }
         })
     },
 
-    shopByCategory:(data)=>{
-        return new Promise(async(resolve, reject) => {
-           let product = await  db.products.aggregate([
+    shopByCategory: (data) => {
+        return new Promise(async (resolve, reject) => {
+            let product = await db.products.aggregate([
                 {
-                    $match:{category:data}
+                    $match: { category: data }
                 }
             ])
 
-            console.log(product,data);
+            console.log(product, data);
             resolve(product)
         })
     }

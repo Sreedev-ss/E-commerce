@@ -30,6 +30,7 @@ module.exports = {
 
   landingpage: async (req, res, next) => {
     try {
+      req.session.returnUrl = req.originalUrl
       let user = req.user
       let products = await db.products.find({})
       let cartCount = await userHelpers.getCartCount(req.session.user)
@@ -67,7 +68,6 @@ module.exports = {
 
   postSignup: (req, res) => {
     try {
-      console.log(req.body);
       userHelpers.doSignup(req.body).then((response) => {
         if (response.status) {
           req.session.user = response.user._id;
@@ -76,6 +76,9 @@ module.exports = {
         } else {
           res.send({ value: 'anf' })
         }
+      }).catch(error=>{
+        console.log(error,"sadf")
+        res.status(500).send(error.message)
       })
     } catch (error) {
       res.render('error', { message: error.message, code: 500, layout: 'error-layout' });
@@ -99,7 +102,7 @@ module.exports = {
       userHelpers.doLogin(req.body).then((response) => {
         if (response.status) {
           req.session.user = response.user._id;
-          res.send({ value: "SuccesSignin" })
+          res.send({ value: "SuccesSignin",url:req.session.returnUrl })
         } else {
           res.send({ value: "failed" })
         }
@@ -112,7 +115,6 @@ module.exports = {
 
   getLogout: async (req, res) => {
     try {
-
       req.session.user = await null
       res.redirect('/user_signin')
 
@@ -131,8 +133,6 @@ module.exports = {
 
   checkNumber: (req, res) => {
     try {
-
-
       console.log(req.body);
       let response = {}
       db.users.find({ contactNo: req.body.number }).then((resp) => {
@@ -280,6 +280,7 @@ module.exports = {
 
   getShop: async (req, res) => {
     try {
+      req.session.returnUrl = req.originalUrl
       let user = req.user
       let cartCount = await userHelpers.getCartCount(req.session.user)
       products = await productHelpers.getAllproducts()
@@ -291,6 +292,7 @@ module.exports = {
 
   getShopCategory:async(req,res)=>{
     try {
+      req.session.returnUrl = req.originalUrl
       let user = req.user
       let cartCount = await userHelpers.getCartCount(req.session.user)
       let category = req.query.category
@@ -305,8 +307,6 @@ module.exports = {
 
   getcartProQty: async (req, res) => {
     try {
-
-
       console.log("hi");
       Qty = await userHelpers.getProQty(req.session.user, req.params.id)
       res.json(Qty)
@@ -317,8 +317,7 @@ module.exports = {
 
   getProduct: async (req, res) => {
     try {
-
-
+      req.session.returnUrl = req.originalUrl
       let user = req.user
       let id = req.params.id
       let cartCount = await userHelpers.getCartCount(req.session.user)
@@ -358,7 +357,6 @@ module.exports = {
 
   addtoCart: (req, res) => {
     try {
-
       console.log('api call');
       userHelpers.addtoCart(req.params.id, req.session.user).then(() => {
         res.json({ status: true })
@@ -439,7 +437,9 @@ module.exports = {
           res.json({ codSuccess: true })
         } else if (req.body.paymentMethod == "Razorpay") {
           userHelpers.razorpay(total, req.session.user).then((response) => {
-            res.json(response)
+            userHelpers.deleteRazorpay(req.session.user).then(()=>{
+              res.json(response)
+            })
           })
         } else {
           console.log("heyyyyyy");
