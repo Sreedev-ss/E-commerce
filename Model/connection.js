@@ -2,7 +2,13 @@ const { ObjectId } = require('mongodb')
 const mongoose = require('mongoose')
 require('dotenv').config()
 
-const db = mongoose.createConnection(process.env.MONGODBURL)
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: "Ecommerce"
+};
+
+const db = mongoose.createConnection(process.env.MONGODBURL,options)
 
 db.on('error', (err) => {
     console.log(err)
