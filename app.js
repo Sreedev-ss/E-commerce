@@ -22,7 +22,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(expressLayout)
 
-app.use(logger('dev'));
+app.use(logger('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public-admin')));
 app.use(express.static(path.join(__dirname, 'public/adminFiles')));
 
 const store = new mongodbStore({
-  uri: process.env.MONGODBURL,
+  uri: `${process.env.MONGODBURL}`,
   databaseName: 'Ecommerce',
   collection: 'mySession'
 })
@@ -51,8 +51,6 @@ app.use((session({
 })))
 
 //Header Cache remover
-
-
 app.use(auth.authInit);
 
 app.use('/', userRouter);
@@ -91,6 +89,8 @@ extended: true}));
 admin.use(cookieParser());
 admin.use(express.static(path.join(__dirname, 'public-admin')));
 admin.use(express.static(path.join(__dirname, 'public')));
+
+
 admin.use(fileUpload())
 
 admin.use(function (req, res, next) {

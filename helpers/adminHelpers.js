@@ -3,7 +3,6 @@ const db = require('../Model/connection')
 let arr = []
 let arr2 = []
 let arr3 = []
-let arrData = []
 let arrDataDay = []
 let arrDataYear = []
 module.exports = {

@@ -1,4 +1,3 @@
-const { coupen } = require('../Model/connection');
 const db = require('../Model/connection')
 
 

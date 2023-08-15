@@ -1,5 +1,3 @@
-const { ObjectID } = require('bson')
-const { category, products } = require('../Model/connection')
 const db = require('../Model/connection')
 
 module.exports={
