@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public-admin')));
 app.use(express.static(path.join(__dirname, 'public/adminFiles')));
 
 const store = new mongodbStore({
-  uri: `${process.env.MONGODBURL}`,
+  uri: process.env.MONGODBURL,
   databaseName: 'Ecommerce',
   collection: 'mySession'
 })
