@@ -227,8 +227,6 @@ module.exports = {
 
   editAddress: (req, res) => {
     try {
-
-
       let addressId = req.params.id
       userHelpers.editAddress(req.body, addressId, req.session.user).then(() => {
         res.json({ status: true })

@@ -1,8 +1,8 @@
-const { ObjectID } = require('bson')
 const { ObjectId } = require('mongodb')
 const mongoose = require('mongoose')
+require('dotenv').config()
 
-const db = mongoose.createConnection('mongodb://localhost:27017/Ecommerce')
+const db = mongoose.createConnection(process.env.MONGODBURL)
 
 db.on('error', (err) => {
     console.log(err)

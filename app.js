@@ -4,15 +4,13 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const expressLayout = require('express-ejs-layouts')
-const db = require('./Model/connection')
 const fileUpload = require('express-fileupload');
 const userRouter = require('./routes/user');
-const adminRouter = require('./routes/admin');
 const admin2Router = require('./routes/admin2');
 const session = require('express-session')
 const mongodbStore = require('connect-mongodb-session')(session)
 const auth = require('./Controller/auth');
-
+require('dotenv').config
 
 
 const app = express();
@@ -24,7 +22,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(expressLayout)
 
-// app.use(logger('dev'));
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -33,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public-admin')));
 app.use(express.static(path.join(__dirname, 'public/adminFiles')));
 
 const store = new mongodbStore({
-  uri: 'mongodb://localhost:27017/connect_mongodb_session_test',
+  uri: process.env.MONGODBURL,
   databaseName: 'Ecommerce',
   collection: 'mySession'
 })
@@ -93,13 +91,6 @@ extended: true}));
 admin.use(cookieParser());
 admin.use(express.static(path.join(__dirname, 'public-admin')));
 admin.use(express.static(path.join(__dirname, 'public')));
-
-const storeAdmin = new mongodbStore({
-  uri: 'mongodb://localhost:27017/connect_mongodb_session_test',
-  databaseName: 'Ecommerce',
-  collection: 'mySession'
-})
-
 admin.use(fileUpload())
 
 admin.use(function (req, res, next) {
@@ -109,7 +100,7 @@ admin.use(function (req, res, next) {
 
 admin.use((session({
   secret:'KeyProject1',
-  store:storeAdmin,
+  store:store,
   saveUninitialized:true,
   resave:true
 })))
